@@ -1,49 +1,71 @@
 {
-  "name": "vue-black-dashboard",
-  "version": "1.0.0",
-  "private": true,
-  "description": "A sample admin dashboard based on black dashboard UI template",
-  "author": "cristian.jora <joracristi@gmail.com>",
+  "name": "argon-dashboard-react",
+  "version": "1.1.0",
+  "description": "React version of Argon Dashboard by Creative Tim",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/creativetimofficial/argon-dashboard-react.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "argon",
+    "argon-react",
+    "dashboard",
+    "dashboard-react",
+    "argon-dashboard",
+    "argon-dashboard-react"
+  ],
+  "author": "Creative Tim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/creativetimofficial/argon-dashboard-react/issues"
+  },
+  "homepage": "https://demos.creative-tim.com/argon-dashboard-react/",
   "scripts": {
-    "serve": "vue-cli-service serve --open",
-    "build": "vue-cli-service build",
-    "e2e": "node test/e2e/runner.js",
-    "lint": "vue-cli-service lint",
-    "dev": "vue-cli-service serve --open",
-    "lint-fix": "vue-cli-service lint --fix"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "compile-sass": "node-sass src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.css",
+    "minify-sass": "node-sass src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.min.css --output-style compressed",
+    "map-sass": "node-sass src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.css --source-map true"
   },
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.32",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/vue-fontawesome": "^2.0.0",
-    "axios": "^0.20.0",
-    "bootstrap": "^4.5.3",
-    "chart.js": "^2.9.3",
-    "jquery": "^3.5.1",
-    "popper.js": "^1.16.1",
-    "register-service-worker": "^1.7.1",
-    "vee-validate": "^3.4.1",
-    "vue": "^2.6.11",
-    "vue-chartjs": "^3.5.0",
-    "vue-i18n": "^8.18.2",
-    "vue-router": "^3.4.6",
-    "vue-router-prefetch": "^1.6.0",
-    "vue2-transitions": "^0.3.0",
-    "vuex": "^3.5.1"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.4.6",
-    "@vue/cli-plugin-eslint": "^4.4.6",
-    "@vue/cli-plugin-pwa": "^4.4.6",
-    "@vue/cli-service": "^4.4.6",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^8.0.2",
-    "vue-cli-plugin-i18n": "^1.0.1",
-    "vue-template-compiler": "^2.6.11"
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 11"
-  ]
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.12.1",
+    "chart.js": "2.9.3",
+    "classnames": "2.2.6",
+    "moment": "2.24.0",
+    "node-sass": "4.13.1",
+    "nouislider": "14.1.1",
+    "react": "16.12.0",
+    "react-chartjs-2": "2.9.0",
+    "react-copy-to-clipboard": "5.0.2",
+    "react-datetime": "2.16.3",
+    "react-dom": "16.12.0",
+    "react-google-maps": "9.4.5",
+    "react-router-dom": "5.1.2",
+    "react-scripts": "3.3.1",
+    "reactstrap": "8.4.1"
+  },
+  "devDependencies": {
+    "@types/googlemaps": "3.39.2",
+    "@types/markerclustererplus": "2.1.33",
+    "@types/react": "16.9.19",
+    "eslint-plugin-flowtype": "3.13.0",
+    "gulp": "4.0.2",
+    "gulp-append-prepend": "1.0.8",
+    "typescript": "3.7.5"
+  }
 }
