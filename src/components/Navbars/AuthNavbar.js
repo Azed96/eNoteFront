@@ -40,7 +40,7 @@ class AdminNavbar extends React.Component {
         >
           <Container className="px-4">
             <NavbarBrand to="/" tag={Link}>
-              <img alt="..." src={require("assets/img/brand/argon-react-white.png")} />
+              <img alt="..." src={require("assets/img/brand/evry.png")} />
             </NavbarBrand>
             <button className="navbar-toggler" id="navbar-collapse-main">
               <span className="navbar-toggler-icon" />
@@ -70,18 +70,17 @@ class AdminNavbar extends React.Component {
               <Nav className="ml-auto" navbar>
                 <NavItem>
                   <NavLink className="nav-link-icon" to="/" tag={Link}>
-                    <i className="ni ni-planet" />
-                    <span className="nav-link-inner--text">Dashboard</span>
+                    <span className="nav-link-inner--text">Se connecter en tant que :</span>
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink
                     className="nav-link-icon"
-                    to="/auth/register"
+                    to="/auth/logprof"
                     tag={Link}
                   >
                     <i className="ni ni-circle-08" />
-                    <span className="nav-link-inner--text">Register</span>
+                    <span className="nav-link-inner--text">Professeur</span>
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -91,17 +90,17 @@ class AdminNavbar extends React.Component {
                     tag={Link}
                   >
                     <i className="ni ni-key-25" />
-                    <span className="nav-link-inner--text">Login</span>
+                    <span className="nav-link-inner--text">Administrateur</span>
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink
                     className="nav-link-icon"
-                    to="/admin/user-profile"
+                    to="/auth/logetudiant"
                     tag={Link}
                   >
                     <i className="ni ni-single-02" />
-                    <span className="nav-link-inner--text">Profile</span>
+                    <span className="nav-link-inner--text">Etudiant</span>
                   </NavLink>
                 </NavItem>
               </Nav>

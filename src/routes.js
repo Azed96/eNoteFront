@@ -23,6 +23,7 @@ import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import LoginProf from "views/examples/LoginProf.js";
+import LoginEtudiant from "views/examples/LoginEtudiant.js";
 
 var routes = [
   {
@@ -79,6 +80,13 @@ var routes = [
     name: "Professeur",
     icon: "ni ni-circle-08 text-pink",
     component: LoginProf,
+    layout: "/auth"
+  },
+  {
+    path: "/logetudiant",
+    name: "Etudiant",
+    icon: "ni ni-circle-08 text-pink",
+    component: LoginEtudiant,
     layout: "/auth"
   }
 ];
