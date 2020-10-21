@@ -1,10 +1,10 @@
 import React from "react";
+import AuthService from "../../_services/auth.service"
 
 // reactstrap components
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
   FormGroup,
   Form,
@@ -12,11 +12,40 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
-  Row,
   Col
 } from "reactstrap";
 
+const required = value => {
+    if (!value) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          This field is required!
+        </div>
+      );
+    }
+  };
+  
+
 class LoginEtudiant extends React.Component {
+
+   constructor(props) {
+    super(props);
+    this.login = this.login.bind(this);
+
+    this.state = {
+        ine: "",
+        date: ""
+    };
+}
+
+  login(){
+      AuthService.loginEtudiant("125","24041998").then(
+          () => {
+              console.log("c'est fait")
+          }
+      )
+  }
+
   render() {
     
       return(
@@ -27,7 +56,7 @@ class LoginEtudiant extends React.Component {
               <div className="text-center text-muted mb-4">
                 <small>Veuillez saisir vos identifiants d'Etudiant</small>
               </div>
-              <Form role="form">
+              <Form role="form" onSubmit={this.login}>
                 <FormGroup className="mb-3">
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
@@ -62,7 +91,7 @@ class LoginEtudiant extends React.Component {
                   </label>
                 </div>
                 <div className="text-center">
-                  <Button className="my-4" color="primary" type="button">
+                  <Button className="my-4" color="primary" type="button" onSubmit={this.login}>
                     Se connecter
                   </Button>
                 </div>
