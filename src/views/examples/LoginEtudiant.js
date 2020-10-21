@@ -30,18 +30,47 @@ class LoginEtudiant extends React.Component {
 
    constructor(props) {
     super(props);
-    this.login = this.login.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeIne = this.onChangeIne.bind(this);
+    this.onChangeDate = this.onChangeDate.bind(this);
 
     this.state = {
         ine: "",
-        date: ""
+        date: "",
+        message: ""
     };
 }
 
-  login(){
-      AuthService.loginEtudiant("125","24041998").then(
+ onChangeIne(e) {
+    this.setState({
+      ine: e.target.value
+    });
+  }
+
+  onChangeDate(e) {
+    this.setState({
+      date: e.target.value
+    });
+  }
+
+  onSubmit(){
+      AuthService.loginEtudiant(this.state.ine,this.state.date).then(
           () => {
-              console.log("c'est fait")
+            console.log("isConnected");
+            this.props.history.push("/admin/index");
+            window.location.reload();
+          },
+          error => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+  
+            this.setState({
+              message: resMessage
+            });
           }
       )
   }
@@ -56,7 +85,7 @@ class LoginEtudiant extends React.Component {
               <div className="text-center text-muted mb-4">
                 <small>Veuillez saisir vos identifiants d'Etudiant</small>
               </div>
-              <Form role="form" onSubmit={this.login}>
+              <Form role="form">
                 <FormGroup className="mb-3">
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
@@ -64,7 +93,13 @@ class LoginEtudiant extends React.Component {
                         <i className="ni ni-email-83" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Identifiant" type="text" autoComplete="new-email"/>
+                    <Input placeholder="Identifiant"
+                    onChange={this.onChangeIne}
+                     type="text" 
+                     autoComplete="new-email"
+                     value={this.state.ine}
+                     validations={[required]}
+                     />
                   </InputGroup>
                 </FormGroup>
                 <FormGroup>
@@ -74,7 +109,13 @@ class LoginEtudiant extends React.Component {
                         <i className="ni ni-lock-circle-open" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Date de naissance (jjmmaaaa)" type="text" autoComplete="new-password"/>
+                    <Input placeholder="Date de naissance (jjmmaaaa)"
+                     onChange={this.onChangeDate}
+                     type="text"
+                     autoComplete="new-password"
+                     value={this.state.date}
+                     validations={[required]}
+                     />
                   </InputGroup>
                 </FormGroup>
                 <div className="custom-control custom-control-alternative custom-checkbox">
@@ -91,10 +132,19 @@ class LoginEtudiant extends React.Component {
                   </label>
                 </div>
                 <div className="text-center">
-                  <Button className="my-4" color="primary" type="button" onSubmit={this.login}>
+                  <Button className="my-4" color="primary" type="button" 
+                  onClick={this.onSubmit}
+                  >
                     Se connecter
                   </Button>
                 </div>
+                {this.state.message && (
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {this.state.message}
+                </div>
+              </div>
+            )}
               </Form>
             </CardBody>
           </Card>

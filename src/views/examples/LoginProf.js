@@ -16,6 +16,8 @@
 
 */
 import React from "react";
+import AuthService from "../../_services/auth.service"
+
 
 // reactstrap components
 import {
@@ -33,7 +35,65 @@ import {
   Col
 } from "reactstrap";
 
+const required = value => {
+    if (!value) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          This field is required!
+        </div>
+      );
+    }
+  };
+
 class LoginProf extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onChangeIne = this.onChangeIne.bind(this);
+        this.onChangeDate = this.onChangeDate.bind(this);
+    
+        this.state = {
+            ine: "",
+            date: "",
+            message: ""
+        };
+    }
+    
+     onChangeIne(e) {
+        this.setState({
+          ine: e.target.value
+        });
+      }
+    
+      onChangeDate(e) {
+        this.setState({
+          date: e.target.value
+        });
+      }
+    
+      onSubmit(){
+          AuthService.loginProf(this.state.ine,this.state.date).then(
+              () => {
+                console.log("isConnected");
+                this.props.history.push("/admin/index");
+                window.location.reload();
+              },
+              error => {
+                const resMessage =
+                  (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                  error.message ||
+                  error.toString();
+      
+                this.setState({
+                  message: resMessage
+                });
+              }
+          )
+      }
+
   render() {
     
       return(
@@ -52,7 +112,12 @@ class LoginProf extends React.Component {
                         <i className="ni ni-email-83" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Identifiant" type="text" autoComplete="new-email"/>
+                    <Input placeholder="Identifiant"
+                    onChange={this.onChangeIne}
+                     type="text" 
+                     autoComplete="new-email"
+                     value={this.state.ine}
+                     validations={[required]}/>
                   </InputGroup>
                 </FormGroup>
                 <FormGroup>
@@ -62,7 +127,12 @@ class LoginProf extends React.Component {
                         <i className="ni ni-lock-circle-open" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Date de naissance (jjmmaaaa)" type="text" autoComplete="new-password"/>
+                    <Input placeholder="Date de naissance (jjmmaaaa)"
+                     onChange={this.onChangeDate}
+                     type="text"
+                     autoComplete="new-password"
+                     value={this.state.date}
+                     validations={[required]}/>
                   </InputGroup>
                 </FormGroup>
                 <div className="custom-control custom-control-alternative custom-checkbox">
@@ -79,7 +149,9 @@ class LoginProf extends React.Component {
                   </label>
                 </div>
                 <div className="text-center">
-                  <Button className="my-4" color="primary" type="button">
+                  <Button className="my-4" color="primary" type="button"
+                                    onClick={this.onSubmit}
+                                    >
                     Se connecter
                   </Button>
                 </div>

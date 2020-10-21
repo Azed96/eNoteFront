@@ -61,6 +61,25 @@ class AuthService {
       });
     }
 
+    loginProf(ine, date) {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        };
+        return axios
+          .post(`http://localhost:7400/api/prof/signin/`+ine+`/`+date,requestOptions)
+          .then(response => {
+             console.log(response.data);
+              localStorage.setItem("user", JSON.stringify(response.data));
+            
+    
+            return response.data;
+          });
+        }
+
  logout() {
         localStorage.removeItem("user");
     }
