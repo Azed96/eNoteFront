@@ -75,9 +75,10 @@ class LoginProf extends React.Component {
       onSubmit(){
           AuthService.loginProf(this.state.ine,this.state.date).then(
               () => {
-                console.log("isConnected");
-                this.props.history.push("/admin/index");
-                window.location.reload();
+                 
+                    console.log("isConnected");
+                    this.props.history.push("/admin/index");
+                    window.location.reload();
               },
               error => {
                 const resMessage =

@@ -24,6 +24,8 @@ import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import LoginProf from "views/examples/LoginProf.js";
 import LoginEtudiant from "views/examples/LoginEtudiant.js";
+import MatiereEnseignant from "views/examples/MatiereEnseignant.js";
+
 
 var routes = [
   {
@@ -88,6 +90,13 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: LoginEtudiant,
     layout: "/auth"
+  },
+  {
+    path: "/mesmatiere",
+    name: "Mes Matiéres",
+    icon: "ni ni-book-bookmark blue",
+    component: MatiereEnseignant,
+    layout: "/admin"
   }
 ];
 export default routes;
