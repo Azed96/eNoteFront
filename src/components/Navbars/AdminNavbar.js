@@ -23,12 +23,12 @@ class AdminNavbar extends React.Component {
 
   constructor(props){
     super(props);
-    this.currentUser = JSON.parse(localStorage.getItem('user'));;
+    this.currentUser = JSON.parse(localStorage.getItem('user'));
+    if(this.currentuser == ""){
+      this.props.history.push('/auth');
+    }
   }
-  logout() {
-    ServiceAuth.logout();
-    this.props.history.push('/auth');
-}
+  
 
   render() {
     return (
@@ -93,7 +93,10 @@ class AdminNavbar extends React.Component {
                   <DropdownItem divider />
                   <DropdownItem>
                     <i className="ni ni-user-run" />
-                    <span onClick={this.logout}>Logout</span>
+                    <span onClick={()=>{
+                      ServiceAuth.logout();
+                      this.props.history.push('/auth')}
+                      }>Logout</span>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>

@@ -15,6 +15,10 @@ class Icons extends React.Component {
             listeMatiere : []
         };
         this.currentuser = AuthService.getCurrentUser();
+        if(this.currentuser == ""){
+            this.props.history.push('/auth');
+        }
+        
         this.RecupMatieres();
 
        
