@@ -74,11 +74,17 @@ class LoginProf extends React.Component {
     
       onSubmit(){
           AuthService.loginProf(this.state.ine,this.state.date).then(
-              () => {
-                 
+              (response) => {
+                  if (response !== ""){
                     console.log("isConnected");
                     this.props.history.push("/admin/index");
                     window.location.reload();
+                  }else{
+                      
+                    this.setState({
+                        message: 'Vueillez réessayer SVP'
+                      });
+                  }
               },
               error => {
                 const resMessage =
@@ -156,6 +162,13 @@ class LoginProf extends React.Component {
                     Se connecter
                   </Button>
                 </div>
+                {this.state.message && (
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {this.state.message}
+                </div>
+              </div>
+            )}
               </Form>
             </CardBody>
           </Card>

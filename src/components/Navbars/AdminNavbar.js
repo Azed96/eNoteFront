@@ -1,22 +1,6 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import { Link } from "react-router-dom";
+import ServiceAuth from "_services/auth.service"
 // reactstrap components
 import {
   DropdownMenu,
@@ -36,6 +20,16 @@ import {
 } from "reactstrap";
 
 class AdminNavbar extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.currentUser = JSON.parse(localStorage.getItem('user'));;
+  }
+  logout() {
+    ServiceAuth.logout();
+    this.props.history.push('/auth');
+}
+
   render() {
     return (
       <>
@@ -71,7 +65,7 @@ class AdminNavbar extends React.Component {
                     </span>
                     <Media className="ml-2 d-none d-lg-block">
                       <span className="mb-0 text-sm font-weight-bold">
-                        Jessica Jones
+                        {this.currentUser && this.currentUser.prenom}{" "}{this.currentUser &&this.currentUser.nom}
                       </span>
                     </Media>
                   </Media>
@@ -97,9 +91,9 @@ class AdminNavbar extends React.Component {
                     <span>Support</span>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                  <DropdownItem>
                     <i className="ni ni-user-run" />
-                    <span>Logout</span>
+                    <span onClick={this.logout}>Logout</span>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>

@@ -55,11 +55,18 @@ class LoginEtudiant extends React.Component {
 
   onSubmit(){
       AuthService.loginEtudiant(this.state.ine,this.state.date).then(
-          () => {
-            console.log("isConnected");
-            this.props.history.push("/admin/index");
-            window.location.reload();
-          },
+        (response) => {
+            if (response !== ""){
+              console.log("isConnected");
+              this.props.history.push("/admin/index");
+              window.location.reload();
+            }else{
+                
+              this.setState({
+                  message: 'Vueillez réessayer SVP'
+                });
+            }
+        },
           error => {
             const resMessage =
               (error.response &&
