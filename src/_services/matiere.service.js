@@ -19,7 +19,7 @@ class MatiereService {
      return axios
         .get(`http://localhost:7400/api/matiere/idProf/`+id,requestOptions)
         .then(response =>{
-            console.log("resMprof"+response.data[0].id);
+           // console.log("resMprof"+response.data[0].id);
             return response.data;
         });
    }
@@ -37,7 +37,7 @@ class MatiereService {
            .then(response =>{
                //console.log(response.data);
                return response.data;
-           })
+           });
 
    }
 
@@ -47,16 +47,25 @@ class MatiereService {
         headers: { 
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
-        },
-        data: JSON.stringify(infoMatiere)
+        }    
     };
 
-console.log(requestOptions);
     return axios
-           .get(`http://localhost:7400/api/note/noteParProf/`,requestOptions)
+           .get(`http://localhost:7400/api/note/noteParProf/`+infoMatiere.idMatiere+`/`+infoMatiere.idProf,requestOptions)
            .then(response =>{
+               console.log("resNote"+JSON.stringify(response.data));
                return response.data;
-           })
+           },
+           error => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+              console.log("erreur"+resMessage);
+
+          })
 
    }
 

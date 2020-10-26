@@ -30,7 +30,6 @@ class MatiereEnseignant extends React.Component {
         MatiereService.getMatiereProf(this.currentuser.id)
         .then(response =>{
             this.setState({listeMatiere : response}); 
-            console.log("infoMats"+JSON.stringify(this.state.listeMatiere));
             });
             
     }

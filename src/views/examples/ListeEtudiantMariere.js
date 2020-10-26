@@ -22,7 +22,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
             infoMatiere: {}
         };
         this.getInfoMatiere();
-       // this.getListeEtudiantMat();
+        this.getListeEtudiantMat();
 
     }
         
@@ -36,7 +36,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
             this.setState({
                 listeEtudiantbyMatiereID : response
             });
-            console.log("les Notes "+this.state.listeEtudiantbyMatiereID);
+            console.log("DATA"+this.state.listeEtudiantbyMatiereID);
         });
 
     }
