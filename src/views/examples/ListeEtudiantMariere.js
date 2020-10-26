@@ -5,6 +5,7 @@ import MatiereService from "../../_services/matiere.service"
 import {Card, CardBody, CardTitle,Table, Container, Row, Col, CardHeader} from "reactstrap";
 
 import Header from "components/Headers/Header.js";
+import Index from "views/Index";
 
 class ListeEtudiantByIdMatiere extends React.Component {
     
@@ -19,8 +20,17 @@ class ListeEtudiantByIdMatiere extends React.Component {
             listeEtudiantbyMatiereID : [],
             idProf: this.currentuser.id,
             idMatiere: this.props.match.params.id,
-            infoMatiere: {}
+            infoMatiere: {},
+            listeInfoEtudiant : [],
+            infoEtudiant : {
+                id : "",
+                nom : "",
+                pernom : "",
+                ine : "",
+                dateNaissance : ""
+            }
         };
+        
         this.getInfoMatiere();
         this.getListeEtudiantMat();
 
@@ -36,10 +46,27 @@ class ListeEtudiantByIdMatiere extends React.Component {
             this.setState({
                 listeEtudiantbyMatiereID : response
             });
-            console.log("DATA"+this.state.listeEtudiantbyMatiereID);
+            this.state.listeEtudiantbyMatiereID.map(
+                item =>{
+                    this.getInfoEtudiant(item.idEtudaint);
+                });
         });
-
     }
+
+    getInfoEtudiant(id){
+        
+        AuthService.getInfoEtudiantById(id)
+        .then( data =>{
+            this.state.infoEtudiant.id = data.id;
+            this.state.infoEtudiant.ine = data.ine;
+            this.state.infoEtudiant.nom = data.nom;
+            this.state.infoEtudiant.pernom = data.pernom;
+            this.state.infoEtudiant.dateNaissance = data.dateNaissance;
+            
+            this.state.listeInfoEtudiant.push(this.infoEtudiant);
+        })
+    }
+
 
     getInfoMatiere(){
         MatiereService.getMatiereByid(this.state.idMatiere)
@@ -67,14 +94,28 @@ class ListeEtudiantByIdMatiere extends React.Component {
                 <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                     <tr>
-                      <th scope="col">Project</th>
-                      <th scope="col">Budget</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Users</th>
-                      <th scope="col">Completion</th>
-                      <th scope="col" />
-                    </tr>
+                      <th scope="col">INE</th>
+                      <th scope="col">Nom</th>
+                      <th scope="col">Pernom</th>
+                      <th scope="col">Date de Naissace</th>
+                      <th scope="col">Note du Controle</th>
+                      <th scope="col">Coef du Controle</th>
+                      <th scope="col">Note du Partiel</th>
+                      <th scope="col">Coef du Partiel</th>
+                      <th scope="col">Moyenne</th>
+                      </tr>
+                      
                   </thead>
+                  <tbody>
+                    { 
+                        this.state.listeEtudiantbyMatiereID.map(
+                            (note,Index) =>
+                                <tr>
+                                    <td scope="col" key={Index}>{this.state.listeInfoEtudiant.indexOf(note.idEtudaint).ine}</td>
+                                </tr>
+                            )
+                    }
+                  </tbody>
                 </Table>
             </Card>
             </div>

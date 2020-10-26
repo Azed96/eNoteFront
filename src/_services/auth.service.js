@@ -72,6 +72,22 @@ class AuthService {
         return JSON.parse(localStorage.getItem('user'));
       }
 
+ getInfoEtudiantById(id){
+    const requestOptions = {
+        method: 'GET',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    return axios
+    .get(`http://localhost:7400/api/etudiant/idEtudiant/`+id,requestOptions)
+    .then( res => {
+        return res.data;
+    });
+   
+ } 
+
 }
 
 export default new AuthService();
