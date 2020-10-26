@@ -6,11 +6,13 @@ import {Card, CardBody, CardTitle, Container, Row, Col} from "reactstrap";
 
 import Header from "components/Headers/Header.js";
 
-class Icons extends React.Component {
+class MatiereEnseignant extends React.Component {
     
 
     constructor(props){
         super(props);
+        this.CompListEtudiantNote = this.CompListEtudiantNote.bind(this);
+        
         this.state ={
             listeMatiere : []
         };
@@ -28,8 +30,13 @@ class Icons extends React.Component {
         MatiereService.getMatiereProf(this.currentuser.id)
         .then(response =>{
             this.setState({listeMatiere : response}); 
-            console.log("matiers"+this.state.listeMatiere);
+            console.log("infoMats"+JSON.stringify(this.state.listeMatiere));
             });
+            
+    }
+
+    CompListEtudiantNote(id){
+        this.props.history.push(`/admin/etudiant-matiere/${id}`);
     }
     
   render() {
@@ -62,18 +69,31 @@ class Icons extends React.Component {
                           {matiere.nom}
                           </span>
                         </div>
+                       
                         <Col className="col-auto">
+                        <button
+                          className=" btn-icon-clipboard"
+                          data-clipboard-text="bullet-list-67"
+                          id="tooltip672244852"
+                          type="button"
+                          onClick={() => this.CompListEtudiantNote(matiere.id)}
+                        >
                           <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                            <i className="fas fa-chart-bar" />
+                          
+                            <i className=" ni ni-bullet-list-67" />
                           </div>
+                          </button>
+
+                          
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
-              <span className="text-nowrap">{this.currentuser.prenom}{" "}{this.currentuser.nom}</span>
+                          <span className="text-nowrap">{this.currentuser.prenom}{" "}{this.currentuser.nom}</span>
                       </p>
                     </CardBody>
                   </Card>
                   <br/>
+                  
                 </Col>
                   
               )
@@ -90,4 +110,4 @@ class Icons extends React.Component {
   }
 }
 
-export default Icons;
+export default MatiereEnseignant;

@@ -25,6 +25,8 @@ import Icons from "views/examples/Icons.js";
 import LoginProf from "views/examples/LoginProf.js";
 import LoginEtudiant from "views/examples/LoginEtudiant.js";
 import MatiereEnseignant from "views/examples/MatiereEnseignant.js";
+import ListeEtudiantMariere from "views/examples/ListeEtudiantMariere";
+
 
 
 var routes = [
@@ -96,6 +98,13 @@ var routes = [
     name: "Mes Matiéres",
     icon: "ni ni-book-bookmark blue",
     component: MatiereEnseignant,
+    layout: "/admin"
+  },
+  {
+    path: "/etudiant-matiere/:id",
+    name: "Liste d'étudiant",
+    icon: "ni ni-bullet-list-67 text-green",
+    component: ListeEtudiantMariere,
     layout: "/admin"
   }
 ];

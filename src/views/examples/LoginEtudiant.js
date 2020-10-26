@@ -90,7 +90,7 @@ class LoginEtudiant extends React.Component {
           <Card className="bg-secondary shadow border-0">
             <CardBody className="px-lg-5 py-lg-5">
               <div className="text-center text-muted mb-4">
-                <small>Veuillez saisir vos identifiants d'Etudiant</small>
+                Veuillez saisir vos identifiants <strong>d'Etudiant</strong> 
               </div>
               <Form role="form">
                 <FormGroup className="mb-3">
