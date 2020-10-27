@@ -64,6 +64,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
             this.state.infoEtudiant.dateNaissance = data.dateNaissance;
             
             this.state.listeInfoEtudiant.push(this.infoEtudiant);
+            console.log("etudiant"+JSON.stringify(this.state.infoEtudiant));
         })
     }
 
@@ -110,8 +111,8 @@ class ListeEtudiantByIdMatiere extends React.Component {
                     { 
                         this.state.listeEtudiantbyMatiereID.map(
                             (note,Index) =>
-                                <tr>
-                                    <td scope="col" key={Index}>{this.state.listeInfoEtudiant.indexOf(note.idEtudaint).ine}</td>
+                               <tr key={note.id}>
+                                    <td scope="col">{this.state.listeInfoEtudiant.keys(Index).ine}</td>
                                 </tr>
                             )
                     }
