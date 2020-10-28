@@ -117,7 +117,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
                                                         <td scope="col">{note.coefDs}</td>
                                                         <td scope="col">{note.notePartiel}</td>
                                                         <td scope="col">{note.coefPartiel}</td>
-                                                        <td scope="col">{note.moyenne}</td>
+                                                        <td scope="col">{note.moyenne.toFixed(2)}</td>
                                                         <td className="text-right">
                                                             <UncontrolledDropdown>
                                                                 <DropdownToggle
