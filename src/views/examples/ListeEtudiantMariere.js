@@ -7,6 +7,7 @@ import {
     DropdownItem,
     UncontrolledDropdown,
     DropdownToggle,
+    Input
 } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
@@ -76,6 +77,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
 
 
 
+
     render() {
         return (
             <>
@@ -100,7 +102,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
                                             <th scope="col">Note du Partiel</th>
                                             <th scope="col">Coef du Partiel</th>
                                             <th scope="col">Moyenne</th>
-                                            <th scope="col"/>
+                                            <th scope="col" />
                                         </tr>
 
                                     </thead>
@@ -113,9 +115,22 @@ class ListeEtudiantByIdMatiere extends React.Component {
                                                         <td scope="col">{note.nom}</td>
                                                         <td scope="col">{note.prenom}</td>
                                                         <td scope="col">{note.dateNaissance}</td>
-                                                        <td scope="col">{note.noteDs}</td>
+                                                        <td scope="col">
+                                                            <Input placeholder="DS"
+                                                                type="number"
+                                                                value={note.noteDs}
+                                                                style={{width: "80px"}}
+                                                            />
+                                                            
+                                                        </td>
                                                         <td scope="col">{note.coefDs}</td>
-                                                        <td scope="col">{note.notePartiel}</td>
+                                                        <td scope="col">
+                                                        <Input placeholder="DS"
+                                                                type="number"
+                                                                value={note.notePartiel}
+                                                                style={{width: "80px"}}
+                                                            />
+                                                        </td>
                                                         <td scope="col">{note.coefPartiel}</td>
                                                         <td scope="col">{note.moyenne.toFixed(2)}</td>
                                                         <td className="text-right">
