@@ -2,7 +2,12 @@
 import React from "react";
 import AuthService from "../../_services/auth.service";
 import MatiereService from "../../_services/matiere.service"
-import { Card, CardBody, CardTitle, Table, Container, Row, Col, CardHeader } from "reactstrap";
+import {
+    Card, CardBody, CardTitle, Table, Container, Row, Col, CardHeader, DropdownMenu,
+    DropdownItem,
+    UncontrolledDropdown,
+    DropdownToggle,
+} from "reactstrap";
 
 import Header from "components/Headers/Header.js";
 import Index from "views/Index";
@@ -26,7 +31,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
 
         this.getInfoMatiere();
         this.getListeEtudiantMat();
-        console.log("aa"+JSON.stringify(this.state.listeEtudiantbyMatiereID));
+        console.log("aa" + JSON.stringify(this.state.listeEtudiantbyMatiereID));
 
 
     }
@@ -38,24 +43,24 @@ class ListeEtudiantByIdMatiere extends React.Component {
         };
         MatiereService.getNotesEtudiant(infoMatiere)
             .then(response => {
-                response.forEach((a) =>{
-                    AuthService.getInfoEtudiantById(a.idEtudaint).then( data => {
+                response.forEach((a) => {
+                    AuthService.getInfoEtudiantById(a.idEtudaint).then(data => {
                         a.ine = data.ine;
                         a.nom = data.nom;
-                        a.pernom = data.pernom;
+                        a.prenom = data.prenom;
                         a.dateNaissance = data.dateNaissance;
                         this.setState(state => {
                             const listeEtudiantbyMatiereID = [...state.listeEtudiantbyMatiereID, a];
-                       
+
                             return {
                                 listeEtudiantbyMatiereID,
                             };
-                          });
+                        });
                     });
                 });
-                
+
             });
-            
+
 
     }
 
@@ -95,6 +100,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
                                             <th scope="col">Note du Partiel</th>
                                             <th scope="col">Coef du Partiel</th>
                                             <th scope="col">Moyenne</th>
+                                            <th scope="col"/>
                                         </tr>
 
                                     </thead>
@@ -112,6 +118,34 @@ class ListeEtudiantByIdMatiere extends React.Component {
                                                         <td scope="col">{note.notePartiel}</td>
                                                         <td scope="col">{note.coefPartiel}</td>
                                                         <td scope="col">{note.moyenne}</td>
+                                                        <td className="text-right">
+                                                            <UncontrolledDropdown>
+                                                                <DropdownToggle
+                                                                    className="btn-icon-only text-light"
+                                                                    href="#pablo"
+                                                                    role="button"
+                                                                    size="sm"
+                                                                    color=""
+                                                                    onClick={e => e.preventDefault()}
+                                                                >
+                                                                    <i className="fas fa-ellipsis-v" />
+                                                                </DropdownToggle>
+                                                                <DropdownMenu className="dropdown-menu-arrow" right>
+                                                                    <DropdownItem
+                                                                        href="#pablo"
+                                                                        onClick={e => e.preventDefault()}
+                                                                    >
+                                                                        Enregistrer
+                                                                       </DropdownItem>
+                                                                    <DropdownItem
+                                                                        href="#pablo"
+                                                                        onClick={e => e.preventDefault()}
+                                                                    >
+                                                                        Supprimer
+                                                                   </DropdownItem>
+                                                                </DropdownMenu>
+                                                            </UncontrolledDropdown>
+                                                        </td>
 
                                                     </tr>
                                             )
