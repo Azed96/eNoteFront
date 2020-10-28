@@ -53,7 +53,7 @@ class MatiereService {
     return axios
            .get(`http://localhost:7400/api/note/noteParProf/`+infoMatiere.idMatiere+`/`+infoMatiere.idProf,requestOptions)
            .then(response =>{
-               console.log("resNote"+JSON.stringify(response.data));
+               //console.log("resNote"+JSON.stringify(response.data));
                return response.data;
            },
            error => {
