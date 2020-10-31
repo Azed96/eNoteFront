@@ -1,20 +1,4 @@
-/*!
 
-=========================================================
-* Argon Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import AuthService from "../../_services/auth.service"
 
@@ -22,7 +6,6 @@ import AuthService from "../../_services/auth.service"
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
   FormGroup,
   Form,
@@ -76,7 +59,7 @@ class Login extends React.Component {
         (response) => {
           if (response !== ""){
             console.log("isConnected");
-            this.props.history.push("/admin/index");
+            this.props.history.push("/administrateur/icons");
             window.location.reload();
           }else{
               
@@ -133,9 +116,9 @@ class Login extends React.Component {
                         <i className="ni ni-lock-circle-open" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Date de naissance (jjmmaaaa)"
+                    <Input placeholder="Mot de passe"
                      onChange={this.onChangeDate}
-                     type="text"
+                     type="password"
                      autoComplete="new-password"
                      value={this.state.date}
                      validations={[required]}
