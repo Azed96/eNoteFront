@@ -224,7 +224,7 @@ class Sidebar extends React.Component {
             
             <Nav className="mb-md-3" navbar>
               <NavItem className="active-pro active">
-                <NavLink href="https://www.creative-tim.com/product/argon-dashboard-pro-react?ref=adr-admin-sidebar">
+                <NavLink href="https://ecampus.paris-saclay.fr">
                   <i className="ni ni-spaceship" />
                   Espace eCompus
                 </NavLink>
