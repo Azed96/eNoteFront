@@ -26,6 +26,10 @@ import LoginProf from "views/examples/LoginProf.js";
 import LoginEtudiant from "views/examples/LoginEtudiant.js";
 import MatiereEnseignant from "views/examples/MatiereEnseignant.js";
 import ListeEtudiantMariere from "views/examples/ListeEtudiantMariere";
+import ListeEtudiant from "views/examples/Etudiant/ListeEtudiantComponent";
+import CreateEtudiant from"views/examples/Etudiant/CreateEtudiant.Component";
+import ViewEtudiantComponent from"views/examples/Etudiant/ViewEtudiantComponent"
+
 
 
 
@@ -106,6 +110,28 @@ var routes = [
     icon: "ni ni-bullet-list-67 text-green",
     component: ListeEtudiantMariere,
     layout: "/admin"
+  },
+  {
+    path: "/allEtudiant",
+    name: "Liste des étudiants",
+    icon: "ni ni-bullet-list-67",
+    component: ListeEtudiant,
+    layout: "/administrateur"
+  },
+  {
+    path: "/add-update-Etudiant/:id",
+    name: "créer un étudiant",
+    icon: "ni ni-bullet-list-67",
+    component: CreateEtudiant,
+    layout: "/administrateur"
+  },
+  {
+    path: "/ViewEtudiant/:id",
+    name: "Edite étudiant",
+    icon: "ni ni-bullet-list-67",
+    component: ViewEtudiantComponent,
+    layout: "/administrateur"
   }
+  
 ];
 export default routes;
