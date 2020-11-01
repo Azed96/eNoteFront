@@ -114,21 +114,21 @@ var routes = [
   {
     path: "/allEtudiant",
     name: "Liste des étudiants",
-    icon: "ni ni-bullet-list-67",
+    icon: "ni ni-bullet-list-67 text-purple",
     component: ListeEtudiant,
     layout: "/administrateur"
   },
   {
     path: "/add-update-Etudiant/:id",
     name: "créer un étudiant",
-    icon: "ni ni-bullet-list-67",
+    icon: "ni ni-circle-08 text-red",
     component: CreateEtudiant,
     layout: "/administrateur"
   },
   {
     path: "/ViewEtudiant/:id",
     name: "Edite étudiant",
-    icon: "ni ni-bullet-list-67",
+    icon: "ni ni-badge text-green",
     component: ViewEtudiantComponent,
     layout: "/administrateur"
   }
