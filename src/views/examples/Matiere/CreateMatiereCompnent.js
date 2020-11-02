@@ -75,6 +75,13 @@ class CreateMatiereComponent extends Component {
         }
 
     }
+
+    reset = () =>{
+        this.setState({
+            nom: ''
+        });
+    }
+
     changerNomFiliereHandler(event) {
         this.setState({ nomFiliere: event.target.value });
     }
@@ -191,6 +198,11 @@ class CreateMatiereComponent extends Component {
                                            
                                         </div>
                                         <div className="text-center">
+                                        <Button className="my-4" color="purpel" type="button"
+                                                onClick={this.reset}
+                                            >
+                                                réinitialiser 
+                                               </Button>
                                             <Button className="my-4" color="success" type="button"
                                                 onClick={this.saveAndUpdateProf}
                                             >

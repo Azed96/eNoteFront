@@ -32,6 +32,13 @@ class CreateFiliereComponent extends Component{
                 }
     }
 
+    reset = () =>{
+        this.setState({
+            nom: '',
+            anneeScolaire: ''
+        });
+    }
+
     changerNomFiliereHandler(event){
         this.setState({nom: event.target.value});
     }
@@ -117,6 +124,11 @@ getTitle(){
                                            
                                         </div>
                                         <div className="text-center">
+                                        <Button className="my-4" color="purpel" type="button"
+                                                onClick={this.reset}
+                                            >
+                                                réinitialiser 
+                                               </Button>
                                             <Button className="my-4" color="success" type="button"
                                                 onClick={this.saveAndUpdateProf}
                                             >

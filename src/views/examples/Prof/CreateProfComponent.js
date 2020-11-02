@@ -102,6 +102,19 @@ class CreateProfComponent extends Component{
             return <h3 className="texte-center">Mise à jour Prof</h3>
         }
     }
+
+    reset = () =>{
+        this.setState({
+            nom: '',
+            prenom: '',
+            role:'',
+            num: '',
+            ine:'',
+            dateNaissance:'',
+            mail:''
+        });
+    }
+
     render(){
         return(
             <>
@@ -225,6 +238,11 @@ class CreateProfComponent extends Component{
                                             
                                         </div>
                                         <div className="text-center">
+                                        <Button className="my-4" color="purpel" type="button"
+                                                onClick={this.reset}
+                                            >
+                                                réinitialiser 
+                                               </Button>
                                             <Button className="my-4" color="success" type="button"
                                                onClick={this.saveAndUpdateProf}
                                             >
