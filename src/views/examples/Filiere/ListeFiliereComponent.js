@@ -24,7 +24,7 @@ class ListeFiliereComponent extends Component {
     }
 
     addFiliere() {
-        this.props.history.push(`/administrateur/add-update-filiere/-addFiliere`);
+        this.props.history.push('/administrateur/add-update-filiere/:id');
     }
     editFiliere(id) {
         this.props.history.push(`/administrateur/add-update-filiere/${id}`);

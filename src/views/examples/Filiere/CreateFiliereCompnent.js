@@ -18,7 +18,7 @@ class CreateFiliereComponent extends Component{
     }
 
     componentDidMount(){          
-                if(this.state.id==='-addFiliere'){
+                if(this.state.id===':id'){
                     return 
                 }else{
                     adminService.getFiliereById(this.state.id).then((res)=>{
@@ -26,7 +26,6 @@ class CreateFiliereComponent extends Component{
                     this.setState({
                          nom:  filiere.nom,
                          anneeScolaire: filiere.anneeScolaire
-
                      })
                 })
                 }
@@ -49,7 +48,8 @@ class CreateFiliereComponent extends Component{
     saveAndUpdateProf = (e)=>{
         e.preventDefault();
         let filiere= {nom: this.state.nom, anneeScolaire: this.state.anneeScolaire}
-        if(this.state.id==='-addFiliere'){
+        if(this.state.id===':id'){
+            console.log("id dans  if "+ this.state.id);
             adminService.addFiliere(filiere).then(response=>{
                 this.props.history.push('/administrateur/allFiliere');
             })
@@ -64,7 +64,7 @@ class CreateFiliereComponent extends Component{
     }
     
 getTitle(){
-    if(this.state.id===-1){
+    if(this.state.id===':id'){
         return <h3 className="texte-center">Ajouter Filiere</h3>
 
     }else {
