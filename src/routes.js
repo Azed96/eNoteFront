@@ -26,9 +26,18 @@ import LoginProf from "views/examples/LoginProf.js";
 import LoginEtudiant from "views/examples/LoginEtudiant.js";
 import MatiereEnseignant from "views/examples/MatiereEnseignant.js";
 import ListeEtudiantMariere from "views/examples/ListeEtudiantMariere";
+//:::::::::::::::::::Etudiant:::::::::::::::::::::
 import ListeEtudiant from "views/examples/Etudiant/ListeEtudiantComponent";
 import CreateEtudiant from"views/examples/Etudiant/CreateEtudiant.Component";
-import ViewEtudiantComponent from"views/examples/Etudiant/ViewEtudiantComponent"
+import ViewEtudiantComponent from"views/examples/Etudiant/ViewEtudiantComponent";
+
+//:::::::::::::::::::FILIERE:::::::::::::::::::::
+import CreateFiliereComponent from"views/examples/Filiere/CreateFiliereCompnent";
+import ListeFiliereComponent from"views/examples/Filiere/ListeFiliereComponent";
+import ViewFiliereComponent from"views/examples/Filiere/ViewFiliereComponent";
+
+
+
 
 
 
@@ -130,6 +139,27 @@ var routes = [
     name: "Edite étudiant",
     icon: "ni ni-badge text-green",
     component: ViewEtudiantComponent,
+    layout: "/administrateur"
+  },
+  {
+    path: "/allFiliere",
+    name: "Liste des filieres",
+    icon: "ni ni-bullet-list-67 text-purple",
+    component: ListeFiliereComponent,
+    layout: "/administrateur"
+  },
+  {
+    path: "/add-update-filiere/:id",
+    name: "créer une filiere",
+    icon: "ni ni-circle-08 text-red",
+    component: CreateFiliereComponent,
+    layout: "/administrateur"
+  },
+  {
+    path: '/ViewFiliereComponent/:id',
+    name: "Edite étudiant",
+    icon: "ni ni-badge text-green",
+    component: ViewFiliereComponent,
     layout: "/administrateur"
   }
   
