@@ -131,31 +131,7 @@ getTitle(){
                         </div>
                         
                     </Row>
-                    <Row>
-                    <div className="container">
-            <div className="row"> 
-                <div className="card clo-md-6 Offset-md-3 pffset-md-3">
-                   {this.getTitle()}
-
-                    <div className=" card-body">
-                        <from>
-                             <div clasName="from-group">
-                                <div> 
-                                    <label>Nom Filiere</label>
-                                    <input placeholder="nom" name="nom" className="form-control"
-                                     value={this.state.nom} onChange={this.changerNomFiliereHandler}/>
-                                </div>
-                                </div>
-                             <button className="btn btn-success" onClick={this.saveAndUpdateProf}>Save</button>
-                             <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}> Cancel</button> 
-                        </from>
-                    </div>
-
-                </div>
-            </div>
-        </div>         
-
-                    </Row>
+                    
 
                 </Container>
                            

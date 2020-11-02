@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import AdminService from '../../../_services/AdminService';
+import Header from "../../../components/Headers/Header";
+import {
+    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody,Button
+} from "reactstrap";
 
 class ViewFiliereComponent extends Component{
     constructor(propos){
@@ -23,18 +27,72 @@ class ViewFiliereComponent extends Component{
 
     render(){
         return (
-            <div>
-                <div className="card clo-md-6 Offset-md-3">
-                        <h3 className="texte-center">View Filiere</h3>
-                        <div className=" card-body">
-                            <div clasName="row">
-                                <label>nom: </label>
-                                <div>{this.state.filiere.nom}</div>
-                            </div>
+            <>
+            <Header />
+            <Container className="mt--7" fluid>
+            <Row>
+                        <div className="col">
+                            <Card className="bg-secondary shadow">
+                                <CardHeader className="bg-white border-0">
+                                 <h3 className="mb-0 text-center"> Consulter une Filière </h3>
+                                </CardHeader>
+                                <CardBody>
+                                    <Form role="form">
+                                        <div className="pl-lg-4">
+                                            <Row>
+                                                <Col lg="6">
+                                                    <FormGroup>
+                                                        <label
+                                                            
+                                                            className="form-control-label"
+                                                            htmlFor="input-Prenom"
+                                                        >
+                                                            Nom de la Filiere
+                                                   </label>
+                                                        <Input
+                                                            readOnly
+                                                            className="form-control-alternative"
+                                                            placeholder="Nom de la filière"
+                                                            type="text"
+                                                            value={this.state.filiere.nom}                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="6">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-nom"
+                                                        >
+                                                            Année Universitaire
+                                                    </label>
+                                                        <Input
+                                                            readOnly
+                                                            className="form-control-alternative"
+                                                            placeholder="2020/2021"
+                                                            type="text"
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                               
+                                            </Row>
+                                           
+                                           
+                                        </div>
+                                        <div className="text-center">
+                                               <Button className="my-4" color="danger" type="button"
+                                                onClick={this.cancel.bind(this)}
+                                            >
+                                                Liste des filières
+                                               </Button>
+                                        </div>
+                                    </Form>
+                                </CardBody>
+                            </Card>
                         </div>
-                </div>
-                        <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}> Cancel</button>
-            </div>
+                        
+                    </Row>
+            </Container>
+            </>
         );
     
     }
