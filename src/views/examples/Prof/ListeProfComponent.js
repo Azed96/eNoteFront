@@ -1,5 +1,10 @@
 import React from'react';
 import AdminService from '../../../_services/AdminService';
+import Header from "../../../components/Headers/Header";
+import {
+    Card, Table, Container, Row, CardHeader,
+    Button
+} from "reactstrap"; 
 
 class ListeProfComponent extends React.Component{
     constructor(props){
@@ -39,47 +44,76 @@ class ListeProfComponent extends React.Component{
      //jsx de js 
      render(){
         return(
-            <div>
-                <h1 className= "text-center" > prof list</h1>
-                <div className="row">
-                    <button className="btn btn-primary" onClick={this.addProf}>Add Prof</button>
-                </div>
-                <table className= " table table-striped" >
-                    <thead>
-                        <tr>
-                            <th>nom</th>
-                            <th>role</th>
-                            <th>prenom</th>
-                            <th>num</th>
-                            <th>ine</th>
-                            <th>date de naissance</th>
-                            <th>Mail </th>
-                            <th> Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.state.profs.map(
-                                prof=>
-                                <tr key ={prof.id}>
-                                    <td>{prof.nom}</td>
-                                    <td>{prof.role}</td>
-                                    <td>{prof.prenom}</td>
-                                    <td>{prof.num}</td>
-                                    <td>{prof.ine}</td>
-                                    <td>{prof.dateNaissance}</td>
-                                    <td>{prof.mail}</td>
-                                    <td>
-                                    <button onClick ={()=> this.editProf(prof.id)} className="btn btn-info">Update</button>
-                                    <button style={{marginLeft:"10px"}} onClick ={()=> this.deleteProf(prof.id)} className="btn btn-danger">Delete</button>
-                                    <button style={{marginLeft:"10px"}} onClick ={()=> this.viewProf(prof.id)} className="btn btn-info">view</button>
-                                    </td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
+            <>
+                <Header />
+                <Container className="mt--7" fluid>
+                    <Row>
+                        <div className="col">
+                            <Card className="shadow">
+                                <CardHeader className="border-0">
+                                    <h3 className="mb-0 text-center"> Liste des Enseignants  </h3>
+                                </CardHeader>
+                                <Table className="align-items-center table-flush" responsive>
+                                    <thead className="thead-light">
+                                        <tr>
+                                            <th scope="col">INE</th>
+                                            <th scope="col">Nom</th>
+                                            <th scope="col">Pernom</th>
+                                            <th scope="col">Date de Naissace</th>
+                                            <th scope="col">Tél</th>
+                                            <th scope="col">Adresse eMail</th>
+                                            <th scope="col">Action</th>
+                                            <th scope="col" />
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+
+                                        {
+                                           this.state.profs.map(
+                                            prof=>
+                                                    <tr key={prof.id}>
+                                                        <td>{prof.ine}</td>
+                                                        <td>{prof.nom}</td>
+                                                        <td>{prof.prenom}</td>
+                                                        <td>{prof.dateNaissance}</td>
+                                                        <td>{prof.num}</td>
+                                                        <td>{prof.mail}</td>
+                                                        <td>
+                                                            <Button
+                                                                color="info"
+                                                                onClick ={()=> this.editProf(prof.id)}
+                                                            >
+                                                                Mettre à jour
+                                                            </Button>
+                                                            <Button
+                                                                color="danger"
+                                                                onClick ={()=> this.deleteProf(prof.id)}        
+                                                                >                                                    
+                                                                Supprimer
+                                                            </Button>
+                                                            <Button
+                                                                color="primary"
+                                                                onClick ={()=> this.viewProf(prof.id)}                                                               >                                                    
+                                                                Consulter
+                                                            </Button>
+                                                        </td>
+
+
+                                                    </tr>
+                                            )
+                                        }
+
+                                    </tbody>
+                                </Table>
+                            </Card>
+                        </div>
+                    </Row>
+                   
+
+                </Container>
+          
+            </>
         )
     }
 }
