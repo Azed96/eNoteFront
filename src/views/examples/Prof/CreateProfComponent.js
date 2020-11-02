@@ -31,7 +31,7 @@ class CreateProfComponent extends Component{
 
     //à l'arrivé à cette page soit : on récupére les infos du prof si c'est update via son id 
     componentDidMount(){
-        if(this.state.id==-1){
+        if(this.state.id===':id'){
             return
         }else {
             //récupération info prof
@@ -55,7 +55,7 @@ class CreateProfComponent extends Component{
         let prof ={nom:this.state.nom, prenom: this.state.prenom, role: this.state.role, num: this.state.num, ine: this.state.ine, dateNaissance: this.state.dateNaissance, mail: this.state.mail};
 
         //création Prof
-        if(this.state.id==='-addProf'){
+        if(this.state.id===':id'){
             AdminService.addProf(prof).then((response)=>{
                 this.props.history.push('/administrateur/allProf');
             });
@@ -94,7 +94,7 @@ class CreateProfComponent extends Component{
         this.setState({mail: event.target.value});
     }
     getTitle(){
-        if(this.state.id==-1){
+        if(this.state.id===':id'){
             return <h3 className="texte-center">Ajouter Prof</h3>
 
         }

@@ -26,7 +26,7 @@ class ListeProfComponent extends React.Component{
         });
     }
     addProf(){
-        this.props.history.push(`/administrateur/add-update-prof/-addProf`)
+        this.props.history.push(`/administrateur/add-update-prof/:id`)
     }
     editProf(id){
         this.props.history.push(`/administrateur/add-update-prof/${id}`);
