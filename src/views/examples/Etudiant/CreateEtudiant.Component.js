@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AdminService from '../../../_services/AdminService';
+import MatiereService from '../../../_services/matiere.service'
 import Header from "../../../components/Headers/Header";
 import {
     Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody,Button
@@ -74,11 +75,38 @@ class CreateEtudiantComponent extends Component{
 
         let etudiant = { nom:this.state.nom,prenom: this.state.prenom, role: this.state.role, num: this.state.num, ine: this.state.ine, idFiliere: this.state.idFiliere, dateNaissance: this.state.dateNaissance, mail: this.state.mail};
 
+        let noteData ={
+            idEtudaint: '',
+            idMatiere:'',
+            idProf: '',
+            hasDs:'',
+            noteDs:'',
+            coef: '',
+            coefDs: '',
+            coefPartiel : '',
+            notePartiel : '',
+        }
         //création étudiant
-        if(this.state.id===':id'){
-            AdminService.addEtudiant(etudiant).then(res =>{
-                this.props.history.push('/administrateur/allEtudiant');
-            });
+         if(this.state.id===':id'){
+                    AdminService.addEtudiant(etudiant).then(res =>{
+                        console.log("etudiantadd"+JSON.stringify(res.data.idFiliere));
+                        MatiereService.getMatieresByidFiliere(res.data.idFiliere)
+                        .then(module =>{
+                            console.log("module"+JSON.stringify(module));
+                            noteData.idEtudaint = res.data.id;
+                            noteData.idMatiere = module.id;
+                            noteData.idProf = module.idProf;
+                            noteData.hasDs = true;
+        
+                            MatiereService.addNoteEtudiant(noteData);
+                        });
+                       // this.props.history.push('/administrateur/allEtudiant');
+                    });
+
+
+
+
+                
         }else{ //update étudiant
             AdminService.updateEtudiant(this.state.id,etudiant).then(res =>{
                 this.props.history.push('/administrateur/allEtudiant');

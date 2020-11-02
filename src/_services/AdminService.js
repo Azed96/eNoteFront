@@ -101,7 +101,7 @@ deleteMatiere(matiereId){
 getAllFiliere(){
     return axios.get(apiFiliere+"allFiliere")
     .then(res => {
-        console.log("mesFilieres"+res.data);
+        //console.log("mesFilieres"+res.data);
         return res.data
     });
 }

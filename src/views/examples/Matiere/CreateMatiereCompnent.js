@@ -12,7 +12,7 @@ class CreateMatiereComponent extends Component {
             filiere: [{
                 id: '--',
                 nom: '--',
-                anneeScolaire:''
+                anneeScolaire: ''
             }],
             profs: [{
                 nom: '--',
@@ -26,9 +26,9 @@ class CreateMatiereComponent extends Component {
             idFiliere: '',
             nomFiliere: ''
         }
-        this.changerNomFiliereHandler = this.changerNomFiliereHandler.bind(this);
+        this.changerIdFiliereHandler = this.changerIdFiliereHandler.bind(this);
         this.changerNomMatiereHandler = this.changerNomMatiereHandler.bind(this);
-        this.changerNomProfeHandler = this.changerNomProfeHandler.bind(this);
+        this.changerIdProfeHandler = this.changerIdProfeHandler.bind(this);
     }
     componentDidMount() {
         adminService.getAllFiliere().then(res => {
@@ -77,14 +77,18 @@ class CreateMatiereComponent extends Component {
 
     }
 
-    reset = () =>{
+    reset = () => {
         this.setState({
             nom: ''
         });
     }
 
-    changerNomFiliereHandler(event) {
-        this.setState({ nomFiliere: event.target.value });
+    changerIdFiliereHandler(event) {
+        this.setState({ idFiliere: event.target.value });
+        adminService.getFiliereById( event.target.value ).then(res => {
+            this.setState({ nomFiliere: res.data.nom })
+
+        });
     }
 
     changerNomMatiereHandler(event) {
@@ -92,14 +96,22 @@ class CreateMatiereComponent extends Component {
 
     }
 
-    changerNomProfeHandler(event) {
+    changerIdProfeHandler(event) {
         this.setState({ idProf: event.target.value });
     }
 
     saveAndUpdateProf = (e) => {
         e.preventDefault();
-        let matiere = { nom: this.state.nom, nomFiliere: this.state.nomFiliere, idProf: this.state.idProf }
+      
+
+        let matiere = { nom: this.state.nom, idProf: this.state.idProf, idFiliere: this.state.idFiliere, nomFiliere: this.state.nomFiliere };
+
+
+        console.log('elt' + matiere.nomFiliere);
+
+
         if (this.state.id === ':id') {
+
             adminService.addMatiere(matiere).then(response => {
                 this.props.history.push('/administrateur/allMatiere');
             })
@@ -114,7 +126,7 @@ class CreateMatiereComponent extends Component {
 
 
     cancel() {
-        return this.props.history.push('/allMatiere')
+        return this.props.history.push('/administrateur/allMatiere')
     }
 
     getTitle() {
@@ -165,44 +177,44 @@ class CreateMatiereComponent extends Component {
                                                         >
                                                             Filière d'appartenance
                                                     </label>
-                                                        <Input type="select" onChange={this.changerNomFiliereHandler} value={this.state.nomFiliere}>
+                                                        <Input type="select" onChange={this.changerIdFiliereHandler} value={this.state.idFiliere}>
                                                             {this.state.filiere.map((f) =>
-                                                                  <option key={f.id} value={f.nom}> {f.nom + " "+ f.anneeScolaire} </option>
-                                                              
+                                                                <option key={f.id} value={f.id}> {f.nom + " " + f.anneeScolaire} </option>
+
                                                             )};
                                                     </Input>
                                                     </FormGroup>
                                                 </Col>
 
                                             </Row>
-                                            
+
                                             <div className="text-center">
-                                                
-                                                    
-                                                        <label
-                                                            className="form-control-label"
-                                                            htmlFor="input-note DS"
-                                                        >
-                                                            Nom de Professeur Responsable
+
+
+                                                <label
+                                                    className="form-control-label"
+                                                    htmlFor="input-note DS"
+                                                >
+                                                    Nom de Professeur Responsable
                                                     </label>
-                                                    <Input type="select"  onChange={this.changerNomProfeHandler} value={this.state.idProf}>
+                                                <Input type="select" onChange={this.changerIdProfeHandler} value={this.state.idProf}>
                                                     {this.state.profs.map((prof) =>
-                                                                  <option key={prof.id} value={prof.nom}> {prof.nom} </option>
-                                                              
-                                                            )};
+                                                        <option key={prof.id} value={prof.id}> {prof.nom} </option>
+
+                                                    )};
                                                     </Input>
-                                                    
-                                                   
-                                                
-                                                </div>
-                                            
-                                           
+
+
+
+                                            </div>
+
+
                                         </div>
                                         <div className="text-center">
-                                        <Button className="my-4" color="purpel" type="button"
+                                            <Button className="my-4" color="purpel" type="button"
                                                 onClick={this.reset}
                                             >
-                                                réinitialiser 
+                                                réinitialiser
                                                </Button>
                                             <Button className="my-4" color="success" type="button"
                                                 onClick={this.saveAndUpdateProf}
@@ -223,7 +235,7 @@ class CreateMatiereComponent extends Component {
                     </Row>
 
                 </Container>
-                
+
             </>
 
         )

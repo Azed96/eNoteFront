@@ -92,7 +92,6 @@ class ListeEtudiantComponent extends React.Component {
                                                         <td>{etudiant.num}</td>
                                                         <td>{etudiant.mail}</td>
                                                         <td>{etudiant.nomFiliere}</td>
-                                                        {console.log("idFiliere de ledt= "+ etudiant.idFiliere + " nom filiere = "+ etudiant.nomFiliere)}
                                         
 
                                                         <td>

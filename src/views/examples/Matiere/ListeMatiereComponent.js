@@ -31,7 +31,6 @@ class ListeMatiereComponent extends Component{
                 });
                })
             });
-            this.setState({matieres: response.data});
         });
 
       
