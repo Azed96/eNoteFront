@@ -58,7 +58,7 @@ class CreateMatiereComponent extends Component {
             })
 
         });
-        if (this.state.id === '-addMatiere') {
+        if (this.state.id === ':id') {
             return
         } else {
             adminService.getMatiereById(this.state.id).then((res) => {
@@ -99,7 +99,7 @@ class CreateMatiereComponent extends Component {
     saveAndUpdateProf = (e) => {
         e.preventDefault();
         let matiere = { nom: this.state.nom, nomFiliere: this.state.nomFiliere, idProf: this.state.idProf }
-        if (this.state.id === '-addMatiere') {
+        if (this.state.id === ':id') {
             adminService.addMatiere(matiere).then(response => {
                 this.props.history.push('/administrateur/allMatiere');
             })
@@ -118,7 +118,7 @@ class CreateMatiereComponent extends Component {
     }
 
     getTitle() {
-        if (this.state.id === -1) {
+        if (this.state.id === ':id') {
             return <h3 className="texte-center">Ajouter Matiere</h3>
 
         } else {

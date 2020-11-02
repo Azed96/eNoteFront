@@ -38,7 +38,7 @@ class ListeMatiereComponent extends Component{
     }
 
     addMatiere(){
-        this.props.history.push(`/administrateur/add-update-matiere/-addMatiere`);
+        this.props.history.push(`/administrateur/add-update-matiere/:id`);
     }
     editMatiere(id){
         this.props.history.push(`/administrateur/add-update-matiere/${id}`);
