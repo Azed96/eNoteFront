@@ -19,20 +19,21 @@ class ListeEtudiantComponent extends React.Component {
     }
 
     componentDidMount() {
-        console.log("api réussi getALL?");
         AdminService.getAllEtudiant().then((response) => {
-            this.setState({ etudiants: response.data });
+            response.data.forEach(etudiant => {
+                AdminService.getFiliereById(etudiant.idFiliere).then(filiere=>{
+                    etudiant.nomFiliere=filiere.data.nom;
+                    this.setState(state=>{
+                        const etudiants =[...state.etudiants,etudiant];
+                        return {
+                            etudiants,
+                        }
+                    });
+                });
+            });
         });
-        // AdminService.getAllEtudiant().then((response)=>{
-        //     this.setState({etudiants: response.data})
-        // });
-        console.log("api réussi getALL Yes")
-
-
-        // AdminService.getEtudiantById().then((response)=>{
-        //     this.setState({etudiants: response.data})
-        // });
     }
+
 
     addEtudiant() {
         this.props.history.push('/administrateur/add-update-Etudiant/-add');
@@ -42,7 +43,6 @@ class ListeEtudiantComponent extends React.Component {
         this.props.history.push(`/administrateur/add-update-Etudiant/${id}`);
     }
     deleteEtudiant(id) {
-        console.log("liste etudiant = " + this.state.etudiants);
         AdminService.deleteEtudiant(id).then(res => {
             this.setState({ etudiants: this.state.etudiants.filter(etudiant => etudiant.id !== id) });
         });
@@ -91,7 +91,10 @@ class ListeEtudiantComponent extends React.Component {
                                                         <td>{etudiant.dateNaissance}</td>
                                                         <td>{etudiant.num}</td>
                                                         <td>{etudiant.mail}</td>
-                                                        <td>NONE</td>
+                                                        <td>{etudiant.nomFiliere}</td>
+                                                        {console.log("idFiliere de ledt= "+ etudiant.idFiliere + " nom filiere = "+ etudiant.nomFiliere)}
+                                        
+
                                                         <td>
                                                             <Button
                                                                 color="info"

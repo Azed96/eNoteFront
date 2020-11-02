@@ -9,12 +9,16 @@ class CreateEtudiantComponent extends Component{
     constructor(props){
         super(props)
         this.state= {
+            filieres:[ {
+                nom:'--'
+            }],
             id:this.props.match.params.id,
             nom: '',
             prenom: '',
             role:'',
             num: '',
             ine:'',
+            idFiliere:'',
             dateNaissance:'',
             mail:''
         }
@@ -25,23 +29,38 @@ class CreateEtudiantComponent extends Component{
         this.changerIneHandler= this.changerIneHandler.bind(this);
         this.changerDateNaissanceHandler= this.changerDateNaissanceHandler.bind(this);
         this.changerMailHandler= this.changerMailHandler.bind(this);
+        this.changerIdFiliereHandler= this.changerIdFiliereHandler.bind(this);
+
 
         this.saveAndUpdateEtudiant = this.saveAndUpdateEtudiant.bind(this);
     }
 
     componentDidMount(){
+
+        AdminService.getAllFiliere().then(res=>{
+            res.map(f=>{
+                this.setState(state=>{
+                    const filieres= [...state.filieres,f];
+                    return {
+                        filieres,
+                    }
+                })
+             })
+        });
+
+
         if(this.state.id==-1){
             return
         }else {
             AdminService.getEtudiantById(this.state.id).then((res)=>{
                 let etudiant= res.data;
-                console.log("getEtudiantById"+ etudiant);
                 this.setState({
                     nom:etudiant.nom,
                     prenom: etudiant.prenom,
                     role: etudiant.role, 
                     num: etudiant.num,
                     ine: etudiant.ine,
+                    idFiliere: etudiant.idFiliere,
                     dateNaissance: etudiant.dateNaissance,
                     mail: etudiant.mail
                 });
@@ -52,8 +71,7 @@ class CreateEtudiantComponent extends Component{
     saveAndUpdateEtudiant = (e) =>{
         e.preventDefault();
 
-        let etudiant = { nom:this.state.nom,prenom: this.state.prenom, role: this.state.role, num: this.state.num, ine: this.state.ine, dateNaissance: this.state.dateNaissance, mail: this.state.mail};
-        console.log('etudiant =>'+ JSON.stringify(etudiant));
+        let etudiant = { nom:this.state.nom,prenom: this.state.prenom, role: this.state.role, num: this.state.num, ine: this.state.ine, idFiliere: this.state.idFiliere, dateNaissance: this.state.dateNaissance, mail: this.state.mail};
 
         //création étudiant
         if(this.state.id==='-add'){
@@ -93,6 +111,10 @@ class CreateEtudiantComponent extends Component{
     }
     changerMailHandler(event){
         this.setState({mail: event.target.value});
+    }
+
+    changerIdFiliereHandler(event){
+        this.setState({idFiliere:event.target.value})
     }
     getTitle(){
         if(this.state.id==='-add'){
@@ -227,13 +249,11 @@ class CreateEtudiantComponent extends Component{
                                                         >
                                                             Filière
                                                     </label>
-                                                        <Input
-                                                            readOnly
-                                                            className="form-control-alternative"
-                                                            id="input-last-name"
-                                                            placeholder="Filière"
-                                                            type="text"
-                                                        />
+                                                            <select onChange={this.changerIdFiliereHandler} value={this.state.idFiliere} >
+                                                                {this.state.filieres.map((f) => 
+                                                                <option key={f.id} value={f.id} >{f.nom}</option>
+                                                                )}; 
+                                                            </select>
                                                     </FormGroup>
                                                 </Col>
                                             </Row>
