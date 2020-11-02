@@ -11,7 +11,8 @@ class CreateMatiereComponent extends Component {
             id: this.props.match.params.id,
             filiere: [{
                 id: '--',
-                nom: '--'
+                nom: '--',
+                anneeScolaire:''
             }],
             profs: [{
                 nom: '--',
@@ -166,7 +167,7 @@ class CreateMatiereComponent extends Component {
                                                     </label>
                                                         <Input type="select" onChange={this.changerNomFiliereHandler} value={this.state.nomFiliere}>
                                                             {this.state.filiere.map((f) =>
-                                                                  <option key={f.id} value={f.nom}> {f.nom} </option>
+                                                                  <option key={f.id} value={f.nom}> {f.nom + " "+ f.anneeScolaire} </option>
                                                               
                                                             )};
                                                     </Input>
