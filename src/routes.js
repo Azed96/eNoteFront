@@ -41,6 +41,12 @@ import ListeMatiereComponent from"views/examples/Matiere/ListeMatiereComponent";
 import CreateMatiereCompnent from"views/examples/Matiere/CreateMatiereCompnent";
 import ViewMatiereComponent from"views/examples/Matiere/ViewMatiereComponent";
 
+//:::::::::::::::::::Prod:::::::::::::::::::::
+import ListeProfComponent from"views/examples/Prof/ListeProfComponent";
+import CreateProfComponent from"views/examples/Prof/CreateProfComponent";
+import ViewProfComponent from"views/examples/Prof/ViewProfComponent";
+
+
 
 var routes = [
   {
@@ -181,6 +187,27 @@ var routes = [
     name: "Edite matiére",
     icon: "ni ni-badge text-green",
     component: ViewMatiereComponent,
+    layout: "/administrateur"
+  },
+  {
+    path: "/allProf",
+    name: "Liste des profs",
+    icon: "ni ni-bullet-list-67 text-purple",
+    component: ListeProfComponent,
+    layout: "/administrateur"
+  },
+  {
+    path: "/add-update-Prof/:id",
+    name: "créer un prof",
+    icon: "ni ni-circle-08 text-red",
+    component: CreateProfComponent,
+    layout: "/administrateur"
+  },
+  {
+    path: '/viewProf/:id',
+    name: "Edite matiére",
+    icon: "ni ni-badge text-green",
+    component: ViewProfComponent,
     layout: "/administrateur"
   }
   
