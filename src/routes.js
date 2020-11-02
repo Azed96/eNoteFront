@@ -32,14 +32,14 @@ import CreateEtudiant from"views/examples/Etudiant/CreateEtudiant.Component";
 import ViewEtudiantComponent from"views/examples/Etudiant/ViewEtudiantComponent";
 
 //:::::::::::::::::::FILIERE:::::::::::::::::::::
-import CreateFiliereComponent from"views/examples/Filiere/CreateFiliereCompnent";
 import ListeFiliereComponent from"views/examples/Filiere/ListeFiliereComponent";
+import CreateFiliereComponent from"views/examples/Filiere/CreateFiliereCompnent";
 import ViewFiliereComponent from"views/examples/Filiere/ViewFiliereComponent";
 
-
-
-
-
+//:::::::::::::::::::Matiere:::::::::::::::::::::
+import ListeMatiereComponent from"views/examples/Matiere/ListeMatiereComponent";
+import CreateMatiereCompnent from"views/examples/Matiere/CreateMatiereCompnent";
+import ViewMatiereComponent from"views/examples/Matiere/ViewMatiereComponent";
 
 
 var routes = [
@@ -161,7 +161,32 @@ var routes = [
     icon: "ni ni-badge text-green",
     component: ViewFiliereComponent,
     layout: "/administrateur"
+  },
+  {
+    path: "/allMatiere",
+    name: "Liste des matiéres",
+    icon: "ni ni-bullet-list-67 text-purple",
+    component: ListeMatiereComponent,
+    layout: "/administrateur"
+  },
+  {
+    path: "/add-update-matiere/:id",
+    name: "créer une matiere",
+    icon: "ni ni-circle-08 text-red",
+    component: CreateMatiereCompnent,
+    layout: "/administrateur"
+  },
+  {
+    path: '/ViewMatiereComponent/:id',
+    name: "Edite matiére",
+    icon: "ni ni-badge text-green",
+    component: ViewMatiereComponent,
+    layout: "/administrateur"
   }
+  
+
+
+
   
 ];
 export default routes;
