@@ -90,6 +90,19 @@ class CreateEtudiantComponent extends Component{
         this.props.history.push('/administrateur/allEtudiant');
     }
 
+    reset = () =>{
+        this.setState({
+            nom:'',
+            prenom: '',
+            role: '', 
+            num: '',
+            ine: '',
+            idFiliere: '',
+            dateNaissance: '',
+            mail: ''
+        });
+    }
+
 
     changerFirstNameHandler(event){
         this.setState({prenom: event.target.value});
@@ -249,16 +262,22 @@ class CreateEtudiantComponent extends Component{
                                                         >
                                                             Filière
                                                     </label>
-                                                            <select onChange={this.changerIdFiliereHandler} value={this.state.idFiliere} >
+                                                    <Input type="select" onChange={this.changerIdFiliereHandler} value={this.state.idFiliere} >
                                                                 {this.state.filieres.map((f) => 
                                                                 <option key={f.id} value={f.id} >{f.nom +" "+ f.anneeScolaire}</option>
                                                                 )}; 
-                                                            </select>
+                                                  </Input>
                                                     </FormGroup>
                                                 </Col>
                                             </Row>
                                         </div>
                                         <div className="text-center">
+
+                                        <Button className="my-4" color="purpel" type="button"
+                                                onClick={this.reset}
+                                            >
+                                                réinitialiser 
+                                               </Button>
                                             <Button className="my-4" color="success" type="button"
                                                 onClick={this.saveAndUpdateEtudiant}
                                             >
