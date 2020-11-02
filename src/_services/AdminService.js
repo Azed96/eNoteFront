@@ -109,14 +109,11 @@ getAllFiliere(){
 getFiliereById(idFiliere){
     return axios.get(apiFiliere+"idFiliere/"+idFiliere);
 }
+
+getNomFiliereById(idFiliere){
+    return axios.get(apiFiliere+"nameFiliere/"+idFiliere);
+}
 addFiliere(filiere){
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 
-    //         'Content-Type': 'application/json',
-    //         'Access-Control-Allow-Origin': '*'
-    //     }
-    // };
     return axios.post(apiFiliere+"addFiliere",filiere);
 }
 updateFiliere(FiliereId,filiere){
