@@ -1,5 +1,9 @@
 import React,{Component} from 'react';
 import AdminService from '../../../_services/AdminService';
+import Header from "../../../components/Headers/Header";
+import {
+    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody,Button
+} from "reactstrap";
 
 class CreateProfComponent extends Component{
     constructor(props){
@@ -100,56 +104,148 @@ class CreateProfComponent extends Component{
     }
     render(){
         return(
-            <div className="container">
-                <div className="row"> 
-                    <div className="card clo-md-6 Offset-md-3 pffset-md-3">
-                       {this.getTitle()}
-                        <div className=" card-body">
-                            <from>
-                                <div clasName="from-group">
-                                    <label>Nom:</label>
-                                    <input placeholder="First Name" name="prenom" className="form-control"
-                                    value={this.state.prenom} onChange={this.changerFirstNameHandler}/>
-                                </div>
-                                <div clasName="from-group">
-                                     <label>Last Name:</label>
-                                     <input placeholder="Last Name" name="nom" className="form-control"
-                                        value={this.state.nom} onChange={this.changerLastNameHandler}/>
-                                 </div>
-                                 <div clasName="from-group">
-                                     <label>Num:</label>
-                                     <input placeholder="Num" name="num" className="form-control"
-                                        value={this.state.num} onChange={this.changerNumHandler}/>
-                                 </div>
-                                 <div clasName="from-group">
-                                     <label>role:</label>
-                                     <input placeholder="Role" name="role" className="form-control"
-                                        value={this.state.role} onChange={this.changerRoleHandler}/>
-                                 </div>
-                                 <div clasName="from-group">
-                                     <label>ine:</label>
-                                     <input placeholder="Ine" name="ine" className="form-control"
-                                        value={this.state.ine} onChange={this.changerIneHandler}/>
-                                 </div>
-                                 <div clasName="from-group">
-                                     <label>mail:</label>
-                                     <input placeholder="Mail" name="mail" className="form-control"
-                                        value={this.state.mail} onChange={this.changerMailHandler}/>
-                                 </div>
-                                 <div clasName="from-group">
-                                    <label>Date de naissance:</label>
-                                    <input placeholder="date de Naissance" name="dateNaissance" className="form-control"
-                                        value={this.state.dateNaissance} onChange={this.changerDateNaissanceHandler}/>
-                                 </div>
-                                 <button className="btn btn-success" onClick={this.saveAndUpdateProf}>Save</button>
-                                 <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}> Cancel</button>
-                            </from>
+            <>
+                <Header />
+                <Container className="mt--7" fluid>
+                <Row>
+                        <div className="col">
+                            <Card className="bg-secondary shadow">
+                                <CardHeader className="bg-white border-0">
+                                 <h3 className="mb-0 text-center"> Création d'un enseignant </h3>
+                                </CardHeader>
+                                <CardBody>
+                                    <Form role="form">
+                                        <div className="pl-lg-4">
+                                            <Row>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-Prenom"
+                                                        >
+                                                            Prenom
+                                                   </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            placeholder="Pernom"
+                                                            type="text"
+                                                            value={this.state.nom} onChange={this.changerLastNameHandler}
+                                                            />
+
+                                                        
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-nom"
+                                                        >
+                                                            Nom
+                                                    </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            placeholder="Nom"
+                                                            type="text"
+                                                            value={this.state.prenom} onChange={this.changerFirstNameHandler}                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-INE"
+                                                        >
+                                                            INE
+                                                    </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            placeholder="INE"
+                                                            type="text"
+                                                            value={this.state.ine} onChange={this.changerIneHandler}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col lg="6">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-note DS"
+                                                        >
+                                                            Numéro de Télephone
+                                                    </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            id="input-first-name"
+                                                            placeholder="Tél"
+                                                            type="text"
+                                                            value={this.state.num} onChange={this.changerNumHandler}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="6">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-note-par"
+                                                        >
+                                                            Date de Naissance
+                                                    </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            id="input-last-name"
+                                                            placeholder="Date de Naissance"
+                                                            type="text"
+                                                            value={this.state.dateNaissance} onChange={this.changerDateNaissanceHandler}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                            </Row>
+                                            <div className="text-center">
+                                                
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-note DS"
+                                                        >
+                                                            Adresse eMail
+                                                    </label>
+                                                        <Input 
+                                                            className="form-control-alternative"
+                                                            id="input-first-name"
+                                                            placeholder="email"
+                                                            type="text"
+                                                            value={this.state.mail} onChange={this.changerMailHandler}
+                                                        />
+                                                    </FormGroup>
+                                                
+                                                    </div>
+                                            
+                                        </div>
+                                        <div className="text-center">
+                                            <Button className="my-4" color="success" type="button"
+                                               onClick={this.saveAndUpdateProf}
+                                            >
+                                                Enregistrer
+                                               </Button>
+                                               <Button className="my-4" color="danger" type="button"
+                                                onClick={this.cancel.bind(this)}
+                                            >
+                                                Liste des Enseignants
+                                               </Button>
+                                        </div>
+                                    </Form>
+                                </CardBody>
+                            </Card>
                         </div>
+                        
+                    </Row>
 
-                    </div>
-                </div>
-            </div>                        
-
+                </Container>
+                      
+            </>
         )
     }
 

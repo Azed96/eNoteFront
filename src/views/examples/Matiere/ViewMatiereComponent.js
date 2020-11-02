@@ -34,7 +34,7 @@ class ViewMatiereComponent extends Component{
                         <div className="col">
                             <Card className="bg-secondary shadow">
                                 <CardHeader className="bg-white border-0">
-                                    <h3 className="mb-0 text-center"> Création d'une matiére </h3>
+                                    <h3 className="mb-0 text-center"> Informations d'une matiére </h3>
                                 </CardHeader>
                                 <CardBody>
                                     <Form role="form">
