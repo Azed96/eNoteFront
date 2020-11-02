@@ -135,14 +135,14 @@ var routes = [
   },
   {
     path: "/add-update-Etudiant/:id",
-    name: "créer un étudiant",
+    name: "Créer un étudiant",
     icon: "ni ni-circle-08 text-red",
     component: CreateEtudiant,
     layout: "/administrateur"
   },
   {
     path: "/ViewEtudiant/:id",
-    name: "Edite étudiant",
+    name: "Consulter un étudiant",
     icon: "ni ni-badge text-green",
     component: ViewEtudiantComponent,
     layout: "/administrateur"
@@ -150,21 +150,21 @@ var routes = [
   {
     path: "/allFiliere",
     name: "Liste des filieres",
-    icon: "ni ni-bullet-list-67 text-purple",
+    icon: "ni ni-archive-2 text-yellow",
     component: ListeFiliereComponent,
     layout: "/administrateur"
   },
   {
     path: "/add-update-filiere/:id",
-    name: "créer une filiere",
-    icon: "ni ni-circle-08 text-red",
+    name: "Créer une filiere",
+    icon: "ni ni-box-2",
     component: CreateFiliereComponent,
     layout: "/administrateur"
   },
   {
     path: '/ViewFiliereComponent/:id',
-    name: "Edite étudiant",
-    icon: "ni ni-badge text-green",
+    name: "Consulter une filière",
+    icon: "ni ni-badge text-cyan",
     component: ViewFiliereComponent,
     layout: "/administrateur"
   },
