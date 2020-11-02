@@ -10,7 +10,8 @@ class CreateEtudiantComponent extends Component{
         super(props)
         this.state= {
             filieres:[ {
-                nom:'--'
+                nom:'--',
+                anneeScolaire:''
             }],
             id:this.props.match.params.id,
             nom: '',
@@ -49,7 +50,7 @@ class CreateEtudiantComponent extends Component{
         });
 
 
-        if(this.state.id==-1){
+        if(this.state.id===':id'){
             return
         }else {
             AdminService.getEtudiantById(this.state.id).then((res)=>{
@@ -74,7 +75,7 @@ class CreateEtudiantComponent extends Component{
         let etudiant = { nom:this.state.nom,prenom: this.state.prenom, role: this.state.role, num: this.state.num, ine: this.state.ine, idFiliere: this.state.idFiliere, dateNaissance: this.state.dateNaissance, mail: this.state.mail};
 
         //création étudiant
-        if(this.state.id==='-add'){
+        if(this.state.id===':id'){
             AdminService.addEtudiant(etudiant).then(res =>{
                 this.props.history.push('/administrateur/allEtudiant');
             });
@@ -130,7 +131,7 @@ class CreateEtudiantComponent extends Component{
         this.setState({idFiliere:event.target.value})
     }
     getTitle(){
-        if(this.state.id==='-add'){
+        if(this.state.id===':id'){
             return <h3 className="texte-center">Ajouter étudiant</h3>
         }else{
             return <h3 className="texte-center">Mise à jour Etudiant</h3>

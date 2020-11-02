@@ -36,7 +36,7 @@ class ListeEtudiantComponent extends React.Component {
 
 
     addEtudiant() {
-        this.props.history.push('/administrateur/add-update-Etudiant/-add');
+        this.props.history.push('/administrateur/add-update-Etudiant/:id');
     }
 
     editEtudiant(id) {
