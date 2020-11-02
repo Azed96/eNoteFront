@@ -21,7 +21,6 @@ class ListeFiliereComponent extends Component {
         AdminService.getAllFiliere().then((response) => {
             this.setState({ filieres: response });
         });
-        console.log("filieres =" + this.state.filieres);
     }
 
     addFiliere() {
@@ -69,7 +68,7 @@ class ListeFiliereComponent extends Component {
                                                 filiere =>
                                                     <tr key={filiere.id}>
                                                         <td>{filiere.nom}</td>
-                                                        <td>2020/2021</td>
+                                                        <td>{filiere.anneeScolaire}</td>
                                                         <td>
                                                             <Button
                                                                 color="info"

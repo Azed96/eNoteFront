@@ -10,20 +10,23 @@ class CreateFiliereComponent extends Component{
         super(props)
         this.state={
             id:this.props.match.params.id,
-            nom: ''
+            nom: '',
+            anneeScolaire: ''
         }
         this.changerNomFiliereHandler=this.changerNomFiliereHandler.bind(this);
+        this.changerAnneeScolaireHandler=this.changerAnneeScolaireHandler.bind(this);
     }
+
     componentDidMount(){          
                 if(this.state.id==='-addFiliere'){
                     return 
                 }else{
                     adminService.getFiliereById(this.state.id).then((res)=>{
                     let  filiere=res.data;
-                    console.log("id  filiere=?"+this.state.id);
-                    console.log(JSON.stringify(" filiere=?"+ filiere));
                     this.setState({
                          nom:  filiere.nom,
+                         anneeScolaire: filiere.anneeScolaire
+
                      })
                 })
                 }
@@ -31,13 +34,14 @@ class CreateFiliereComponent extends Component{
 
     changerNomFiliereHandler(event){
         this.setState({nom: event.target.value});
-        console.log("nom filiere="+this.state.nom);
     }
-    
+    changerAnneeScolaireHandler(event){
+        this.setState({anneeScolaire:event.target.value});
+    }
 
     saveAndUpdateProf = (e)=>{
         e.preventDefault();
-        let filiere= {nom: this.state.nom}
+        let filiere= {nom: this.state.nom, anneeScolaire: this.state.anneeScolaire}
         if(this.state.id==='-addFiliere'){
             adminService.addFiliere(filiere).then(response=>{
                 this.props.history.push('/administrateur/allFiliere');
@@ -84,7 +88,7 @@ getTitle(){
                                                             htmlFor="input-Prenom"
                                                         >
                                                             Nom de la Filiere
-                                                   </label>
+                                                        </label>
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="Nom de la filière"
@@ -98,14 +102,13 @@ getTitle(){
                                                             className="form-control-label"
                                                             htmlFor="input-nom"
                                                         >
-                                                            Année Universitaire
+                                                            Année Scolaire
                                                     </label>
                                                         <Input
-                                                            readOnly
                                                             className="form-control-alternative"
-                                                            placeholder="2020/2021"
+                                                            //placeholder="2020/2021"
                                                             type="text"
-                                                        />
+                                                            value={this.state.anneeScolaire} onChange={this.changerAnneeScolaireHandler}  />
                                                     </FormGroup>
                                                 </Col>
                                                

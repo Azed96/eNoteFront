@@ -251,7 +251,7 @@ class CreateEtudiantComponent extends Component{
                                                     </label>
                                                             <select onChange={this.changerIdFiliereHandler} value={this.state.idFiliere} >
                                                                 {this.state.filieres.map((f) => 
-                                                                <option key={f.id} value={f.id} >{f.nom}</option>
+                                                                <option key={f.id} value={f.id} >{f.nom +" "+ f.anneeScolaire}</option>
                                                                 )}; 
                                                             </select>
                                                     </FormGroup>
