@@ -1,5 +1,9 @@
 import React ,{Component} from 'react';
 import AdminService from '../../../_services/AdminService';
+import Header from "../../../components/Headers/Header";
+import {
+    Card, Container, Row, CardHeader, Table, Col, Input, FormGroup, CardBody,Button
+} from "reactstrap";
 
 class ListeMatiereComponent extends Component{
     constructor(props){
@@ -51,41 +55,73 @@ class ListeMatiereComponent extends Component{
  
     render(){
         return( 
-        <div>
-            <h1 className= "text-center" > Liste matiere</h1>
-            <div className="row">
-                <button className="btn btn-primary" onClick={this.addMatiere}>Add Matiere</button>
-            </div>
-            <table className= " table table-striped" >
-                <thead>
-                    <tr>
-                        <th>nom</th>
-                        <th>ineProf</th>
-                        <th>nomProf</th>
-                        <th>idFiliere</th>
-                        <th>nomFiliere</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        this.state.matieres.map(
-                            matiere=>
-                            <tr >
-                                <td>{matiere.nom}</td>
-                                <td>{matiere.ineProf}</td>
-                                <td>{matiere.nomProf}</td>
-                                <td>{matiere.idFiliere}</td>
-                                 <td>{matiere.nomFiliere}</td>
-                                <button onClick ={()=> this.editMatiere(matiere.id)} className="btn btn-info">Update</button>
-                                <button style={{marginLeft:"10px"}} onClick ={()=> this.deleteMatiere(matiere.id)} className="btn btn-danger">Delete</button>
-                                <button style={{marginLeft:"10px"}} onClick ={()=> this.viewMatiere(matiere.id)} className="btn btn-info">View</button>
-                            </tr>
-                        )
-                    }
-                </tbody>
-            </table>
-        </div>
+            <>
+            <Header />
+            <Container className="mt--7" fluid>
+                    <Row>
+                        <div className="col">
+                            <Card className="shadow">
+                                <CardHeader className="border-0">
+                                    <h3 className="mb-0 text-center"> Liste des Modules  </h3>
+                                </CardHeader>
+                                <Table className="align-items-center table-flush" responsive>
+                                    <thead className="thead-light">
+                                        <tr>
+                                            <th scope="col">Intitulé</th>
+                                            <th scope="col">INE de Professeur Responsable</th>
+                                            <th scope="col">Nom de Professeur Responsable</th>
+                                            <th scope="col">Filière</th>
+                                            <th scope="col">Action</th>
+                                            <th scope="col" />
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+
+                                        {
+                                           this.state.matieres.map(
+                                            (matiere,index)=>
+                                            <tr key={index}>
+                                                <td>{matiere.nom}</td>
+                                                <td>{matiere.ineProf}</td>
+                                                <td>{matiere.nomProf}</td>
+                                                 <td>{matiere.nomFiliere}</td>
+                                                        <td>
+                                                            <Button
+                                                                color="info"
+                                                                onClick ={()=> this.editMatiere(matiere.id)}
+                                                            >
+                                                                Mettre à jour
+                                                            </Button>
+                                                            <Button
+                                                                color="danger"
+                                                                onClick ={()=> this.deleteMatiere(matiere.id)}        
+                                                                >                                                    
+                                                                Supprimer
+                                                            </Button>
+                                                            <Button
+                                                                color="primary"
+                                                                onClick ={()=> this.viewMatiere(matiere.id)}                                                               >                                                    
+                                                                Consulter
+                                                            </Button>
+                                                        </td>
+
+
+                                                    </tr>
+                                            )
+                                        }
+
+                                    </tbody>
+                                </Table>
+                            </Card>
+                        </div>
+                    </Row>
+                   
+
+                </Container>
+            
+        
+        </>
         )
     }
 }

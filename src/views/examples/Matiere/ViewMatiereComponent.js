@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import AdminService from '../../../_services/AdminService';
+import Header from "../../../components/Headers/Header";
+import {
+    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody, Button
+} from "reactstrap";
 
 class ViewMatiereComponent extends Component{
     constructor(propos){
@@ -23,34 +27,97 @@ class ViewMatiereComponent extends Component{
 
     render(){
         return (
-            <div>
-            <div className="card clo-md-6 Offset-md-3">
-                    <h3 className="texte-center">View matiere</h3>
-                    <div className=" card-body">
-                        <div clasName="row">
-                            <label>nom: </label>
-                            <div>{this.state.matiere.nom}</div>
+            <>
+                <Header />
+                <Container className="mt--7" fluid>
+                    <Row>
+                        <div className="col">
+                            <Card className="bg-secondary shadow">
+                                <CardHeader className="bg-white border-0">
+                                    <h3 className="mb-0 text-center"> Création d'une matiére </h3>
+                                </CardHeader>
+                                <CardBody>
+                                    <Form role="form">
+                                        <div className="pl-lg-4">
+                                            <Row>
+                                                <Col lg="6">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-Prenom"
+                                                        >
+                                                            Intitulé de nouveau module
+                                                   </label>
+                                                        <Input
+                                                        readOnly
+                                                            className="form-control-alternative"
+                                                            placeholder="Intitulé"
+                                                            type="text"
+                                                            value={this.state.matiere.nom}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="6">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-nom"
+                                                        >
+                                                            Filière d'appartenance
+                                                    </label>
+                                                    <Input
+                                                        readOnly
+                                                            className="form-control-alternative"
+                                                            placeholder="Filiere"
+                                                            type="text"
+                                                            value={this.state.matiere.nomFiliere}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+
+                                            </Row>
+                                            
+                                            <div className="text-center">
+                                                
+                                                    
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-note DS"
+                                                        >
+                                                            INE de Professeur Responsable
+                                                    </label>
+                                                    <Input
+                                                        readOnly
+                                                            className="form-control-alternative"
+                                                            placeholder="Intitulé"
+                                                            type="text"
+                                                            value={this.state.matiere.ineProf}
+                                                        />
+                                                    
+                                                   
+                                                
+                                                </div>
+                                            
+                                           
+                                        </div>
+                                        <div className="text-center">
+                                            
+                                            <Button className="my-4" color="danger" type="button"
+                                                onClick={this.cancel.bind(this)}
+                                            >
+                                                Liste des Modules
+                                               </Button>
+                                        </div>
+                                    </Form>
+                                </CardBody>
+                            </Card>
                         </div>
-                        <div clasName="row"> 
-                            <label>idProf: </label>
-                            <div>{this.state.matiere.idProf}</div>
-                        </div>
-                        <div clasName="row">
-                            <label>ineProf: </label>
-                            <div>{this.state.matiere.ineProf}</div>
-                        </div>
-                        <div clasName="row">
-                            <label>idFiliere: </label>
-                            <div>{this.state.matiere.idFiliere}</div>
-                        </div>
-                        <div clasName="row">
-                            <label>nomFiliere: </label>
-                            <div>{this.state.matiere.nomFiliere}</div>
-                        </div>
-                        </div>
-             </div>
-                    <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}> Cancel</button>
-            </div>
+
+                    </Row>
+
+                </Container>
+           
+            </>
         );
     
     }

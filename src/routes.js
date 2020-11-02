@@ -136,7 +136,7 @@ var routes = [
   {
     path: "/add-update-Etudiant/:id",
     name: "Créer un étudiant",
-    icon: "ni ni-circle-08 text-red",
+    icon: "ni ni-ruler-pencil text-red",
     component: CreateEtudiant,
     layout: "/administrateur"
   },
@@ -171,41 +171,41 @@ var routes = [
   {
     path: "/allMatiere",
     name: "Liste des matiéres",
-    icon: "ni ni-bullet-list-67 text-purple",
+    icon: "ni ni-books text-blue",
     component: ListeMatiereComponent,
     layout: "/administrateur"
   },
   {
     path: "/add-update-matiere/:id",
-    name: "créer une matiere",
-    icon: "ni ni-circle-08 text-red",
+    name: "Créer une matiere",
+    icon: "ni ni-briefcase-24 text-aero",
     component: CreateMatiereCompnent,
     layout: "/administrateur"
   },
   {
     path: '/ViewMatiereComponent/:id',
-    name: "Edite matiére",
-    icon: "ni ni-badge text-green",
+    name: "Consulter une matiére",
+    icon: "ni ni-collection text-info",
     component: ViewMatiereComponent,
     layout: "/administrateur"
   },
   {
     path: "/allProf",
-    name: "Liste des profs",
+    name: "Liste des enseignants",
     icon: "ni ni-bullet-list-67 text-purple",
     component: ListeProfComponent,
     layout: "/administrateur"
   },
   {
     path: "/add-update-Prof/:id",
-    name: "créer un prof",
+    name: "Créer un enseignant",
     icon: "ni ni-circle-08 text-red",
     component: CreateProfComponent,
     layout: "/administrateur"
   },
   {
     path: '/viewProf/:id',
-    name: "Edite matiére",
+    name: "Consulter un enseignant",
     icon: "ni ni-badge text-green",
     component: ViewProfComponent,
     layout: "/administrateur"

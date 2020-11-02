@@ -57,6 +57,8 @@ class ListeFiliereComponent extends Component {
                                             <th scope="col">Nom</th>
                                             <th scope="col">Année Universitaire</th>
                                             <th scope="col">Action</th>
+                                            <th scope="col" />
+
                                         </tr>
 
                                     </thead>
