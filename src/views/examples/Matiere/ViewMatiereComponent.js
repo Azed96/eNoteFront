@@ -97,6 +97,87 @@ class ViewMatiereComponent extends Component{
                                                    
                                                 
                                                 </div>
+                                                <hr className="my-4" />
+
+                                            <h6 className="heading-small text-muted mb-4">
+                                                Coefficients
+                                           </h6>
+                                            <Row>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-city"
+                                                        >
+                                                            Coefficient de contrôle
+                                                              </label>
+                                                        <Input
+                                                        readOnly
+                                                            className="form-control-alternative"
+                                                            placeholder="Coef DS"
+                                                            type="number"
+                                                            value={this.state.matiere.coefDS} 
+
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-country"
+                                                        >
+                                                            Coefficient de Partiel
+                                                          </label>
+                                                        <Input
+                                                        readOnly
+                                                            className="form-control-alternative"
+                                                            placeholder="Coef Partiel"
+                                                            type="number"
+                                                            value={this.state.matiere.coefPartiel} 
+
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-country"
+                                                        >
+                                                            Coefficient de module
+                                                           </label>
+                                                        <Input
+                                                        readOnly
+                                                            className="form-control-alternative"
+                                                            placeholder="Coef Module"
+                                                            type="number"
+                                                            value={this.state.matiere.coefModule} 
+
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="4">
+                                                    <FormGroup>
+
+                                                        <Input
+                                                        readOnly
+                                                            className="form-control-alternative"
+                                                            type="checkbox"
+                                                            defaultChecked
+                                                            checked={this.state.matiere.hasDS} 
+
+                                                        />
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor=" hasDS"
+                                                        >
+                                                            <span className="text-muted">En cochant cette case vous précisez que ce module a bien un <strong>Devoir Survier (DS)</strong> </span>
+                                                        </label>
+                                                    </FormGroup>
+
+                                                </Col>
+                                            </Row>
                                             
                                            
                                         </div>
