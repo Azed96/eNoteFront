@@ -91,14 +91,17 @@ class CreateEtudiantComponent extends Component{
                     AdminService.addEtudiant(etudiant).then(res =>{
                         console.log("etudiantadd"+JSON.stringify(res.data.idFiliere));
                         MatiereService.getMatieresByidFiliere(res.data.idFiliere)
-                        .then(module =>{
+                        .then(modules =>{
                             console.log("module"+JSON.stringify(module));
+                            modules.forEach((module) =>{
                             noteData.idEtudaint = res.data.id;
                             noteData.idMatiere = module.id;
                             noteData.idProf = module.idProf;
                             noteData.hasDs = true;
-        
                             MatiereService.addNoteEtudiant(noteData);
+
+                            })
+                                    
                         });
                        // this.props.history.push('/administrateur/allEtudiant');
                     });
