@@ -97,7 +97,10 @@ class CreateEtudiantComponent extends Component{
                             noteData.idEtudaint = res.data.id;
                             noteData.idMatiere = module.id;
                             noteData.idProf = module.idProf;
-                            noteData.hasDs = true;
+                            noteData.hasDs = module.hasDs;
+                            noteData.coefPartiel = module.coefPartiel;
+                            noteData.coefDs = module.coefDs;
+
                             MatiereService.addNoteEtudiant(noteData);
 
                             })

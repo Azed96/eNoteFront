@@ -79,7 +79,11 @@ class CreateMatiereComponent extends Component {
                     ineProf: matiere.ineProf,
                     nomProf: matiere.nomProf,
                     idFiliere: matiere.idFiliere,
-                    nomFiliere: matiere.nomFiliere
+                    nomFiliere: matiere.nomFiliere,
+                    coefDS: matiere.coefDS,
+                    coefPartiel: matiere.coefPartiel,
+                    coefModule: matiere.coefModule,
+                    hasDS: matiere.hasDS
                 })
 
             })
@@ -131,7 +135,7 @@ class CreateMatiereComponent extends Component {
     }
 
     changerHASDSHandler() {
-        console.log("checkbox1 "+this.state.hasDS);
+        console.log("checkbox1 " + this.state.hasDS);
         this.setState({ hasDS: !this.state.hasDS });
     }
 
@@ -147,7 +151,7 @@ class CreateMatiereComponent extends Component {
             coefDS: this.state.coefDS,
             coefPartiel: this.state.coefPartiel,
             coefModule: this.state.coefModule,
-            hasDS:this.state.hasDS
+            hasDS: this.state.hasDS
         };
 
 
@@ -195,10 +199,10 @@ class CreateMatiereComponent extends Component {
                                 </CardHeader>
                                 <CardBody>
                                     <Form role="form">
-                                        
+
                                         <div className="pl-lg-4">
-                                        <h6 className="heading-small text-muted mb-4">
-                                            informations sur le nouveau Module
+                                            <h6 className="heading-small text-muted mb-4">
+                                                informations sur le nouveau Module
                                            </h6>
                                             <Row>
                                                 <Col lg="6">
