@@ -1,20 +1,4 @@
-/*!
 
-=========================================================
-* Argon Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -38,10 +22,10 @@ class Header extends React.Component {
                             tag="h5"
                             className="text-uppercase text-muted mb-0"
                           >
-                            Traffic
+                            Etudiant Inscrit cette année
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            350,897
+                            13
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -52,9 +36,9 @@ class Header extends React.Component {
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
                         <span className="text-success mr-2">
-                          <i className="fa fa-arrow-up" /> 3.48%
+                          <i className="fa fa-arrow-up" /> 100%
                         </span>{" "}
-                        <span className="text-nowrap">Since last month</span>
+                        <span className="text-nowrap">depuis l'année dernière</span>
                       </p>
                     </CardBody>
                   </Card>
@@ -68,10 +52,10 @@ class Header extends React.Component {
                             tag="h5"
                             className="text-uppercase text-muted mb-0"
                           >
-                            New users
+                             Enseignants
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            2,356
+                            6
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -81,10 +65,10 @@ class Header extends React.Component {
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-danger mr-2">
-                          <i className="fas fa-arrow-down" /> 3.48%
+                        <span className="text-success mr-2">
+                          <i className="fas fa-arrow-up" /> 100%
                         </span>{" "}
-                        <span className="text-nowrap">Since last week</span>
+                        <span className="text-nowrap">depuis l'année dernière</span>
                       </p>
                     </CardBody>
                   </Card>
@@ -98,9 +82,9 @@ class Header extends React.Component {
                             tag="h5"
                             className="text-uppercase text-muted mb-0"
                           >
-                            Sales
+                           Nombre de Matière
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">924</span>
+                          <span className="h2 font-weight-bold mb-0">9</span>
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -109,10 +93,10 @@ class Header extends React.Component {
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-warning mr-2">
-                          <i className="fas fa-arrow-down" /> 1.10%
+                        <span className="text-success mr-2">
+                          <i className="fas fa-arrow-up" /> 100%
                         </span>{" "}
-                        <span className="text-nowrap">Since yesterday</span>
+                        <span className="text-nowrap">depuis l'année dernière</span>
                       </p>
                     </CardBody>
                   </Card>
@@ -126,10 +110,10 @@ class Header extends React.Component {
                             tag="h5"
                             className="text-uppercase text-muted mb-0"
                           >
-                            Performance
+                            Nombre de Filière
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            49,65%
+                            5
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -140,9 +124,9 @@ class Header extends React.Component {
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
                         <span className="text-success mr-2">
-                          <i className="fas fa-arrow-up" /> 12%
+                          <i className="fas fa-arrow-up" /> 100%
                         </span>{" "}
-                        <span className="text-nowrap">Since last month</span>
+                        <span className="text-nowrap">depuis l'année dernière</span>
                       </p>
                     </CardBody>
                   </Card>
