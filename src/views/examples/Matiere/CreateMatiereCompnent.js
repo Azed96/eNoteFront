@@ -24,11 +24,21 @@ class CreateMatiereComponent extends Component {
             ineProf: '',
             nomProf: '',
             idFiliere: '',
-            nomFiliere: ''
+            nomFiliere: '',
+            coefDS: null,
+            coefPartiel: null,
+            coefModule: null,
+            hasDS: true
         }
         this.changerIdFiliereHandler = this.changerIdFiliereHandler.bind(this);
         this.changerNomMatiereHandler = this.changerNomMatiereHandler.bind(this);
         this.changerIdProfeHandler = this.changerIdProfeHandler.bind(this);
+        this.changerCoefPartielSHandler = this.changerCoefPartielSHandler.bind(this);
+        this.changerCoefModuleSHandler = this.changerCoefModuleSHandler.bind(this);
+        this.changerCoefDSHandler = this.changerCoefDSHandler.bind(this);
+        this.changerHASDSHandler = this.changerHASDSHandler.bind(this);
+
+
     }
     componentDidMount() {
         adminService.getAllFiliere().then(res => {
@@ -79,13 +89,18 @@ class CreateMatiereComponent extends Component {
 
     reset = () => {
         this.setState({
-            nom: ''
+            nom: '',
+            coefDS: null,
+            coefPartiel: null,
+            coefModule: null,
+            hasDS: false
+
         });
     }
 
     changerIdFiliereHandler(event) {
         this.setState({ idFiliere: event.target.value });
-        adminService.getFiliereById( event.target.value ).then(res => {
+        adminService.getFiliereById(event.target.value).then(res => {
             this.setState({ nomFiliere: res.data.nom })
 
         });
@@ -96,15 +111,44 @@ class CreateMatiereComponent extends Component {
 
     }
 
+    changerCoefDSHandler(event) {
+        this.setState({ coefDS: event.target.value });
+
+    }
+
+    changerCoefPartielSHandler(event) {
+        this.setState({ coefPartiel: event.target.value });
+
+    }
+
+    changerCoefModuleSHandler(event) {
+        this.setState({ coefModule: event.target.value });
+
+    }
+
     changerIdProfeHandler(event) {
         this.setState({ idProf: event.target.value });
     }
 
+    changerHASDSHandler() {
+        console.log("checkbox1 "+this.state.hasDS);
+        this.setState({ hasDS: !this.state.hasDS });
+    }
+
     saveAndUpdateProf = (e) => {
         e.preventDefault();
-      
 
-        let matiere = { nom: this.state.nom, idProf: this.state.idProf, idFiliere: this.state.idFiliere, nomFiliere: this.state.nomFiliere };
+
+        let matiere = {
+            nom: this.state.nom,
+            idProf: this.state.idProf,
+            idFiliere: this.state.idFiliere,
+            nomFiliere: this.state.nomFiliere,
+            coefDS: this.state.coefDS,
+            coefPartiel: this.state.coefPartiel,
+            coefModule: this.state.coefModule,
+            hasDS:this.state.hasDS
+        };
 
 
         console.log('elt' + matiere.nomFiliere);
@@ -151,7 +195,11 @@ class CreateMatiereComponent extends Component {
                                 </CardHeader>
                                 <CardBody>
                                     <Form role="form">
+                                        
                                         <div className="pl-lg-4">
+                                        <h6 className="heading-small text-muted mb-4">
+                                            informations sur le nouveau Module
+                                           </h6>
                                             <Row>
                                                 <Col lg="6">
                                                     <FormGroup>
@@ -203,13 +251,88 @@ class CreateMatiereComponent extends Component {
 
                                                     )};
                                                     </Input>
-
-
-
                                             </div>
+                                            <br />
+                                            <hr className="my-4" />
 
+                                            <h6 className="heading-small text-muted mb-4">
+                                                Coefficients
+                                           </h6>
+                                            <Row>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-city"
+                                                        >
+                                                            Coefficient de contrôle
+                                                              </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            placeholder="Coef DS"
+                                                            type="number"
+                                                            value={this.state.coefDS} onChange={this.changerCoefDSHandler}
 
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-country"
+                                                        >
+                                                            Coefficient de Partiel
+                                                          </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            placeholder="Coef Partiel"
+                                                            type="number"
+                                                            value={this.state.coefPartiel} onChange={this.changerCoefPartielSHandler}
+
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-country"
+                                                        >
+                                                            Coefficient de module
+                                                           </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            placeholder="Coef Module"
+                                                            type="number"
+                                                            value={this.state.coefModule} onChange={this.changerCoefModuleSHandler}
+
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="4">
+                                                    <FormGroup>
+
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            type="checkbox"
+                                                            defaultChecked
+                                                            checked={this.state.hasDS} onChange={this.changerHASDSHandler}
+
+                                                        />
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor=" hasDS"
+                                                        >
+                                                            <span className="text-muted">En cochant cette case vous précisez que ce module a bien un <strong>Devoir Survier (DS)</strong> </span>
+                                                        </label>
+                                                    </FormGroup>
+
+                                                </Col>
+                                            </Row>
                                         </div>
+
+
                                         <div className="text-center">
                                             <Button className="my-4" color="purpel" type="button"
                                                 onClick={this.reset}
