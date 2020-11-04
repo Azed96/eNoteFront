@@ -79,12 +79,12 @@ class CreateEtudiantComponent extends Component{
             idEtudaint: '',
             idMatiere:'',
             idProf: '',
-            hasDs:'',
-            noteDs:'',
-            coef: '',
-            coefDs: '',
-            coefPartiel : '',
-            notePartiel : '',
+            hasDs:true,
+            noteDs:0,
+            coef: 0,
+            coefDs: 0,
+            coefPartiel : 0,
+            notePartiel : 0,
         }
         //création étudiant
          if(this.state.id===':id'){
@@ -92,14 +92,15 @@ class CreateEtudiantComponent extends Component{
                         console.log("etudiantadd"+JSON.stringify(res.data.idFiliere));
                         MatiereService.getMatieresByidFiliere(res.data.idFiliere)
                         .then(modules =>{
-                            console.log("module"+JSON.stringify(module));
                             modules.forEach((module) =>{
+                            console.log("module  "+JSON.stringify(module));
                             noteData.idEtudaint = res.data.id;
                             noteData.idMatiere = module.id;
                             noteData.idProf = module.idProf;
-                            noteData.hasDs = module.hasDs;
+                            noteData.hasDs = module.hasDS;
                             noteData.coefPartiel = module.coefPartiel;
-                            noteData.coefDs = module.coefDs;
+                            noteData.coefDs = module.coefDS;
+                            console.log("note data "+JSON.stringify(noteData));
 
                             MatiereService.addNoteEtudiant(noteData);
 
