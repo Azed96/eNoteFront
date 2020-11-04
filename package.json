@@ -1,28 +1,22 @@
 {
-  "name": "argon-dashboard-react",
+  "name": "enote-univ-evry",
   "version": "1.1.0",
-  "description": "React version of Argon Dashboard by Creative Tim",
+  "description": "eNote Université d'Evry",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/creativetimofficial/argon-dashboard-react.git"
+    "url": "git+https://github.com/Azed96/eNoteFront.git"
   },
   "keywords": [
     "react",
-    "reactjs",
-    "argon",
-    "argon-react",
-    "dashboard",
-    "dashboard-react",
-    "argon-dashboard",
-    "argon-dashboard-react"
-  ],
-  "author": "Creative Tim",
-  "license": "MIT",
+    "reactjs"
+    ],
+  "author": "Azzeddine",
+  "license": "",
   "bugs": {
-    "url": "https://github.com/creativetimofficial/argon-dashboard-react/issues"
+    "url": "https://github.com/Azed96/eNoteFront/issues"
   },
-  "homepage": "https://demos.creative-tim.com/argon-dashboard-react/",
+  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
