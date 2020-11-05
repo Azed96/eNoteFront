@@ -27,7 +27,7 @@ class StudentNavbar extends React.Component {
     constructor(props) {
         super(props);
         this.currentUser = JSON.parse(localStorage.getItem('user'));
-        if (this.currentuser == "") {
+        if ((this.currentUser == "") || (this.currentUser == null)){
             this.props.history.push('/auth');
         }
     }
@@ -37,7 +37,7 @@ class StudentNavbar extends React.Component {
         return (
             <>
                 <Navbar className="navbar-top  navbar-dark" expand="md" id="navbar-main">
-                    <Container className="px-4" fluid>
+                    <Container className="px-4" >
                         <NavbarBrand  to="/" tag={Link} >
                             <img alt="..." height={ 100 }
                                             width={ 100 }

@@ -24,9 +24,9 @@ class AdminNavbar extends React.Component {
   constructor(props){
     super(props);
     this.currentUser = JSON.parse(localStorage.getItem('user'));
-    if(this.currentuser == ""){
-      this.props.history.push('/auth');
-    }
+        if ((this.currentUser == "") || (this.currentUser == null)){
+            this.props.history.push('/auth');
+        }
   }
   
 
