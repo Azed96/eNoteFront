@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import ServiceAuth from "_services/auth.service"
 // reactstrap components
 import {
@@ -26,10 +27,16 @@ class StudentNavbar extends React.Component {
 
     constructor(props) {
         super(props);
+        this.logout = this.logout.bind(this);
         this.currentUser = JSON.parse(localStorage.getItem('user'));
         if ((this.currentUser == "") || (this.currentUser == null)){
             this.props.history.push('/auth');
         }
+    }
+
+    logout(){
+        this.props.history.push('/auth');
+
     }
 
 
@@ -122,7 +129,7 @@ class StudentNavbar extends React.Component {
                                         <i className="ni ni-user-run" />
                                         <span onClick={() => {
                                             ServiceAuth.logout();
-                                            this.props.history.push('/auth')
+                                            this.logout();
                                         }
                                         }>Logout</span>
                                     </DropdownItem>
@@ -136,4 +143,4 @@ class StudentNavbar extends React.Component {
     }
 }
 
-export default StudentNavbar;
+export default withRouter (StudentNavbar);
