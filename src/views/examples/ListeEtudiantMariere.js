@@ -24,7 +24,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
         this.onChangeINE =this.onChangeINE.bind(this);
         this.updateNote = this.updateNote.bind(this);
 
-        if (this.currentUser == "") {
+        if (this.currentuser == "") {
             this.props.history.push('/auth');
         }
         this.state = {

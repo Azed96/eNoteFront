@@ -26,6 +26,7 @@ import LoginProf from "views/examples/LoginProf.js";
 import LoginEtudiant from "views/examples/LoginEtudiant.js";
 import MatiereEnseignant from "views/examples/MatiereEnseignant.js";
 import ListeEtudiantMariere from "views/examples/ListeEtudiantMariere";
+import EspaceEtudiant from "views/examples/EspaceEtudiant";
 //:::::::::::::::::::Etudiant:::::::::::::::::::::
 import ListeEtudiant from "views/examples/Etudiant/ListeEtudiantComponent";
 import CreateEtudiant from"views/examples/Etudiant/CreateEtudiant.Component";
@@ -96,6 +97,13 @@ var routes = [
     name: "Register",
     icon: "ni ni-circle-08 text-pink",
     component: Register,
+    layout: "/etudiant"
+  },
+  {
+    path: "/monespace",
+    name: "Espace Etudiant",
+    icon: "ni ni-circle-08 text-pink",
+    component: EspaceEtudiant,
     layout: "/etudiant"
   },
   {
