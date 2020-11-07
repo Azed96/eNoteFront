@@ -15,4 +15,4 @@
 
 ## Documentation
 
-Nous utilisons `mongodb`, `SpringBoot` pour le Back et `react` pour le Front.
+Nous utilisons `MongoDB`, `SpringBoot` pour le Back et `React` pour le Front.
