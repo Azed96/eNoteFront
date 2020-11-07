@@ -111,7 +111,7 @@ class EspaceEtudiant extends React.Component {
 
                     <Row>
                         <div >
-                            <Card className="shadow" style={{right :"330px"}}>
+                            <Card className="shadow" style={{right :"340px"}}>
                                 <CardHeader className="border-0">
                                     <h3 className="mb-0 "> <u>Année Universitaire:</u> <strong>{this.state.infoFiliere.anneeScolaire}</strong>  </h3>
                                     <h3 className="mb-0 "> <u>Filière:</u> <strong>{this.state.infoFiliere.nom}</strong>  </h3>
