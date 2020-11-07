@@ -107,7 +107,7 @@ class CreateEtudiantComponent extends Component{
                             })
                                     
                         });
-                       // this.props.history.push('/administrateur/allEtudiant');
+                        this.props.history.push('/administrateur/allEtudiant');
                     });
 
 
