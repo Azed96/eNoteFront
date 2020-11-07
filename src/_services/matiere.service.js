@@ -157,7 +157,7 @@ class MatiereService {
     return axios
            .get(`http://localhost:7400/api/note/idEtudiant/`+id,requestOptions)
            .then(response =>{
-               //console.log("resNote"+JSON.stringify(response.data));
+               console.log("resNote"+JSON.stringify(response.data));
                return response.data;
            },
            error => {
@@ -185,6 +185,17 @@ class MatiereService {
            .get(`http://localhost:7400/api/etudiant/idFiliere/`+id,requestOptions)
            .then(response =>{
                console.log("les etudiant" +JSON.stringify(response.data));
+               return response.data;
+           });
+
+   }
+
+   deleteNoteId(id){
+   
+    return axios
+           .delete(`http://localhost:7400/api/note/deleteNote/`+id)
+           .then(response =>{
+              console.log("les etudiant" +JSON.stringify(response.data));
                return response.data;
            });
 

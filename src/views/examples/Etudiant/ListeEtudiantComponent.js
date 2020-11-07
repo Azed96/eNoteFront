@@ -5,6 +5,7 @@ import {
     Card, Table, Container, Row, CardHeader,
     Button
 } from "reactstrap";
+import MatiereService from "_services/matiere.service";
 
 class ListeEtudiantComponent extends React.Component {
     constructor(props) {
@@ -44,6 +45,12 @@ class ListeEtudiantComponent extends React.Component {
     }
     deleteEtudiant(id) {
         AdminService.deleteEtudiant(id).then(res => {
+            MatiereService.getNotesByIdEtudiant(id)
+            .then( resNotes =>{
+                resNotes.forEach(note =>{
+                    MatiereService.deleteNoteId(note.id);
+                });
+            });
             this.setState({ etudiants: this.state.etudiants.filter(etudiant => etudiant.id !== id) });
         });
     }
