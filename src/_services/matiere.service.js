@@ -33,7 +33,7 @@ class MatiereService {
         }
     };
     return axios
-           .get(`http://localhost:7400/api/matiere/idMatier/`+id,requestOptions)
+           .get(`http://localhost:7400/api/matiere/idMatiere/`+id,requestOptions)
            .then(response =>{
                //console.log(response.data);
                return response.data;
@@ -157,7 +157,7 @@ class MatiereService {
     return axios
            .get(`http://localhost:7400/api/note/idEtudiant/`+id,requestOptions)
            .then(response =>{
-               console.log("resNote"+JSON.stringify(response.data));
+               //console.log("resNote"+JSON.stringify(response.data));
                return response.data;
            },
            error => {

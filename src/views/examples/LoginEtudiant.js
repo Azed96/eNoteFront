@@ -58,7 +58,7 @@ class LoginEtudiant extends React.Component {
         (response) => {
             if (response !== ""){
               console.log("isConnected");
-              this.props.history.push("/etudiant/register");
+              this.props.history.push("/etudiant");
               window.location.reload();
             }else{
                 

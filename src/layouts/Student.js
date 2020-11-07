@@ -11,6 +11,8 @@ import AuthFooter from "components/Footers/AuthFooter.js";
 import routes from "routes.js";
 
 class Auth extends React.Component {
+
+
   componentDidMount() {
     document.body.classList.add("bg-default");
   }
@@ -44,7 +46,7 @@ class Auth extends React.Component {
                   <Col lg="5" md="6">
                     <h1 className="text-white">Bienvenue dans votre Espace Etudiant !</h1>
                     <p className="text-lead text-light">
-                      Voici vos notes obtenus lors de l'année universitaire 2019/2020
+                      Voici vos notes obtenus
                     </p>
                   </Col>
                 </Row>
@@ -67,11 +69,11 @@ class Auth extends React.Component {
             </div>
           </div>
           {/* Page content */}
-          <Container className="mt--8 pb-5">
+          <Container className="mt--8 pb-5" >
             <Row className="justify-content-center">
               <Switch>
                 {this.getRoutes(routes)}
-                <Redirect from="*" to="/etudiant/register" />
+                <Redirect from="*" to="/etudiant/monespace" />
               </Switch>
             </Row>
           </Container>
