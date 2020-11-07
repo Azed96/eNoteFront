@@ -98,15 +98,15 @@ class EspaceEtudiant extends React.Component {
                 <Container className="mt--7" fluid>
 
                     <Row>
-                        <div className="col">
-                            <Card className="shadow">
+                        <div >
+                            <Card className="shadow" style={{right :"300px"}}>
                                 <CardHeader className="border-0">
-                                    <h3 className="mb-0 "> Année Universitaire: <strong>{this.state.infoFiliere.anneeScolaire}</strong>  </h3>
-                                    <h3 className="mb-0 "> Filière: <strong>{this.state.infoFiliere.nom}</strong>  </h3>
-                                    <h3 className="mb-0 "> INE étudiant: <strong>{this.currentuser.ine}</strong>  </h3>
+                                    <h3 className="mb-0 "> <u>Année Universitaire:</u> <strong>{this.state.infoFiliere.anneeScolaire}</strong>  </h3>
+                                    <h3 className="mb-0 "> <u>Filière:</u> <strong>{this.state.infoFiliere.nom}</strong>  </h3>
+                                    <h3 className="mb-0 "> <u>INE étudiant:</u> <strong>{this.currentuser.ine}</strong>  </h3>
 
                                 </CardHeader>
-                                <Table className="align-items-center " responsive>
+                                <Table className="align-items-center table-flush " responsive>
                                     <thead className="thead-light">
                                         <tr>
                                             <th scope="col">Module</th>
@@ -148,6 +148,11 @@ class EspaceEtudiant extends React.Component {
                                                     </tr>
                                             )
                                         }
+                                                    <tr>
+                                                        <td><strong>Moyenne</strong></td>
+                                                        <td colspan="8"></td> 
+                                                        <td>TODO</td>
+                                                    </tr>
                                     </tbody>
                                 </Table>
                             </Card>
