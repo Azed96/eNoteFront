@@ -149,9 +149,10 @@ class EspaceEtudiant extends React.Component {
                                             )
                                         }
                                                     <tr>
-                                                        <td><strong>Moyenne</strong></td>
-                                                        <td colspan="8"></td> 
-                                                        <td>TODO</td>
+                                                        <td className="table-info" ><strong>Moyenne Annuelle</strong></td>
+                                                        <td className="table-info" colspan="8"></td> 
+                                                        <td className="table-info">TODO</td>
+                                                        <td className="table-info"/>
                                                     </tr>
                                     </tbody>
                                 </Table>

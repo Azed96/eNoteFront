@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import adminService from '../../../_services/AdminService';
+import MatiereService from '../../../_services/matiere.service';
 import Header from "../../../components/Headers/Header";
 import {
     Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody, Button
@@ -154,6 +155,18 @@ class CreateMatiereComponent extends Component {
             hasDS: this.state.hasDS
         };
 
+        let noteData ={
+            idEtudaint: '',
+            idMatiere:'',
+            idProf: '',
+            hasDs:true,
+            noteDs:0,
+            coef: 0,
+            coefDs: 0,
+            coefPartiel : 0,
+            notePartiel : 0,
+        }
+
 
         console.log('elt' + matiere.nomFiliere);
 
@@ -161,6 +174,20 @@ class CreateMatiereComponent extends Component {
         if (this.state.id === ':id') {
 
             adminService.addMatiere(matiere).then(response => {
+                MatiereService.getEtudiantsByidFiliere(matiere.idFiliere).then(
+                    etuds =>{
+                        etuds.forEach(element => {
+                        noteData.idEtudaint = element.id;
+                        noteData.idMatiere = response.data.id;
+                        noteData.idProf = matiere.idProf;
+                        noteData.hasDs = matiere.hasDS;
+                        noteData.coefPartiel = matiere.coefPartiel;
+                        noteData.coef = matiere.coefModule;
+                        noteData.coefDs = matiere.coefDS;
+                        MatiereService.addNoteEtudiant(noteData);
+                        });
+                    }
+                )
                 this.props.history.push('/administrateur/allMatiere');
             })
         } else {

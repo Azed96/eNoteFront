@@ -130,7 +130,7 @@ class MatiereService {
     return axios
            .post(`http://localhost:7400/api/note/addNote`, noteData)
            .then(response =>{
-              console.log("resNote"+JSON.stringify(response.data));
+              console.log("responseNote"+JSON.stringify(response.data));
                return response.data;
            },
            error => {
@@ -170,6 +170,23 @@ class MatiereService {
               console.log("erreur"+resMessage);
 
           })
+
+   }
+
+   getEtudiantsByidFiliere(id){
+    const requestOptions = {
+        method: 'GET',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    };
+    return axios
+           .get(`http://localhost:7400/api/etudiant/idFiliere/`+id,requestOptions)
+           .then(response =>{
+               console.log("les etudiant" +JSON.stringify(response.data));
+               return response.data;
+           });
 
    }
 
