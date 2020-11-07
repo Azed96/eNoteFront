@@ -1,4 +1,4 @@
-# Projet DLL
+# Projet DLL (eNote FrontEnd)
 
 <p align="center">
   <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Universite_Evry.png" />
