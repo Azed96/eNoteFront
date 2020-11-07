@@ -29,6 +29,7 @@ class EspaceEtudiant extends React.Component {
             sommeCoefs:0
 
         };
+        this.ds=this.ds.bind(this);
     }
 
     componentDidMount() {
@@ -43,6 +44,13 @@ class EspaceEtudiant extends React.Component {
 
     }
 
+    ds(e){
+        if(e===true){
+            return 'Oui';
+        }else {
+            return 'Non';
+        }
+    }
 
     getNotes() {
         /* let noteData ={
@@ -80,7 +88,7 @@ class EspaceEtudiant extends React.Component {
                                     listeNotes,sommeCoefs,sommeMoyennes
                                 };
                             });
-                            console.log("note" + JSON.stringify(note));
+                         //   console.log("note" + JSON.stringify(note));
 
                         })
 
@@ -103,7 +111,7 @@ class EspaceEtudiant extends React.Component {
 
                     <Row>
                         <div >
-                            <Card className="shadow" style={{right :"300px"}}>
+                            <Card className="shadow" style={{right :"330px"}}>
                                 <CardHeader className="border-0">
                                     <h3 className="mb-0 "> <u>Année Universitaire:</u> <strong>{this.state.infoFiliere.anneeScolaire}</strong>  </h3>
                                     <h3 className="mb-0 "> <u>Filière:</u> <strong>{this.state.infoFiliere.nom}</strong>  </h3>
@@ -134,12 +142,8 @@ class EspaceEtudiant extends React.Component {
                                                     <tr key={note.id}>
                                                         <td>{note.nomMatiere}</td>
                                                         <td>{note.nomProf}{" "}{note.prenomProf}</td>
-                                                        <td><Input
-                                                            readOnly
-                                                            className="form-control-alternative"
-                                                            type="checkbox"
-                                                            checked={note.hasDs} 
-                                                        /></td>
+                                                        <td>{ this.ds(note.hasDs)} 
+                                                       </td>
                                                         <td>{note.noteDs}</td>
                                                         <td>{note.coefDs}</td>
                                                         <td>{note.notePartiel}</td>

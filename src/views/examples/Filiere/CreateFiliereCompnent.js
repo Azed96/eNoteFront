@@ -49,7 +49,7 @@ class CreateFiliereComponent extends Component{
         e.preventDefault();
         let filiere= {nom: this.state.nom, anneeScolaire: this.state.anneeScolaire}
         if(this.state.id===':id'){
-            console.log("id dans  if "+ this.state.id);
+           // console.log("id dans  if "+ this.state.id);
             adminService.addFiliere(filiere).then(response=>{
                 this.props.history.push('/administrateur/allFiliere');
             })

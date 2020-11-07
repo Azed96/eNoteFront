@@ -184,7 +184,7 @@ class MatiereService {
     return axios
            .get(`http://localhost:7400/api/etudiant/idFiliere/`+id,requestOptions)
            .then(response =>{
-               console.log("les etudiant" +JSON.stringify(response.data));
+             //  console.log("les etudiant" +JSON.stringify(response.data));
                return response.data;
            });
 
@@ -195,7 +195,7 @@ class MatiereService {
     return axios
            .delete(`http://localhost:7400/api/note/deleteNote/`+id)
            .then(response =>{
-              console.log("les etudiant" +JSON.stringify(response.data));
+             // console.log("les etudiant" +JSON.stringify(response.data));
                return response.data;
            });
 
