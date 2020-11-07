@@ -24,7 +24,9 @@ class EspaceEtudiant extends React.Component {
 
         this.state = {
             listeNotes: [],
-            infoFiliere: {}
+            infoFiliere: {},
+            sommeMoyennes:0,
+            sommeCoefs:0
 
         };
     }
@@ -71,9 +73,11 @@ class EspaceEtudiant extends React.Component {
                             note.coef = resMatiere.coefModule;
                             this.setState(state => {
                                 const listeNotes = [...state.listeNotes, note];
+                                const sommeCoefs = state.sommeCoefs + note.coef;
+                                const sommeMoyennes = state.sommeMoyennes + (note.moyenne * note.coef);
 
                                 return {
-                                    listeNotes,
+                                    listeNotes,sommeCoefs,sommeMoyennes
                                 };
                             });
                             console.log("note" + JSON.stringify(note));
@@ -142,7 +146,7 @@ class EspaceEtudiant extends React.Component {
                                                         <td>{note.coefPartiel}</td>
                                                         <td>{note.moyenne.toFixed(2)}</td>
                                                         <td>{note.coef}</td>
-                                                        <td>{note.moyenne.toFixed(2) * note.coef.toFixed(2) }</td>
+                                                        <td>{(note.moyenne * note.coef).toFixed(2) }</td>
 
 
                                                     </tr>
@@ -151,7 +155,7 @@ class EspaceEtudiant extends React.Component {
                                                     <tr>
                                                         <td className="table-info" ><strong>Moyenne Annuelle</strong></td>
                                                         <td className="table-info" colspan="8"></td> 
-                                                        <td className="table-info">TODO</td>
+                                                        <td className="table-info">{(this.state.sommeMoyennes / this.state.sommeCoefs).toFixed(2) }</td>
                                                         <td className="table-info"/>
                                                     </tr>
                                     </tbody>
