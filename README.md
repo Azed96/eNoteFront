@@ -1,7 +1,7 @@
 # Projet DLL (eNote FrontEnd)
 
 <p align="center">
-  <img src="src\assets\img\theme\info.png" />
+  <img src="src\assets\img\theme\info.PNG" />
 </p>
 
 * Professeur : Didier Courtaud
