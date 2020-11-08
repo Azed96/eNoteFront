@@ -7,3 +7,6 @@
 * Professeur : Didier Courtaud
 * Projet : eNote
 
+## Documentation
+
+Nous utilisons `MongoDB`, `SpringBoot` pour le Back et `ReactJS` pour le Front.
