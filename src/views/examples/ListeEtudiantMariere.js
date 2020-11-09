@@ -4,7 +4,7 @@ import AuthService from "../../_services/auth.service";
 import MatiereService from "../../_services/matiere.service"
 import {
     Card, Table, Container, Row, CardHeader, Form,
-    Button, Col, Input, FormGroup, CardBody
+    Button, Col, Input, FormGroup, CardBody, ModalBody, Modal, ModalHeader, ModalFooter
 } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
@@ -17,12 +17,14 @@ class ListeEtudiantByIdMatiere extends React.Component {
         super(props);
         this.currentuser = AuthService.getCurrentUser();
         this.getListeEtudiantMat = this.getListeEtudiantMat.bind(this);
-        this.onChangePartiel= this.onChangePartiel.bind(this);
+        this.onChangePartiel = this.onChangePartiel.bind(this);
         this.onChangeNoteDS = this.onChangeNoteDS.bind(this);
-        this.onChangePernom= this.onChangePernom.bind(this);
+        this.onChangePernom = this.onChangePernom.bind(this);
         this.onChangeNom = this.onChangeNom.bind(this);
-        this.onChangeINE =this.onChangeINE.bind(this);
+        this.onChangeINE = this.onChangeINE.bind(this);
         this.updateNote = this.updateNote.bind(this);
+        this.toggle = this.toggle.bind(this);
+
 
         if (this.currentuser == "") {
             this.props.history.push('/auth');
@@ -35,11 +37,13 @@ class ListeEtudiantByIdMatiere extends React.Component {
             listeInfoEtudiant: [],
             tmpNomEtudiant: '',
             tmpPrenomEtudiant: '',
-            tmpINE:'',
+            tmpINE: '',
             tmpIdNote: '',
             tmpNoteDS: '',
             tmpNotePartiel: '',
-            pos:undefined
+            pos: undefined,
+            modal: false
+
 
         };
 
@@ -87,61 +91,68 @@ class ListeEtudiantByIdMatiere extends React.Component {
 
     onChangeNoteDS(e) {
         this.setState({
-          tmpNoteDS: e.target.value
+            tmpNoteDS: e.target.value
         });
 
-      }
+    }
 
     onChangePartiel(e) {
         this.setState({
             tmpNotePartiel: e.target.value
         });
 
-      }
+    }
 
-      onChangeNom(e) {
+    onChangeNom(e) {
         this.setState({
-          tmpNomEtudiant: e.target.value
+            tmpNomEtudiant: e.target.value
         });
 
-      }
+    }
 
-      onChangePernom(e) {
+    onChangePernom(e) {
         this.setState({
-          tmpPrenomEtudiant: e.target.value
+            tmpPrenomEtudiant: e.target.value
         });
-      }
+    }
 
-      onChangeINE(e) {
+    onChangeINE(e) {
         this.setState({
-          tmpINE: e.target.value
+            tmpINE: e.target.value
         });
-      }
+    }
 
-      updateNote(){
-          let noteData ={
-              id : this.state.listeEtudiantbyMatiereID[this.state.pos].id,
-              idEtudaint: this.state.listeEtudiantbyMatiereID[this.state.pos].idEtudaint,
-              idMatiere: this.state.listeEtudiantbyMatiereID[this.state.pos].idMatiere,
-              idProf: this.state.listeEtudiantbyMatiereID[this.state.pos].idProf,
-              hasDs:this.state.listeEtudiantbyMatiereID[this.state.pos].hasDs,
-              noteDs:this.state.tmpNoteDS,
-              coef: this.state.listeEtudiantbyMatiereID[this.state.pos].coef,
-              coefDs: this.state.listeEtudiantbyMatiereID[this.state.pos].coefDs,
-              coefPartiel : this.state.listeEtudiantbyMatiereID[this.state.pos].coefPartiel,
-              notePartiel : this.state.tmpNotePartiel,
-              moyenne : this.state.listeEtudiantbyMatiereID[this.state.pos].moyenne
-          }
-          let idnote = this.state.listeEtudiantbyMatiereID[this.state.pos].id;
-         
-
-        matiereService.UpdateNoteEtudiant(idnote,noteData)
-        .then(res =>{
-            console.log(res.idMatiere);
-            window.location.reload(false);
-           // this.history.push(`/admin/etudiant-matiere/${res.idMatiere}`);
+    toggle() {
+        this.setState({
+            modal: !this.state.modal
         });
-      }
+    }
+
+
+    updateNote() {
+        let noteData = {
+            id: this.state.listeEtudiantbyMatiereID[this.state.pos].id,
+            idEtudaint: this.state.listeEtudiantbyMatiereID[this.state.pos].idEtudaint,
+            idMatiere: this.state.listeEtudiantbyMatiereID[this.state.pos].idMatiere,
+            idProf: this.state.listeEtudiantbyMatiereID[this.state.pos].idProf,
+            hasDs: this.state.listeEtudiantbyMatiereID[this.state.pos].hasDs,
+            noteDs: this.state.tmpNoteDS,
+            coef: this.state.listeEtudiantbyMatiereID[this.state.pos].coef,
+            coefDs: this.state.listeEtudiantbyMatiereID[this.state.pos].coefDs,
+            coefPartiel: this.state.listeEtudiantbyMatiereID[this.state.pos].coefPartiel,
+            notePartiel: this.state.tmpNotePartiel,
+            moyenne: this.state.listeEtudiantbyMatiereID[this.state.pos].moyenne
+        }
+        let idnote = this.state.listeEtudiantbyMatiereID[this.state.pos].id;
+
+
+        matiereService.UpdateNoteEtudiant(idnote, noteData)
+            .then(res => {
+                console.log(res.idMatiere);
+                window.location.reload(false);
+                // this.history.push(`/admin/etudiant-matiere/${res.idMatiere}`);
+            });
+    }
 
     render() {
 
@@ -150,11 +161,124 @@ class ListeEtudiantByIdMatiere extends React.Component {
                 <Header />
                 {/* Page content */}
                 <Container className="mt--7" fluid>
+                        <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" style={{maxWidth: '1600px', width: '60%',margin: '310px auto'}}>
+                            <ModalHeader  toggle={this.toggle} cssModule={{'modal-title': 'w-100 text-center'}}> <h3>Mettre à jour une note d'un étudiant pour le  module <strong> {this.state.infoMatiere.nom}</strong></h3></ModalHeader>
+                            <ModalBody>
+                            <Form role="form">
+                                        <div className="pl-lg-4">
+                                            <Row>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-Prenom"
+                                                        >
+                                                            Prenom
+                                                   </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            readOnly
+                                                            value={this.state.tmpPrenomEtudiant}
+                                                            placeholder="Pernom"
+                                                            type="text"
+                                                            onChange={this.onChangePernom}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-nom"
+                                                        >
+                                                            Nom
+                                                    </label>
+                                                        <Input
+                                                            readOnly
+                                                            className="form-control-alternative"
+                                                            value={this.state.tmpNomEtudiant}
+                                                            placeholder="Nom"
+                                                            type="text"
+                                                            onChange={this.onChangeNom}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-INE"
+                                                        >
+                                                            INE
+                                                    </label>
+                                                        <Input
+                                                            readOnly
+                                                            className="form-control-alternative"
+                                                            value={this.state.tmpINE}
+                                                            placeholder="INE"
+                                                            type="text"
+                                                            onChange={this.onChangeINE}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col lg="6">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-note DS"
+                                                        >
+                                                            Note de Controle (DS)
+                                                    </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            value={this.state.tmpNoteDS}
+                                                            id="input-first-name"
+                                                            placeholder="DS"
+                                                            type="number"
+                                                            onChange={this.onChangeNoteDS}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="6">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-note-par"
+                                                        >
+                                                            Note de Partiel
+                                                    </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            value={this.state.tmpNotePartiel}
+                                                            id="input-last-name"
+                                                            placeholder="examen"
+                                                            type="number"
+                                                            onChange={this.onChangePartiel}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                           
+                                    </Form>                         
+                                     </ModalBody>
+                            <ModalFooter>
+                                <Button className="my-4 " color="primary" type="button"
+                                                onClick={this.updateNote}
+                                            >
+                                                Enregistrer les modifications
+                                </Button>{' '}
+                                <Button color='danger' onClick={this.toggle}>Quitter</Button>
+                            </ModalFooter>
+                        </Modal>
+                    
                     <Row>
                         <div className="col">
-                            <Card className="bg-secondary shadow">
+                          {/*  <Card className="bg-secondary shadow">
                                 <CardHeader className="bg-white border-0">
-                                 <h3 className="mb-0 text-center"> Mettre à jour une note d'un étudiant pour le  module <strong> {this.state.infoMatiere.nom}</strong> </h3>
+                                    <h3 className="mb-0 text-center"> Mettre à jour une note d'un étudiant pour le  module <strong> {this.state.infoMatiere.nom}</strong> </h3>
                                 </CardHeader>
                                 <CardBody>
                                     <Form role="form">
@@ -263,7 +387,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
                                         </div>
                                     </Form>
                                 </CardBody>
-                            </Card>
+                            </Card> */}
                         </div>
                     </Row>
                     <br />
@@ -273,7 +397,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
                                 <CardHeader className="border-0">
                                     <h3 className="mb-0 text-center"> Liste des étudiants de module <strong> {this.state.infoMatiere.nom}</strong> de la filiere <strong>{this.state.infoMatiere.nomFiliere}</strong> </h3>
                                 </CardHeader>
-                                <Table className="align-items-center table-flush" responsive>
+                                <Table className="align-items-center table-flush" responsive >
                                     <thead className="thead-light">
                                         <tr>
                                             <th scope="col">INE</th>
@@ -304,21 +428,23 @@ class ListeEtudiantByIdMatiere extends React.Component {
                                                         <td scope="col">{note.coefPartiel}</td>
                                                         <td scope="col">{note.moyenne.toFixed(2)}</td>
                                                         <td className="text-right">
-                                                            <Button
-                                                                color="info"
-                                                                onClick={
-                                                                    () => this.setState({
+                                                          
+                                                            <Button color='info' 
+                                                                    onClick={
+                                                                        () => this.setState({
                                                                         tmpINE: note.ine,
                                                                         tmpNomEtudiant: note.nom,
                                                                         tmpPrenomEtudiant: note.prenom,
-                                                                        tmpNoteDS :note.noteDs,
+                                                                        tmpNoteDS: note.noteDs,
                                                                         tmpNotePartiel: note.notePartiel,
-                                                                        pos: index
+                                                                        pos: index,
+                                                                        modal: !this.state.modal
                                                                     })
+                                                                    
+                                                                    
                                                                 }
                                                             >
-                                                                Mettre à jour
-                                                            </Button>
+                                                                Mettre à jour</Button>
 
                                                         </td>
 
