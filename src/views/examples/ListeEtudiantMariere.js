@@ -128,6 +128,14 @@ class ListeEtudiantByIdMatiere extends React.Component {
         });
     }
 
+    ds(e){
+        if(e===true){
+            return 'Ce Module a un DS';
+        }else {
+            return 'Pas de DS pour ce Module';
+        }
+    }
+
 
     updateNote() {
         let noteData = {
@@ -396,6 +404,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
                             <Card className="shadow">
                                 <CardHeader className="border-0">
                                     <h3 className="mb-0 text-center"> Liste des étudiants de module <strong> {this.state.infoMatiere.nom}</strong> de la filiere <strong>{this.state.infoMatiere.nomFiliere}</strong> </h3>
+                                    <h3 className="mb-0 text-center"> { this.ds(this.state.infoMatiere.hasDS)} </h3>
                                 </CardHeader>
                                 <Table className="align-items-center table-flush" responsive >
                                     <thead className="thead-light">
