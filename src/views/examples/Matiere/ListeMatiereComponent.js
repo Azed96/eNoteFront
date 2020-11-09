@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AdminService from '../../../_services/AdminService';
 import Header from "../../../components/Headers/Header";
+import MatiereService from "_services/matiere.service";
 import {
     Card, Container, Row, CardHeader, Table, Col, Input, FormGroup, CardBody, Button, ModalBody, Modal, ModalHeader
 } from "reactstrap";
@@ -57,7 +58,13 @@ class ListeMatiereComponent extends Component {
                 pos: undefined,
                 modal: !this.state.modal
             });
-        })
+        });
+        MatiereService.getNotesByIdMatiere(id)
+            .then(resNotes => {
+                resNotes.forEach(note => {
+                    MatiereService.deleteNoteId(note.id);
+                });
+            });
     }
     toggle() {
         this.setState({

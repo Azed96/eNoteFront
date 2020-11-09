@@ -355,7 +355,7 @@ class CreateMatiereComponent extends Component {
                                                             className="form-control-label"
                                                             htmlFor=" hasDS"
                                                         >
-                                                            <span className="text-muted">En cochant cette case vous précisez que ce module a bien un <strong>Devoir Survier (DS)</strong> </span>
+                                                            <span className="text-muted">En cochant cette case vous précisez que ce module a bien un <strong>Devoir surveillé (DS)</strong> </span>
                                                         </label>
                                                     </FormGroup>
 

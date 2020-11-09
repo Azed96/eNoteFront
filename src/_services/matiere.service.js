@@ -201,6 +201,33 @@ class MatiereService {
 
    }
 
+   getNotesByIdMatiere(id){
+    const requestOptions = {
+        method: 'GET',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }    
+    };
+    return axios
+           .get(`http://localhost:7400/api/note/matiereId/`+id,requestOptions)
+           .then(response =>{
+               console.log("resNote"+JSON.stringify(response.data));
+               return response.data;
+           },
+           error => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+              console.log("erreur"+resMessage);
+
+          })
+
+   }
+
 
 }
 export default new MatiereService();
