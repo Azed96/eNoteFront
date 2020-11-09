@@ -18,8 +18,8 @@ class EspaceEtudiant extends React.Component {
         this.currentuser = AuthService.getCurrentUser();
         this.getNotes = this.getNotes.bind(this);
 
-        if (this.currentuser == "") {
-            this.props.history.push('/auth');
+        if ((this.currentuser == "") || (this.currentuser == null)){
+            this.props.history.push('/auth/login');
         }
 
         this.state = {
@@ -103,6 +103,7 @@ class EspaceEtudiant extends React.Component {
 
 
     render() {
+        
 
         return (
             <>

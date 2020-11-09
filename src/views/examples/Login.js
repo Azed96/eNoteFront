@@ -25,7 +25,7 @@ const required = value => {
       </div>
     );
   }
-};
+}
 
 class Login extends React.Component {
 
@@ -38,7 +38,8 @@ class Login extends React.Component {
     this.state = {
         ine: "",
         date: "",
-        message: ""
+        message: "",
+        loading: false
     };
 }
 
@@ -59,12 +60,12 @@ class Login extends React.Component {
         (response) => {
           if (response !== ""){
             console.log("isConnected");
-            this.props.history.push("/administrateur/icons");
+            this.props.history.push("/administrateur/allEtudiant");
             window.location.reload();
           }else{
               
             this.setState({
-                message: 'Vueillez réessayer SVP'
+                message: 'Identifiant ou Mot de passe erroné'
               });
           }
       },
@@ -77,7 +78,7 @@ class Login extends React.Component {
               error.toString();
   
             this.setState({
-              message: resMessage
+              message: 'Identifiant ou Mot de passe erroné'
             });
           }
       )

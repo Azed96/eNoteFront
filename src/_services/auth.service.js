@@ -1,5 +1,9 @@
 //import { BehaviorSubject } from 'rxjs';
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
+import React from "react";
+
+
 
 //const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
 
@@ -69,7 +73,13 @@ class AuthService {
     }
 
  getCurrentUser() {
+       let currentuser = JSON.parse(localStorage.getItem('user'));
+       if ((currentuser == "") || (currentuser == null)){
+        return <Redirect to="/auth" />
+        }else{
         return JSON.parse(localStorage.getItem('user'));
+        }
+       
       }
 
  getInfoEtudiantById(id){

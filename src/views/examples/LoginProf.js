@@ -82,7 +82,7 @@ class LoginProf extends React.Component {
                   }else{
                       
                     this.setState({
-                        message: 'Vueillez réessayer SVP'
+                        message: 'Identifiant ou Mot de passe erroné'
                       });
                   }
               },
@@ -95,7 +95,7 @@ class LoginProf extends React.Component {
                   error.toString();
       
                 this.setState({
-                  message: resMessage
+                  message: 'Identifiant ou Mot de passe erroné'
                 });
               }
           )

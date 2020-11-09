@@ -63,7 +63,7 @@ class LoginEtudiant extends React.Component {
             }else{
                 
               this.setState({
-                  message: 'Vueillez réessayer SVP'
+                  message: 'INE ou Mot de passe erroné'
                 });
             }
         },
@@ -76,7 +76,7 @@ class LoginEtudiant extends React.Component {
               error.toString();
   
             this.setState({
-              message: resMessage
+              message: 'INE ou Mot de passe erroné'
             });
           }
       )
