@@ -10,13 +10,12 @@
   "keywords": [
     "react",
     "reactjs"
-    ],
+  ],
   "author": "Azzeddine",
   "license": "",
   "bugs": {
     "url": "https://github.com/Azed96/eNoteFront/issues"
   },
-  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -38,6 +37,9 @@
   ],
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.12.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.12",
     "axios": "^0.20.0",
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
