@@ -50,7 +50,7 @@ class ListeProfComponent extends React.Component{
     }
 
     viewProf(id){
-        this.props.history.push(`/setting/ViewProf/${id}`);
+        this.props.history.push(`/administrateur/ViewProf/${id}`);
     }
 
      //jsx de js 
