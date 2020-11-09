@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AdminService from '../../../_services/AdminService';
 import Header from "../../../components/Headers/Header";
 import {
-    Card, Table, Container, Row, CardHeader,
+    Card, Table, Container, Row, CardHeader,ModalBody, Modal, ModalHeader,
     Button
 } from "reactstrap";
 
@@ -10,11 +10,15 @@ class ListeFiliereComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            filieres: []
+            filieres: [],
+            modal: false,
+            pos: undefined
         }
         this.addFiliere = this.addFiliere.bind(this);
         this.editFiliere = this.editFiliere.bind(this);
         this.deleteFiliere = this.deleteFiliere.bind(this);
+        this.toggle = this.toggle.bind(this);
+
     }
 
     componentDidMount() {
@@ -35,8 +39,17 @@ class ListeFiliereComponent extends Component {
 
     deleteFiliere(id) {
         AdminService.deleteFiliere(id).then(reponse => {
-            this.setState({ filieres: this.state.filieres.filter(filiere => filiere.id != id) });
+            this.setState({
+                filieres: this.state.filieres.filter(filiere => filiere.id != id),
+                pos: undefined,
+                modal: !this.state.modal
+            });
         })
+    }
+    toggle() {
+        this.setState({
+            modal: !this.state.modal
+        });
     }
 
     render() {
@@ -44,6 +57,18 @@ class ListeFiliereComponent extends Component {
             <>
                 <Header />
                 <Container className="mt--7" fluid>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} >
+                        <ModalHeader toggle={this.toggle} cssModule={{ 'modal-title': 'w-100 text-center' }}> <h3>Êtes vous sûr de supprimer cette filière ?</h3></ModalHeader>
+                        <ModalBody cssModule={{ 'modal-body': 'w-100 text-center' }}>
+                            <Button className="my-4 " color="danger" type="button"
+                                onClick={() => this.deleteFiliere(this.state.filieres[this.state.pos].id)}
+                            >
+                                Oui
+                               </Button>
+                            <Button color='info' onClick={this.toggle}>Non</Button>
+                        </ModalBody>
+
+                    </Modal>
                     <Row>
                         <div className="col">
                             <Card className="shadow">
@@ -65,7 +90,7 @@ class ListeFiliereComponent extends Component {
 
                                         {
                                             this.state.filieres.map(
-                                                filiere =>
+                                                (filiere, index) =>
                                                     <tr key={filiere.id}>
                                                         <td>{filiere.nom}</td>
                                                         <td>{filiere.anneeScolaire}</td>
@@ -79,7 +104,10 @@ class ListeFiliereComponent extends Component {
                                                             </Button>
                                                             <Button
                                                                 color="danger"
-                                                                onClick={() => this.deleteFiliere(filiere.id)}
+                                                                onClick={() => this.setState({
+                                                                    pos: index,
+                                                                    modal: !this.state.modal
+                                                                })}
                                                             >
                                                                 Supprimer
                                                             </Button>
@@ -100,7 +128,7 @@ class ListeFiliereComponent extends Component {
                             </Card>
                         </div>
                     </Row>
-                   
+
                 </Container>
 
             </>

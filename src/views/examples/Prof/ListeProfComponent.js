@@ -3,19 +3,22 @@ import AdminService from '../../../_services/AdminService';
 import Header from "../../../components/Headers/Header";
 import {
     Card, Table, Container, Row, CardHeader,
-    Button
+    Button, ModalBody, Modal, ModalHeader
 } from "reactstrap"; 
 
 class ListeProfComponent extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            profs:[]
+            profs:[],
+            modal: false,
+            pos: undefined
         }
         this.addProf=this.addProf.bind(this);
         this.editProf=this.editProf.bind(this);
         this.deletProf=this.deleteProf.bind(this);
         this.viewProf=this.viewProf.bind(this);
+        this.toggle = this.toggle.bind(this);
 
 
     }
@@ -33,8 +36,17 @@ class ListeProfComponent extends React.Component{
     }
     deleteProf(id){
         AdminService.deleteProf(id).then((respone)=>{
-            this.setState({profs: this.state.profs.filter(prof=>prof.id!=id)})
+            this.setState({
+                profs: this.state.profs.filter(prof=>prof.id!=id),
+                pos : undefined,
+                modal: !this.state.modal
+            })
         })
+    }
+    toggle() {
+        this.setState({
+            modal: !this.state.modal
+        });
     }
 
     viewProf(id){
@@ -47,6 +59,18 @@ class ListeProfComponent extends React.Component{
             <>
                 <Header />
                 <Container className="mt--7" fluid>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} >
+                            <ModalHeader  toggle={this.toggle} cssModule={{'modal-title': 'w-100 text-center'}}> <h3>Êtes vous sûr de supprimer cet enseignant ?</h3></ModalHeader>
+                            <ModalBody cssModule={{'modal-body': 'w-100 text-center'}}>
+                               <Button className="my-4 " color="danger" type="button"
+                                                onClick={()=> this.deleteProf(this.state.profs[this.state.pos].id)}
+                                            >
+                                                Oui
+                               </Button>
+                            <Button color='info' onClick={this.toggle}>Non</Button>
+                            </ModalBody>
+                            
+                        </Modal>
                     <Row>
                         <div className="col">
                             <Card className="shadow">
@@ -71,7 +95,7 @@ class ListeProfComponent extends React.Component{
 
                                         {
                                            this.state.profs.map(
-                                            prof=>
+                                            (prof,index)=>
                                                     <tr key={prof.id}>
                                                         <td>{prof.ine}</td>
                                                         <td>{prof.nom}</td>
@@ -88,7 +112,11 @@ class ListeProfComponent extends React.Component{
                                                             </Button>
                                                             <Button
                                                                 color="danger"
-                                                                onClick ={()=> this.deleteProf(prof.id)}        
+                                                                onClick ={() => this.setState({
+                                                                    pos: index,
+                                                                    modal: !this.state.modal
+                                                                })
+                                                            }        
                                                                 >                                                    
                                                                 Supprimer
                                                             </Button>
