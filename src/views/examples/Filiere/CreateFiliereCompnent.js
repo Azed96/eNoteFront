@@ -2,7 +2,7 @@ import React ,{Component} from 'react';
 import adminService from '../../../_services/AdminService';
 import Header from "../../../components/Headers/Header";
 import {
-    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody,Button
+    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody,Button,Alert
 } from "reactstrap";
 
 class CreateFiliereComponent extends Component{
@@ -11,7 +11,8 @@ class CreateFiliereComponent extends Component{
         this.state={
             id:this.props.match.params.id,
             nom: '',
-            anneeScolaire: ''
+            anneeScolaire: '',
+            visible: false
         }
         this.changerNomFiliereHandler=this.changerNomFiliereHandler.bind(this);
         this.changerAnneeScolaireHandler=this.changerAnneeScolaireHandler.bind(this);
@@ -49,10 +50,15 @@ class CreateFiliereComponent extends Component{
         e.preventDefault();
         let filiere= {nom: this.state.nom, anneeScolaire: this.state.anneeScolaire}
         if(this.state.id===':id'){
-           // console.log("id dans  if "+ this.state.id);
+            if (filiere.nom === '' || filiere.anneeScolaire === '') {
+                this.setState({ visible: true });
+            }else{
+                // console.log("id dans  if "+ this.state.id);
             adminService.addFiliere(filiere).then(response=>{
                 this.props.history.push('/administrateur/allFiliere');
             })
+            }
+           
         }else{
             adminService.updateFiliere(this.state.id,filiere).then(response=>{
                 this.props.history.push('/administrateur/allFiliere');
@@ -93,7 +99,7 @@ getTitle(){
                                                         <label
                                                             className="form-control-label"
                                                             htmlFor="input-Prenom"
-                                                        >
+                                                        >{this.state.nom ? '' : <span style={{ color: "red" }}>*</span>}
                                                             Nom de la Filiere
                                                         </label>
                                                         <Input
@@ -108,7 +114,7 @@ getTitle(){
                                                         <label
                                                             className="form-control-label"
                                                             htmlFor="input-nom"
-                                                        >
+                                                        >{this.state.anneeScolaire ? '' : <span style={{ color: "red" }}>*</span>}
                                                             Année Scolaire
                                                     </label>
                                                         <Input
@@ -124,6 +130,9 @@ getTitle(){
                                            
                                         </div>
                                         <div className="text-center">
+                                           <Alert color="danger" isOpen={this.state.visible}>
+                                            Merci de renseigner les champs obligatoires
+                                            </Alert>
                                         <Button className="my-4" color="purpel" type="button"
                                                 onClick={this.reset}
                                             >

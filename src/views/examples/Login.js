@@ -17,6 +17,10 @@ import {
   Col
 } from "reactstrap";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} />;
+
 const required = value => {
   if (!value) {
     return (
@@ -34,12 +38,14 @@ class Login extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeIne = this.onChangeIne.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
+    this.togglePasswordVisiblity = this.togglePasswordVisiblity.bind(this);
 
     this.state = {
         ine: "",
         date: "",
         message: "",
-        loading: false
+        loading: false,
+        passwordShown:false
     };
 }
 
@@ -48,6 +54,12 @@ class Login extends React.Component {
       ine: e.target.value
     });
   }
+
+  togglePasswordVisiblity(){
+    this.setState({
+      passwordShown: !this.state.passwordShown
+        });
+  };
 
   onChangeDate(e) {
     this.setState({
@@ -106,7 +118,7 @@ class Login extends React.Component {
                      type="text" 
                      autoComplete="new-email"
                      value={this.state.ine}
-                     validations={[required]}
+                     required
                      />
                   </InputGroup>
                 </FormGroup>
@@ -122,8 +134,10 @@ class Login extends React.Component {
                      type="password"
                      autoComplete="new-password"
                      value={this.state.date}
+                     type={this.state.passwordShown ? "text" : "password"}
                      validations={[required]}
                      />
+                     <i onClick={this.togglePasswordVisiblity}>{eye}</i>
                   </InputGroup>
                 </FormGroup>
                 <div className="custom-control custom-control-alternative custom-checkbox">

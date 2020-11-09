@@ -3,7 +3,7 @@ import adminService from '../../../_services/AdminService';
 import MatiereService from '../../../_services/matiere.service';
 import Header from "../../../components/Headers/Header";
 import {
-    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody, Button
+    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody, Button,Alert
 } from "reactstrap";
 class CreateMatiereComponent extends Component {
     constructor(props) {
@@ -29,7 +29,8 @@ class CreateMatiereComponent extends Component {
             coefDS: null,
             coefPartiel: null,
             coefModule: null,
-            hasDS: true
+            hasDS: true,
+            visible: false
         }
         this.changerIdFiliereHandler = this.changerIdFiliereHandler.bind(this);
         this.changerNomMatiereHandler = this.changerNomMatiereHandler.bind(this);
@@ -172,7 +173,9 @@ class CreateMatiereComponent extends Component {
 
 
         if (this.state.id === ':id') {
-
+            if (matiere.nom === '' || matiere.idProf === '' || matiere.idFiliere === '' || matiere.nomFiliere === '' || matiere.coefDS === '' || matiere.coefPartiel === ''|| matiere.coefModule === '') {
+                this.setState({ visible: true });
+            }else{
             adminService.addMatiere(matiere).then(response => {
                 MatiereService.getEtudiantsByidFiliere(matiere.idFiliere).then(
                     etuds =>{
@@ -190,6 +193,7 @@ class CreateMatiereComponent extends Component {
                 )
                 this.props.history.push('/administrateur/allMatiere');
             })
+        }
         } else {
             console.log("dans save ine prof = " + this.state.ineProf);
             adminService.updateMatiere(this.state.id, matiere).then(response => {
@@ -239,7 +243,7 @@ class CreateMatiereComponent extends Component {
                                                             htmlFor="input-Prenom"
                                                         >
                                                             Intitulé de nouveau module
-                                                   </label>
+                                                   </label>{this.state.nom ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="Intitulé"
@@ -255,7 +259,7 @@ class CreateMatiereComponent extends Component {
                                                             htmlFor="input-nom"
                                                         >
                                                             Filière d'appartenance
-                                                    </label>
+                                                    </label>{this.state.idFiliere ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input type="select" onChange={this.changerIdFiliereHandler} value={this.state.idFiliere}>
                                                             {this.state.filiere.map((f) =>
                                                                 <option key={f.id} value={f.id}> {f.nom + " " + f.anneeScolaire} </option>
@@ -275,7 +279,7 @@ class CreateMatiereComponent extends Component {
                                                     htmlFor="input-note DS"
                                                 >
                                                     Nom de Professeur Responsable
-                                                    </label>
+                                                    </label>{this.state.idProf ? '' : <span style={{ color: "red" }}>*</span>}
                                                 <Input type="select" onChange={this.changerIdProfeHandler} value={this.state.idProf}>
                                                     {this.state.profs.map((prof) =>
                                                         <option key={prof.id} value={prof.id}> {prof.nom} </option>
@@ -314,7 +318,7 @@ class CreateMatiereComponent extends Component {
                                                             htmlFor="input-country"
                                                         >
                                                             Coefficient de Partiel
-                                                          </label>
+                                                          </label>{this.state.coefPartiel ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="Coef Partiel"
@@ -331,7 +335,7 @@ class CreateMatiereComponent extends Component {
                                                             htmlFor="input-country"
                                                         >
                                                             Coefficient de module
-                                                           </label>
+                                                           </label>{this.state.coefModule ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="Coef Module"
@@ -365,6 +369,9 @@ class CreateMatiereComponent extends Component {
 
 
                                         <div className="text-center">
+                                        <Alert color="danger" isOpen={this.state.visible}>
+                                            Merci de renseigner les champs obligatoires
+                                            </Alert>
                                             <Button className="my-4" color="purpel" type="button"
                                                 onClick={this.reset}
                                             >

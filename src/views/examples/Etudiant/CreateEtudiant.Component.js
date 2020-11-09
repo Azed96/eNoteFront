@@ -3,63 +3,64 @@ import AdminService from '../../../_services/AdminService';
 import MatiereService from '../../../_services/matiere.service'
 import Header from "../../../components/Headers/Header";
 import {
-    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody,Button
+    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody, Button, Alert
 } from "reactstrap";
 
-class CreateEtudiantComponent extends Component{
-    constructor(props){
+class CreateEtudiantComponent extends Component {
+    constructor(props) {
         super(props)
-        this.state= {
-            filieres:[ {
-                nom:'--',
-                anneeScolaire:''
+        this.state = {
+            filieres: [{
+                nom: '--',
+                anneeScolaire: ''
             }],
-            id:this.props.match.params.id,
+            id: this.props.match.params.id,
             nom: '',
             prenom: '',
-            role:'',
+            role: '',
             num: '',
-            ine:'',
-            idFiliere:'',
-            dateNaissance:'',
-            mail:''
+            ine: '',
+            idFiliere: '',
+            dateNaissance: '',
+            mail: '',
+            visible: false
         }
-        this.changerFirstNameHandler= this.changerFirstNameHandler.bind(this);
-        this.changerLastNameHandler= this.changerLastNameHandler.bind(this);
-        this.changerRoleHandler= this.changerRoleHandler.bind(this);
-        this.changerNumHandler= this.changerNumHandler.bind(this);
-        this.changerIneHandler= this.changerIneHandler.bind(this);
-        this.changerDateNaissanceHandler= this.changerDateNaissanceHandler.bind(this);
-        this.changerMailHandler= this.changerMailHandler.bind(this);
-        this.changerIdFiliereHandler= this.changerIdFiliereHandler.bind(this);
+        this.changerFirstNameHandler = this.changerFirstNameHandler.bind(this);
+        this.changerLastNameHandler = this.changerLastNameHandler.bind(this);
+        this.changerRoleHandler = this.changerRoleHandler.bind(this);
+        this.changerNumHandler = this.changerNumHandler.bind(this);
+        this.changerIneHandler = this.changerIneHandler.bind(this);
+        this.changerDateNaissanceHandler = this.changerDateNaissanceHandler.bind(this);
+        this.changerMailHandler = this.changerMailHandler.bind(this);
+        this.changerIdFiliereHandler = this.changerIdFiliereHandler.bind(this);
 
 
         this.saveAndUpdateEtudiant = this.saveAndUpdateEtudiant.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
-        AdminService.getAllFiliere().then(res=>{
-            res.map(f=>{
-                this.setState(state=>{
-                    const filieres= [...state.filieres,f];
+        AdminService.getAllFiliere().then(res => {
+            res.map(f => {
+                this.setState(state => {
+                    const filieres = [...state.filieres, f];
                     return {
                         filieres,
                     }
                 })
-             })
+            })
         });
 
 
-        if(this.state.id===':id'){
+        if (this.state.id === ':id') {
             return
-        }else {
-            AdminService.getEtudiantById(this.state.id).then((res)=>{
-                let etudiant= res.data;
+        } else {
+            AdminService.getEtudiantById(this.state.id).then((res) => {
+                let etudiant = res.data;
                 this.setState({
-                    nom:etudiant.nom,
+                    nom: etudiant.nom,
                     prenom: etudiant.prenom,
-                    role: etudiant.role, 
+                    role: etudiant.role,
                     num: etudiant.num,
                     ine: etudiant.ine,
                     idFiliere: etudiant.idFiliere,
@@ -70,67 +71,72 @@ class CreateEtudiantComponent extends Component{
         }
     }
 
-    saveAndUpdateEtudiant = (e) =>{
+    saveAndUpdateEtudiant = (e) => {
         e.preventDefault();
 
-        let etudiant = { nom:this.state.nom,prenom: this.state.prenom, role: this.state.role, num: this.state.num, ine: this.state.ine, idFiliere: this.state.idFiliere, dateNaissance: this.state.dateNaissance, mail: this.state.mail};
+        let etudiant = { nom: this.state.nom, prenom: this.state.prenom, role: this.state.role, num: this.state.num, ine: this.state.ine, idFiliere: this.state.idFiliere, dateNaissance: this.state.dateNaissance, mail: this.state.mail };
 
-        let noteData ={
+        let noteData = {
             idEtudaint: '',
-            idMatiere:'',
+            idMatiere: '',
             idProf: '',
-            hasDs:true,
-            noteDs:0,
+            hasDs: true,
+            noteDs: 0,
             coef: 0,
             coefDs: 0,
-            coefPartiel : 0,
-            notePartiel : 0,
+            coefPartiel: 0,
+            notePartiel: 0,
         }
         //création étudiant
-         if(this.state.id===':id'){
-                    AdminService.addEtudiant(etudiant).then(res =>{
-                        console.log("etudiantadd"+JSON.stringify(res.data.idFiliere));
-                        MatiereService.getMatieresByidFiliere(res.data.idFiliere)
-                        .then(modules =>{
-                            modules.forEach((module) =>{
-                            console.log("module  "+JSON.stringify(module));
-                            noteData.idEtudaint = res.data.id;
-                            noteData.idMatiere = module.id;
-                            noteData.idProf = module.idProf;
-                            noteData.hasDs = module.hasDS;
-                            noteData.coefPartiel = module.coefPartiel;
-                            noteData.coefDs = module.coefDS;
-                            console.log("note data "+JSON.stringify(noteData));
+        if (this.state.id === ':id') {
+            if (etudiant.nom === '' || etudiant.prenom === '' || etudiant.ine === '' || etudiant.idFiliere === '' || etudiant.dateNaissance === '' || etudiant.mail === '') {
+                this.setState({ visible: true });
+            } else {
+                AdminService.addEtudiant(etudiant).then(res => {
+                    console.log("etudiantadd" + JSON.stringify(res.data.idFiliere));
+                    MatiereService.getMatieresByidFiliere(res.data.idFiliere)
+                        .then(modules => {
+                            modules.forEach((module) => {
+                                console.log("module  " + JSON.stringify(module));
+                                noteData.idEtudaint = res.data.id;
+                                noteData.idMatiere = module.id;
+                                noteData.idProf = module.idProf;
+                                noteData.hasDs = module.hasDS;
+                                noteData.coefPartiel = module.coefPartiel;
+                                noteData.coefDs = module.coefDS;
+                                console.log("note data " + JSON.stringify(noteData));
 
-                            MatiereService.addNoteEtudiant(noteData);
+                                MatiereService.addNoteEtudiant(noteData);
 
                             })
-                                    
+
                         });
-                        this.props.history.push('/administrateur/allEtudiant');
-                    });
+
+                    this.props.history.push('/administrateur/allEtudiant');
+                });
+            }
 
 
 
 
-                
-        }else{ //update étudiant
-            AdminService.updateEtudiant(this.state.id,etudiant).then(res =>{
+
+        } else { //update étudiant
+            AdminService.updateEtudiant(this.state.id, etudiant).then(res => {
                 this.props.history.push('/administrateur/allEtudiant');
             });
         }
-       
+
     }
 
-    cancel(){
+    cancel() {
         this.props.history.push('/administrateur/allEtudiant');
     }
 
-    reset = () =>{
+    reset = () => {
         this.setState({
-            nom:'',
+            nom: '',
             prenom: '',
-            role: '', 
+            role: '',
             num: '',
             ine: '',
             idFiliere: '',
@@ -140,48 +146,48 @@ class CreateEtudiantComponent extends Component{
     }
 
 
-    changerFirstNameHandler(event){
-        this.setState({prenom: event.target.value});
+    changerFirstNameHandler(event) {
+        this.setState({ prenom: event.target.value });
     }
-    changerLastNameHandler(event){
-        this.setState({nom: event.target.value});
+    changerLastNameHandler(event) {
+        this.setState({ nom: event.target.value });
     }
-    changerRoleHandler(event){
-        this.setState({role: event.target.value});
+    changerRoleHandler(event) {
+        this.setState({ role: event.target.value });
     }
-    changerNumHandler(event){
-        this.setState({num: event.target.value});
+    changerNumHandler(event) {
+        this.setState({ num: event.target.value });
     }
-    changerIneHandler(event){
-        this.setState({ine: event.target.value});
+    changerIneHandler(event) {
+        this.setState({ ine: event.target.value });
     }
-    changerDateNaissanceHandler(event){
-        this.setState({dateNaissance: event.target.value});
+    changerDateNaissanceHandler(event) {
+        this.setState({ dateNaissance: event.target.value });
     }
-    changerMailHandler(event){
-        this.setState({mail: event.target.value});
+    changerMailHandler(event) {
+        this.setState({ mail: event.target.value });
     }
 
-    changerIdFiliereHandler(event){
-        this.setState({idFiliere:event.target.value})
+    changerIdFiliereHandler(event) {
+        this.setState({ idFiliere: event.target.value })
     }
-    getTitle(){
-        if(this.state.id===':id'){
+    getTitle() {
+        if (this.state.id === ':id') {
             return <h3 className="texte-center">Ajouter étudiant</h3>
-        }else{
+        } else {
             return <h3 className="texte-center">Mise à jour Etudiant</h3>
         }
     }
-    render(){
-        return(
+    render() {
+        return (
             <>
                 <Header />
                 <Container className="mt--7" fluid>
-                <Row>
+                    <Row>
                         <div className="col">
                             <Card className="bg-secondary shadow">
                                 <CardHeader className="bg-white border-0">
-                                 <h3 className="mb-0 text-center"> Création d'un étudiant </h3>
+                                    <h3 className="mb-0 text-center"> Création d'un étudiant </h3>
                                 </CardHeader>
                                 <CardBody>
                                     <Form role="form">
@@ -194,13 +200,14 @@ class CreateEtudiantComponent extends Component{
                                                             htmlFor="input-Prenom"
                                                         >
                                                             Prenom
-                                                   </label>
+                                                   </label> {this.state.prenom ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="Pernom"
                                                             type="text"
                                                             value={this.state.prenom} onChange={this.changerFirstNameHandler}
                                                         />
+
                                                     </FormGroup>
                                                 </Col>
                                                 <Col lg="4">
@@ -210,7 +217,7 @@ class CreateEtudiantComponent extends Component{
                                                             htmlFor="input-nom"
                                                         >
                                                             Nom
-                                                    </label>
+                                                    </label> {this.state.nom ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="Nom"
@@ -226,7 +233,7 @@ class CreateEtudiantComponent extends Component{
                                                             htmlFor="input-INE"
                                                         >
                                                             INE
-                                                    </label>
+                                                    </label>{this.state.ine ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="INE"
@@ -259,7 +266,7 @@ class CreateEtudiantComponent extends Component{
                                                         <label
                                                             className="form-control-label"
                                                             htmlFor="input-note-par"
-                                                        >
+                                                        > {this.state.dateNaissance ? '' : <span style={{ color: "red" }}>*</span>}
                                                             Date de Naissance
                                                     </label>
                                                         <Input
@@ -278,10 +285,10 @@ class CreateEtudiantComponent extends Component{
                                                         <label
                                                             className="form-control-label"
                                                             htmlFor="input-note DS"
-                                                        >
+                                                        >{this.state.mail ? '' : <span style={{ color: "red" }}>*</span>}
                                                             Adresse eMail
                                                     </label>
-                                                        <Input 
+                                                        <Input
                                                             className="form-control-alternative"
                                                             id="input-first-name"
                                                             placeholder="email"
@@ -295,31 +302,33 @@ class CreateEtudiantComponent extends Component{
                                                         <label
                                                             className="form-control-label"
                                                             htmlFor="input-note-par"
-                                                        >
+                                                        >{this.state.idFiliere ? '' : <span style={{ color: "red" }}>*</span>}
                                                             Filière
                                                     </label>
-                                                    <Input type="select" onChange={this.changerIdFiliereHandler} value={this.state.idFiliere} >
-                                                                {this.state.filieres.map((f) => 
-                                                                <option key={f.id} value={f.id} >{f.nom +" "+ f.anneeScolaire}</option>
-                                                                )}; 
+                                                        <Input type="select" onChange={this.changerIdFiliereHandler} value={this.state.idFiliere} >
+                                                            {this.state.filieres.map((f) =>
+                                                                <option key={f.id} value={f.id} >{f.nom + " " + f.anneeScolaire}</option>
+                                                            )};
                                                   </Input>
                                                     </FormGroup>
                                                 </Col>
                                             </Row>
                                         </div>
                                         <div className="text-center">
-
-                                        <Button className="my-4" color="purpel" type="button"
+                                            <Alert color="danger" isOpen={this.state.visible}>
+                                            Merci de renseigner les champs obligatoires
+                                            </Alert>
+                                            <Button className="my-4" color="purpel" type="button"
                                                 onClick={this.reset}
                                             >
-                                                réinitialiser 
+                                                réinitialiser
                                                </Button>
                                             <Button className="my-4" color="success" type="button"
                                                 onClick={this.saveAndUpdateEtudiant}
                                             >
                                                 Enregistrer
                                                </Button>
-                                               <Button className="my-4" color="danger" type="button"
+                                            <Button className="my-4" color="danger" type="button"
                                                 onClick={this.cancel.bind(this)}
                                             >
                                                 Liste des étudiants
@@ -329,11 +338,11 @@ class CreateEtudiantComponent extends Component{
                                 </CardBody>
                             </Card>
                         </div>
-                        
+
                     </Row>
 
                 </Container>
-            
+
             </>
         )
     }

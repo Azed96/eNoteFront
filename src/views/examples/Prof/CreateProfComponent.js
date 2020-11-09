@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import AdminService from '../../../_services/AdminService';
 import Header from "../../../components/Headers/Header";
 import {
-    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody,Button
+    Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody,Button,Alert
 } from "reactstrap";
 
 class CreateProfComponent extends Component{
@@ -16,7 +16,8 @@ class CreateProfComponent extends Component{
             num: '',
             ine:'',
             dateNaissance:'',
-            mail:''
+            mail:'',
+            visible: false
         }
         this.changerFirstNameHandler=this.changerFirstNameHandler.bind(this);
         this.changerLastNameHandler= this.changerLastNameHandler.bind(this);
@@ -56,9 +57,14 @@ class CreateProfComponent extends Component{
 
         //création Prof
         if(this.state.id===':id'){
-            AdminService.addProf(prof).then((response)=>{
-                this.props.history.push('/administrateur/allProf');
-            });
+            if (prof.nom === '' || prof.prenom === '' || prof.ine === ''  || prof.dateNaissance === '' || prof.mail === '') {
+                this.setState({ visible: true });
+            }else{
+                AdminService.addProf(prof).then((response)=>{
+                    this.props.history.push('/administrateur/allProf');
+                });
+            }
+            
         }else{
             AdminService.updateProf(this.state.id,prof).then((response)=>{
                 this.props.history.push('/administrateur/allProf');
@@ -137,7 +143,7 @@ class CreateProfComponent extends Component{
                                                             htmlFor="input-Prenom"
                                                         >
                                                             Prenom
-                                                   </label>
+                                                   </label>{this.state.nom ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="Pernom"
@@ -155,7 +161,7 @@ class CreateProfComponent extends Component{
                                                             htmlFor="input-nom"
                                                         >
                                                             Nom
-                                                    </label>
+                                                    </label>{this.state.prenom ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="Nom"
@@ -170,7 +176,7 @@ class CreateProfComponent extends Component{
                                                             htmlFor="input-INE"
                                                         >
                                                             INE
-                                                    </label>
+                                                    </label>{this.state.ine ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="INE"
@@ -203,7 +209,7 @@ class CreateProfComponent extends Component{
                                                         <label
                                                             className="form-control-label"
                                                             htmlFor="input-note-par"
-                                                        >
+                                                        >{this.state.dateNaissance ? '' : <span style={{ color: "red" }}>*</span>}
                                                             Date de Naissance
                                                     </label>
                                                         <Input
@@ -222,7 +228,7 @@ class CreateProfComponent extends Component{
                                                         <label
                                                             className="form-control-label"
                                                             htmlFor="input-note DS"
-                                                        >
+                                                        >{this.state.mail ? '' : <span style={{ color: "red" }}>*</span>}
                                                             Adresse eMail
                                                     </label>
                                                         <Input 
@@ -238,6 +244,9 @@ class CreateProfComponent extends Component{
                                             
                                         </div>
                                         <div className="text-center">
+                                        <Alert color="danger" isOpen={this.state.visible}>
+                                            Merci de renseigner les champs obligatoires
+                                            </Alert>
                                         <Button className="my-4" color="purpel" type="button"
                                                 onClick={this.reset}
                                             >
