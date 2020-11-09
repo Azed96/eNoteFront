@@ -120,11 +120,14 @@ class CreateEtudiantComponent extends Component {
 
 
 
-        } else { //update étudiant
+        } else {
+            if (etudiant.nom === '' || etudiant.prenom === '' || etudiant.ine === '' || etudiant.idFiliere === '' || etudiant.dateNaissance === '' || etudiant.mail === '') {
+                this.setState({ visible: true });
+            }else{//update étudiant
             AdminService.updateEtudiant(this.state.id, etudiant).then(res => {
                 this.props.history.push('/administrateur/allEtudiant');
             });
-        }
+        }}
 
     }
 

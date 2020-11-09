@@ -60,10 +60,14 @@ class CreateFiliereComponent extends Component{
             }
            
         }else{
+            if (filiere.nom === '' || filiere.anneeScolaire === '') {
+                this.setState({ visible: true });
+            }else{
             adminService.updateFiliere(this.state.id,filiere).then(response=>{
                 this.props.history.push('/administrateur/allFiliere');
              })
           }
+        }
     }
     cancel(){
         return this.props.history.push('/administrateur/allFiliere')

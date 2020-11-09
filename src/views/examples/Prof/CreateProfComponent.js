@@ -66,9 +66,13 @@ class CreateProfComponent extends Component{
             }
             
         }else{
+            if (prof.nom === '' || prof.prenom === '' || prof.ine === ''  || prof.dateNaissance === '' || prof.mail === '') {
+                this.setState({ visible: true });
+            }else{
             AdminService.updateProf(this.state.id,prof).then((response)=>{
                 this.props.history.push('/administrateur/allProf');
             })
+        }
 
         }
        

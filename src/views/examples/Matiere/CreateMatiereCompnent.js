@@ -195,10 +195,14 @@ class CreateMatiereComponent extends Component {
             })
         }
         } else {
+            if (matiere.nom === '' || matiere.idProf === '' || matiere.idFiliere === '' || matiere.nomFiliere === '' || matiere.coefDS === '' || matiere.coefPartiel === ''|| matiere.coefModule === '') {
+                this.setState({ visible: true });
+            }else{
             console.log("dans save ine prof = " + this.state.ineProf);
             adminService.updateMatiere(this.state.id, matiere).then(response => {
                 this.props.history.push('/administrateur/allMatiere');
             })
+        }
         }
     }
 
