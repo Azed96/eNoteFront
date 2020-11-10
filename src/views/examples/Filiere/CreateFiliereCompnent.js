@@ -123,8 +123,8 @@ getTitle(){
                                                     </label>
                                                         <Input
                                                             className="form-control-alternative"
-                                                            //placeholder="2020/2021"
-                                                            type="text"
+                                                            placeholder="aaaa/aaaa"
+                                                            type="text" maxLength={9}
                                                             value={this.state.anneeScolaire} onChange={this.changerAnneeScolaireHandler}  />
                                                     </FormGroup>
                                                 </Col>

@@ -184,7 +184,7 @@ class CreateProfComponent extends Component{
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="INE"
-                                                            type="text"
+                                                            type="number"
                                                             value={this.state.ine} onChange={this.changerIneHandler}
                                                         />
                                                     </FormGroup>
@@ -203,7 +203,7 @@ class CreateProfComponent extends Component{
                                                             className="form-control-alternative"
                                                             id="input-first-name"
                                                             placeholder="Tél"
-                                                            type="text"
+                                                            type="number"
                                                             value={this.state.num} onChange={this.changerNumHandler}
                                                         />
                                                     </FormGroup>
@@ -219,8 +219,8 @@ class CreateProfComponent extends Component{
                                                         <Input
                                                             className="form-control-alternative"
                                                             id="input-last-name"
-                                                            placeholder="Date de Naissance"
-                                                            type="text"
+                                                            placeholder="jjmmaaaa"
+                                                            type="number"
                                                             value={this.state.dateNaissance} onChange={this.changerDateNaissanceHandler}
                                                         />
                                                     </FormGroup>

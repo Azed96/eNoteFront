@@ -240,7 +240,7 @@ class CreateEtudiantComponent extends Component {
                                                         <Input
                                                             className="form-control-alternative"
                                                             placeholder="INE"
-                                                            type="text"
+                                                            type="number"
                                                             value={this.state.ine} onChange={this.changerIneHandler}
                                                         />
                                                     </FormGroup>
@@ -259,8 +259,7 @@ class CreateEtudiantComponent extends Component {
                                                             className="form-control-alternative"
                                                             id="input-first-name"
                                                             placeholder="Tél"
-                                                            type="text"
-                                                            value={this.state.num} onChange={this.changerNumHandler}
+                                                            type="number"                                                            value={this.state.num} onChange={this.changerNumHandler}
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -270,13 +269,13 @@ class CreateEtudiantComponent extends Component {
                                                             className="form-control-label"
                                                             htmlFor="input-note-par"
                                                         > {this.state.dateNaissance ? '' : <span style={{ color: "red" }}>*</span>}
-                                                            Date de Naissance
+                                                            Date de Naissance 
                                                     </label>
                                                         <Input
                                                             className="form-control-alternative"
                                                             id="input-last-name"
-                                                            placeholder="Date de Naissance"
-                                                            type="text"
+                                                            placeholder="jjmmaaaa"
+                                                            type="number" 
                                                             value={this.state.dateNaissance} onChange={this.changerDateNaissanceHandler}
                                                         />
                                                     </FormGroup>

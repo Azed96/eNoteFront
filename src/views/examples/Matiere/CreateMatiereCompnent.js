@@ -17,6 +17,7 @@ class CreateMatiereComponent extends Component {
             }],
             profs: [{
                 nom: '--',
+                prenom:'',
                 role: '--',
 
             }],
@@ -96,9 +97,9 @@ class CreateMatiereComponent extends Component {
     reset = () => {
         this.setState({
             nom: '',
-            coefDS: null,
-            coefPartiel: null,
-            coefModule: null,
+            coefDS: 0,
+            coefPartiel: 0,
+            coefModule: 0,
             hasDS: false
 
         });
@@ -195,14 +196,10 @@ class CreateMatiereComponent extends Component {
             })
         }
         } else {
-            if (matiere.nom === '' || matiere.idProf === '' || matiere.idFiliere === '' || matiere.nomFiliere === '' || matiere.coefDS === '' || matiere.coefPartiel === ''|| matiere.coefModule === '') {
-                this.setState({ visible: true });
-            }else{
             console.log("dans save ine prof = " + this.state.ineProf);
             adminService.updateMatiere(this.state.id, matiere).then(response => {
                 this.props.history.push('/administrateur/allMatiere');
             })
-        }
         }
     }
 
@@ -286,7 +283,7 @@ class CreateMatiereComponent extends Component {
                                                     </label>{this.state.idProf ? '' : <span style={{ color: "red" }}>*</span>}
                                                 <Input type="select" onChange={this.changerIdProfeHandler} value={this.state.idProf}>
                                                     {this.state.profs.map((prof) =>
-                                                        <option key={prof.id} value={prof.id}> {prof.nom} </option>
+                                                        <option key={prof.id} value={prof.id}> {prof.nom + " "+prof.prenom} </option>
 
                                                     )};
                                                     </Input>
@@ -307,6 +304,7 @@ class CreateMatiereComponent extends Component {
                                                             Coefficient de contrôle
                                                               </label>
                                                         <Input
+                                                            readOnly={!this.state.hasDS}
                                                             className="form-control-alternative"
                                                             placeholder="Coef DS"
                                                             type="number"
