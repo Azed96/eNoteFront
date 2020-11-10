@@ -31,7 +31,9 @@ class CreateMatiereComponent extends Component {
             coefPartiel: null,
             coefModule: null,
             hasDS: true,
-            visible: false
+            visible: false,
+            visibleDS : false,
+            visiblePartiel: false
         }
         this.changerIdFiliereHandler = this.changerIdFiliereHandler.bind(this);
         this.changerNomMatiereHandler = this.changerNomMatiereHandler.bind(this);
@@ -177,24 +179,33 @@ class CreateMatiereComponent extends Component {
             if (matiere.nom === '' || matiere.idProf === '' || matiere.idFiliere === '' || matiere.nomFiliere === '' || matiere.coefDS === '' || matiere.coefPartiel === ''|| matiere.coefModule === '') {
                 this.setState({ visible: true });
             }else{
-            adminService.addMatiere(matiere).then(response => {
-                MatiereService.getEtudiantsByidFiliere(matiere.idFiliere).then(
-                    etuds =>{
-                        etuds.forEach(element => {
-                        noteData.idEtudaint = element.id;
-                        noteData.idMatiere = response.data.id;
-                        noteData.idProf = matiere.idProf;
-                        noteData.hasDs = matiere.hasDS;
-                        noteData.coefPartiel = matiere.coefPartiel;
-                        noteData.coef = matiere.coefModule;
-                        noteData.coefDs = matiere.coefDS;
-                        MatiereService.addNoteEtudiant(noteData);
-                        });
+                if (matiere.coefDS > 5){
+                    this.setState({ visibleDS: true });
+                }else{
+                    if (matiere.coefPartiel > 5){
+                        this.setState({ visiblePartiel: true, visibleDS: false  });
+                    }else{
+                        adminService.addMatiere(matiere).then(response => {
+                            MatiereService.getEtudiantsByidFiliere(matiere.idFiliere).then(
+                                etuds =>{
+                                    etuds.forEach(element => {
+                                    noteData.idEtudaint = element.id;
+                                    noteData.idMatiere = response.data.id;
+                                    noteData.idProf = matiere.idProf;
+                                    noteData.hasDs = matiere.hasDS;
+                                    noteData.coefPartiel = matiere.coefPartiel;
+                                    noteData.coef = matiere.coefModule;
+                                    noteData.coefDs = matiere.coefDS;
+                                    MatiereService.addNoteEtudiant(noteData);
+                                    });
+                                }
+                            )
+                            this.props.history.push('/administrateur/allMatiere');
+                        })
                     }
-                )
-                this.props.history.push('/administrateur/allMatiere');
-            })
-        }
+                    
+                }
+            }
         } else {
             console.log("dans save ine prof = " + this.state.ineProf);
             adminService.updateMatiere(this.state.id, matiere).then(response => {
@@ -311,6 +322,9 @@ class CreateMatiereComponent extends Component {
                                                             value={this.state.coefDS} onChange={this.changerCoefDSHandler}
 
                                                         />
+                                                        <Alert color="danger" isOpen={this.state.visibleDS}>
+                                                           Le Coefficient renseigné est suppérieur à 5
+                                                        </Alert>
                                                     </FormGroup>
                                                 </Col>
                                                 <Col lg="4">
@@ -328,6 +342,9 @@ class CreateMatiereComponent extends Component {
                                                             value={this.state.coefPartiel} onChange={this.changerCoefPartielSHandler}
 
                                                         />
+                                                        <Alert color="danger" isOpen={this.state.visiblePartiel}>
+                                                           Le Coefficient renseigné est suppérieur à 5
+                                                        </Alert>
                                                     </FormGroup>
                                                 </Col>
                                                 <Col lg="4">
