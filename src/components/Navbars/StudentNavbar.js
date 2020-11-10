@@ -28,7 +28,7 @@ class StudentNavbar extends React.Component {
     constructor(props) {
         super(props);
         this.logout = this.logout.bind(this);
-        this.currentUser = JSON.parse(localStorage.getItem('user'));
+        this.currentUser = JSON.parse(localStorage.getItem('userStudent'));
         if ((this.currentUser == "") || (this.currentUser == null)){
             this.props.history.push('/auth/login');
         }

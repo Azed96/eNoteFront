@@ -15,7 +15,8 @@ class EspaceEtudiant extends React.Component {
 
     constructor(props) {
         super(props);
-        this.currentuser = AuthService.getCurrentUser();
+        //this.currentuser = AuthService.getCurrentUser();
+        this.currentuser = JSON.parse(localStorage.getItem('userStudent'));
         this.getNotes = this.getNotes.bind(this);
 
         if ((this.currentuser == "") || (this.currentuser == null)){

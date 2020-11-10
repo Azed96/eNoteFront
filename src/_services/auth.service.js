@@ -23,7 +23,7 @@ class AuthService {
       .post(`http://localhost:7400/api/etudiant/signin/`+codeEtudiant+`/`+date,requestOptions)
       .then(response => {
          console.log(response.data);
-          localStorage.setItem("user", JSON.stringify(response.data));
+          localStorage.setItem("userStudent", JSON.stringify(response.data));
         
 
         return response.data;
