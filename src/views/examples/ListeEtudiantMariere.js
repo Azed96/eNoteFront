@@ -9,6 +9,7 @@ import {
 
 import Header from "components/Headers/Header.js";
 import matiereService from "../../_services/matiere.service";
+import EmailSender from "../../_services/EmailSender.service";
 
 
 class ListeEtudiantByIdMatiere extends React.Component {
@@ -75,7 +76,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
                     });
                 });
 
-            });
+            }); 
 
 
     }
@@ -86,6 +87,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
                 this.setState({
                     infoMatiere: res
                 });
+            
             });
     }
 
@@ -153,11 +155,15 @@ class ListeEtudiantByIdMatiere extends React.Component {
         }
         let idnote = this.state.listeEtudiantbyMatiereID[this.state.pos].id;
 
+        EmailSender.notifWhenAddingOrUpdatingNote(noteData.idEtudaint)
+            .then(res => {
+                console.log("Status: "+JSON.stringify(res));
+            });
 
         matiereService.UpdateNoteEtudiant(idnote, noteData)
             .then(res => {
                 console.log(res.idMatiere);
-                window.location.reload(false);
+                //window.location.reload(false);
                 // this.history.push(`/admin/etudiant-matiere/${res.idMatiere}`);
             });
     }
