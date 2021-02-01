@@ -163,6 +163,9 @@ class ListeEtudiantByIdMatiere extends React.Component {
         matiereService.UpdateNoteEtudiant(idnote, noteData)
             .then(res => {
                 console.log(res.idMatiere);
+                this.state.listeEtudiantbyMatiereID[this.state.pos].noteDs = noteData.noteDs;
+                this.state.listeEtudiantbyMatiereID[this.state.pos].notePartiel = noteData.notePartiel;
+                this.toggle();
                 //window.location.reload(false);
                 // this.history.push(`/admin/etudiant-matiere/${res.idMatiere}`);
             });

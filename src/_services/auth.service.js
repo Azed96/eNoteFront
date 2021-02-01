@@ -41,7 +41,7 @@ class AuthService {
         return axios
           .post(`http://localhost:7400/api/prof/signin/`+ine+`/`+date,requestOptions)
           .then(response => {
-             console.log(response.data);
+             console.log(JSON.stringify(response.data));
               localStorage.setItem("user", JSON.stringify(response.data));
             
     
