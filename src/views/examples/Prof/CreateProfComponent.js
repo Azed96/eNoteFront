@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import AdminService from '../../../_services/AdminService';
 import Header from "../../../components/Headers/Header";
+import EmailSender from "../../../_services/EmailSender.service";
+
 import {
     Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody,Button,Alert
 } from "reactstrap";
