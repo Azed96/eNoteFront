@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AdminService from '../../../_services/AdminService';
-import MatiereService from '../../../_services/matiere.service'
+import MatiereService from '../../../_services/matiere.service';
+import EmailSender from "../../../_services/EmailSender.service";
 import Header from "../../../components/Headers/Header";
 import {
     Card, Container, Row, CardHeader, Form, Col, Input, FormGroup, CardBody, Button, Alert
@@ -113,6 +114,9 @@ class CreateEtudiantComponent extends Component {
                         });
 
                     this.props.history.push('/administrateur/allEtudiant');
+                });
+                EmailSender.notifCreationEtudiant(etudiant).then(res => {
+                    console.log("Status: "+JSON.stringify(res));
                 });
             }
 
