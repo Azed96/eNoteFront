@@ -4,6 +4,7 @@ import AuthService from "../../_services/auth.service";
 import MatiereService from "../../_services/matiere.service"
 import adminService from "../../_services/AdminService"
 import CoursService from "../../_services/cours.service"
+import StorageService from "../../_services/StorageService"
 import axios from 'axios'
 
 
@@ -18,8 +19,8 @@ class MatiereEnseignant extends React.Component {
         super(props);
         this.CompListEtudiantNote = this.CompListEtudiantNote.bind(this);
         this.toggle = this.toggle.bind(this);
-       // this.uploadHandler = this.uploadHandler(this);
-        //this.fileChangedHandler = this.fileChangedHandler(this);
+        this.fileChangedHandler= this.fileChangedHandler.bind(this);
+        this.uploadHandler=this.uploadHandler.bind(this);
 
 
         this.state = {
@@ -85,11 +86,7 @@ class MatiereEnseignant extends React.Component {
           'file',
           this.state.selectedFile
         )
-        axios.post('http://localhost:7400/file/upload', formData, {
-            onUploadProgress: progressEvent => {
-              console.log(progressEvent.loaded / progressEvent.total)
-            }
-          })
+        StorageService.uploadFile(formData);
       }
 
     CompListEtudiantNote(id) {
