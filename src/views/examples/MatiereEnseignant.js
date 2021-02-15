@@ -4,8 +4,10 @@ import AuthService from "../../_services/auth.service";
 import MatiereService from "../../_services/matiere.service"
 import adminService from "../../_services/AdminService"
 import CoursService from "../../_services/cours.service"
+import axios from 'axios'
 
-import { Card, CardBody, CardTitle, Container, Row, Col, Modal, ModalHeader, ModalBody, Form,ModalFooter,Button } from "reactstrap";
+
+import { Card, CardBody, CardTitle, Container, Row, Col, Modal, ModalHeader, ModalBody, Form,ModalFooter,Button,Table,Input,FormGroup } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
 
@@ -16,14 +18,17 @@ class MatiereEnseignant extends React.Component {
         super(props);
         this.CompListEtudiantNote = this.CompListEtudiantNote.bind(this);
         this.toggle = this.toggle.bind(this);
+       // this.uploadHandler = this.uploadHandler(this);
+        //this.fileChangedHandler = this.fileChangedHandler(this);
 
 
         this.state = {
             listeMatiere: [],
             pos :undefined, 
             modal: false,
-            tmpNomMatiere : ''
-            
+            tmpNomMatiere : '',
+            tmpListCours: [],
+            selectedFile: null
         };
         this.currentuser = AuthService.getCurrentUser();
         if (this.currentuser == "") {
@@ -68,9 +73,30 @@ class MatiereEnseignant extends React.Component {
         });
     }
 
+    fileChangedHandler = (event) => {
+        this.setState({
+            selectedFile : event.target.files[0]
+        }) 
+      }
+
+      uploadHandler = () => {
+        const formData = new FormData();
+        formData.append(
+          'file',
+          this.state.selectedFile
+        )
+        axios.post('http://localhost:7400/file/upload', formData, {
+            onUploadProgress: progressEvent => {
+              console.log(progressEvent.loaded / progressEvent.total)
+            }
+          })
+      }
+
     CompListEtudiantNote(id) {
         this.props.history.push(`/admin/etudiant-matiere/${id}`);
     }
+
+    
 
     render() {
         return (
@@ -84,7 +110,7 @@ class MatiereEnseignant extends React.Component {
                         {
                             this.state.listeMatiere.map(
                                 (matiere,index) =>
-                                    <Col lg="3" md="6" key={matiere.nom} >
+                                    <Col lg="3" md="6" key={matiere.nom} responsive >
                                         <Card className="card-stats mb-4 mb-xl-0" >
                                             <CardBody>
                                                 <Row>
@@ -106,12 +132,6 @@ class MatiereEnseignant extends React.Component {
                                                             Année universitaire : {" "} {matiere.anneSco}
                                                         </span>
 
-                                                       
-                                                       
-                                                       
-                                                    </div>
-
-                                                    <Col className="col-auto">
                                                         <button
                                                             className=" btn btn-info"
                                                             
@@ -127,15 +147,17 @@ class MatiereEnseignant extends React.Component {
                                                             onClick={() => this.setState({
                                                                 modal: !this.state.modal,
                                                                 pos: index,
-                                                                tmpNomMatiere : matiere.nom
+                                                                tmpNomMatiere : matiere.nom,
+                                                                tmpListCours : matiere.listeCours
                                                             })}
                                                         >
                                                                 <i className=" ni ni-bullet-list-67" /> {"  "} Liste des cours
                                                         </button>
                                                        
+                                                       
+                                                    </div>
 
-
-                                                    </Col>
+                                                   
                                                 </Row>
                                                 <p className="mt-3 mb-0 text-muted text-sm">
                                                     <span className="text-nowrap">{this.currentuser.prenom}{" "}{this.currentuser.nom}</span>
@@ -156,12 +178,54 @@ class MatiereEnseignant extends React.Component {
                                 {this.state.tmpNomMatiere} </strong> </h1></ModalHeader>
                             <ModalBody>
                                      <Form role="form">
+                                     <div className="pl-lg-4">
+                                        <Row>
+                                            <Col lg="4">
+                                                <FormGroup>
+                                                        
+                                                <Input type="file" onChange={this.fileChangedHandler}/>
+
+                                                </FormGroup>
+                                            </Col>
+                                        </Row>
+
+                                     </div>
+
+                                     
+                                     <Button color='success' className="my-4" onClick={this.uploadHandler}>Enregister</Button>
                                         
-                                           
-                                    </Form>                         
-                                     </ModalBody>
+                                    </Form>   
+                                    <Table className="align-items-center table-flush"  >
+                                    <thead className="thead-light">
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Nom du cours</th>
+                                            <th scope="col">Date de création</th>
+                                            <th scope="col">Action</th>
+                                            <th scope="col" />
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            this.state.tmpListCours.map(
+                                                (cours,index) =>
+                                                <tr key={cours.id}>
+                                                    <td scope="col">{index}</td>
+                                                    <td scope="col">{cours.nom}</td>
+                                                    <td scope="col">{cours.dateCreation}</td>
+                                                    <td scope="col">
+                                                        <Button color='info' onClick={this.toggle}><i className=" ni ni-cloud-download-95" /></Button>
+                                                        <Button color='danger' onClick={this.toggle}>Supprimer</Button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                    </Table>
+   
+                            </ModalBody>
                             <ModalFooter>
-                                <Button color='danger' onClick={this.toggle}>Quitter</Button>
+                                <Button color='primary' onClick={this.toggle}>Quitter</Button>
                             </ModalFooter>
                         </Modal>
                     
