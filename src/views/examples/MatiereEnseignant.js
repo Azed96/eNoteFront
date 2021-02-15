@@ -5,7 +5,6 @@ import MatiereService from "../../_services/matiere.service"
 import adminService from "../../_services/AdminService"
 import CoursService from "../../_services/cours.service"
 import StorageService from "../../_services/StorageService"
-import axios from 'axios'
 
 
 import { Card, CardBody, CardTitle, Container, Row, Col, Modal, ModalHeader, ModalBody, Form,ModalFooter,Button,Table,Input,FormGroup } from "reactstrap";
@@ -21,6 +20,7 @@ class MatiereEnseignant extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.fileChangedHandler= this.fileChangedHandler.bind(this);
         this.uploadHandler=this.uploadHandler.bind(this);
+        this.onChangeNom = this.onChangeNom.bind(this);
 
 
         this.state = {
@@ -29,7 +29,12 @@ class MatiereEnseignant extends React.Component {
             modal: false,
             tmpNomMatiere : '',
             tmpListCours: [],
-            selectedFile: null
+            selectedFile: null,
+            
+            CoursIdMatiere : '',
+            CoursNom : '',
+            CoursNomFileStorage : '', 
+            
         };
         this.currentuser = AuthService.getCurrentUser();
         if (this.currentuser == "") {
@@ -49,7 +54,7 @@ class MatiereEnseignant extends React.Component {
                         element.anneSco = re.data.anneeScolaire;
                         CoursService.geCoursByidMatiere(element.id).then(coursRes => {
                             element.listeCours = coursRes;
-                            console.log("cours "+ JSON.stringify( element.listeCours));
+                            //console.log("cours "+ JSON.stringify( element.listeCours));
                             this.setState(state => {
                                 const listeMatiere = [...state.listeMatiere, element];
                                 return {
@@ -79,14 +84,33 @@ class MatiereEnseignant extends React.Component {
             selectedFile : event.target.files[0]
         }) 
       }
+    
+      onChangeNom(e) {
+        this.setState({
+            CoursNom : e.target.value
+        });
+
+    }
 
       uploadHandler = () => {
+        let cours = {
+            idMatiere :this.state.listeMatiere[this.state.pos].id,
+            nom :this.state.CoursNom,
+            nomFileStorage : ''
+        }
         const formData = new FormData();
         formData.append(
           'file',
           this.state.selectedFile
         )
-        StorageService.uploadFile(formData);
+        StorageService.uploadFile(formData).then(res =>{
+            cours.nomFileStorage = res;
+            //console.log("mon cours "+JSON.stringify(cours));
+            CoursService.addCours(cours).then(resCours =>{
+                console.log("mon cours enr "+JSON.stringify(resCours));
+            })
+
+        });
       }
 
     CompListEtudiantNote(id) {
@@ -135,7 +159,7 @@ class MatiereEnseignant extends React.Component {
                                                             onClick={() => this.CompListEtudiantNote(matiere.id)}
                                                         >
                                                             
-                                                                <i className=" ni ni-bullet-list-67" /> {"  "} Liste des étudiants
+                                                                Liste des étudiants
                                                         </button>
 
                                                         <button
@@ -148,7 +172,7 @@ class MatiereEnseignant extends React.Component {
                                                                 tmpListCours : matiere.listeCours
                                                             })}
                                                         >
-                                                                <i className=" ni ni-bullet-list-67" /> {"  "} Liste des cours
+                                                                Liste des cours
                                                         </button>
                                                        
                                                        
@@ -174,25 +198,49 @@ class MatiereEnseignant extends React.Component {
                             <ModalHeader  toggle={this.toggle} cssModule={{'modal-title': 'w-100 text-center'}}> <h1> Liste des Cours de la matière <strong> 
                                 {this.state.tmpNomMatiere} </strong> </h1></ModalHeader>
                             <ModalBody>
-                                     <Form role="form">
-                                     <div className="pl-lg-4">
+                                     <Form role="form"  >
+                                     <div className="pl-lg-2 ">
                                         <Row>
                                             <Col lg="4">
                                                 <FormGroup>
-                                                        
-                                                <Input type="file" onChange={this.fileChangedHandler}/>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-fichier"
+                                                        >    Le fichier de cours
+                                                        </label>     
+                                                <Input type="file" color='info' className="form-control"  onChange={this.fileChangedHandler}/>
 
                                                 </FormGroup>
                                             </Col>
-                                        </Row>
+                                            <Col lg="4">
+                                                    <FormGroup>
+                                                        <label
+                                                            className="form-control-label"
+                                                            htmlFor="input-nom"
+                                                        >
+                                                            Titre de cours
+                                                    </label>
+                                                        <Input
+                                                            className="form-control-alternative"
+                                                            value={this.state.CoursNom}
+                                                            placeholder="Nom"
+                                                            type="text"
+                                                            onChange={this.onChangeNom}
+                                                />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col lg="4">
+                                            <div className="text-center">
+                                                <Button color='success' className="my-4" onClick={this.uploadHandler}>Enregister le cours</Button>
+
+                                            </div>
+                                        </Col>
+                                    </Row>
 
                                      </div>
-
-                                     
-                                     <Button color='success' className="my-4" onClick={this.uploadHandler}>Enregister</Button>
-                                        
+                                   
                                     </Form>   
-                                    <Table className="align-items-center table-flush"  >
+                                    <Table className="align-items-center table-flush" responsive >
                                     <thead className="thead-light">
                                         <tr>
                                             <th scope="col"></th>
@@ -212,7 +260,7 @@ class MatiereEnseignant extends React.Component {
                                                     <td scope="col">{cours.dateCreation}</td>
                                                     <td scope="col">
                                                         <Button color='info' onClick={this.toggle}><i className=" ni ni-cloud-download-95" /></Button>
-                                                        <Button color='danger' onClick={this.toggle}>Supprimer</Button>
+                                                        <Button color='danger' onClick={this.toggle}>X</Button>
                                                     </td>
                                                 </tr>
                                             )
