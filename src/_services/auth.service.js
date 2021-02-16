@@ -98,6 +98,27 @@ class AuthService {
    
  } 
 
+ getInfoProfById(id){
+  const requestOptions = {
+      method: 'GET',
+      headers: { 
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+      }
+  };
+  return axios
+  .get(`http://localhost:7400/api/prof/idProf/`+id,requestOptions)
+  .then( res => {
+      return res.data;
+  });
+ 
+} 
+
+ updateProf(profId,prof,mdp){
+   prof.mdp = mdp;
+  return axios.put(`http://localhost:7400/api/prof/idProf/`+profId,prof);
+}
+
 }
 
 export default new AuthService();
