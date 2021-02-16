@@ -1,4 +1,4 @@
-# Projet DLL (eNote FrontEnd)
+# Projet eNote FrontEnd
 
 <p align="center">
   <img src="src\assets\img\theme\info.PNG" />
