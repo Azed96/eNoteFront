@@ -89,7 +89,11 @@ class MatiereEnseignant extends React.Component {
         this.setState({
             CoursNom : e.target.value
         });
+    }
 
+    moi(fileName) {
+        console.log("dwsfsdf");
+        StorageService.download(fileName);
     }
 
       uploadHandler = () => {
@@ -259,7 +263,7 @@ class MatiereEnseignant extends React.Component {
                                                     <td scope="col">{cours.nom}</td>
                                                     <td scope="col">{cours.dateCreation}</td>
                                                     <td scope="col">
-                                                        <Button color='info' onClick={this.toggle}><i className=" ni ni-cloud-download-95" /></Button>
+                                                        <Button color='info' onClick={() => this.moi(cours.nomFileStorage)}><i className=" ni ni-cloud-download-95" /></Button>
                                                         <Button color='danger' onClick={this.toggle}>X</Button>
                                                     </td>
                                                 </tr>
