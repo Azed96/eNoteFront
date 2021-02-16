@@ -18,7 +18,7 @@ class CoursService{
         return axios
                .post(apicours+"nouveaucours", cours)
                .then(response =>{
-                  console.log("responseNote"+JSON.stringify(response.data));
+                 // console.log("responseNote"+JSON.stringify(response.data));
                    return response.data;
                },
                error => {

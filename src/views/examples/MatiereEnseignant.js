@@ -43,9 +43,17 @@ class MatiereEnseignant extends React.Component {
             this.props.history.push('/auth');
         }
 
+
+
+    }
+
+    componentDidMount() {
+        this.setState({
+            listeMatiere : [],
+            tmpListCours : [],
+            pos :undefined,
+        });
         this.RecupMatieres();
-
-
     }
 
     RecupMatieres() {
@@ -56,7 +64,7 @@ class MatiereEnseignant extends React.Component {
                         element.anneSco = re.data.anneeScolaire;
                         CoursService.geCoursByidMatiere(element.id).then(coursRes => {
                             element.listeCours = coursRes;
-                            //console.log("cours "+ JSON.stringify( element.listeCours));
+                            console.log("cours "+ JSON.stringify( element.listeCours));
                             this.setState(state => {
                                 const listeMatiere = [...state.listeMatiere, element];
                                 return {
@@ -79,6 +87,7 @@ class MatiereEnseignant extends React.Component {
         this.setState({
             modal: !this.state.modal
         });
+        //window.location.reload(false);
     }
 
     fileChangedHandler = (event) => {
@@ -100,6 +109,7 @@ class MatiereEnseignant extends React.Component {
     SuppCours(fileName) {
         StorageService.deleteCours(fileName);
         this.toggle();
+        this.componentDidMount();
          
         
 
@@ -125,7 +135,7 @@ class MatiereEnseignant extends React.Component {
             //console.log("mon cours "+JSON.stringify(cours));
             CoursService.addCours(cours).then(resCours =>{
                 console.log("mon cours enr "+JSON.stringify(resCours));
-
+                this.componentDidMount();
             });
 
         });
