@@ -100,6 +100,9 @@ class MatiereEnseignant extends React.Component {
     SuppCours(fileName) {
         StorageService.deleteCours(fileName);
         this.toggle();
+         
+        
+
        
     }
       uploadHandler = () => {
@@ -118,12 +121,7 @@ class MatiereEnseignant extends React.Component {
         )
         StorageService.uploadFile(formData).then(res =>{
             cours.nomFileStorage = res;
-            this.setState(state => {
-                const listeMatiere = [...state.listeMatiere[state.pos].listeCours, cours];
-                return {
-                    listeMatiere
-                }
-            });
+           
             //console.log("mon cours "+JSON.stringify(cours));
             CoursService.addCours(cours).then(resCours =>{
                 console.log("mon cours enr "+JSON.stringify(resCours));
@@ -132,6 +130,7 @@ class MatiereEnseignant extends React.Component {
 
         });
         this.toggle();
+        
         }
       }
 
