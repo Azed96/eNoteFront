@@ -14,14 +14,14 @@ class StorageService {
   //----------File --------------//
   download(nom) {
     console.log(nom);
-    return axios.get(apiStorage + 'download/' + nom,{ responseType: 'blob'}).then((response) => {
+    return axios.get(apiStorage + 'download/' + nom, { responseType: 'blob' }).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', nom); //or any other extension
       document.body.appendChild(link);
       link.click();
-  });
+    });
   }
 
   uploadFile(file) {
@@ -42,5 +42,9 @@ class StorageService {
         })
   }
 
+  deleteCours(file) {
+    return axios.delete(apiStorage + "delete/" + file);
+  }
 }
+
 export default new StorageService();

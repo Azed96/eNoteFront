@@ -7,7 +7,7 @@ import CoursService from "../../_services/cours.service"
 import StorageService from "../../_services/StorageService"
 
 
-import { Card, CardBody, CardTitle, Container, Row, Col, Modal, ModalHeader, ModalBody, Form,ModalFooter,Button,Table,Input,FormGroup } from "reactstrap";
+import { Card, CardBody, CardTitle, Container, Row, Col, Modal, ModalHeader, ModalBody, Form,ModalFooter,Button,Table,Input,FormGroup,Alert } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
 
@@ -34,6 +34,8 @@ class MatiereEnseignant extends React.Component {
             CoursIdMatiere : '',
             CoursNom : '',
             CoursNomFileStorage : '', 
+
+            visible:false
             
         };
         this.currentuser = AuthService.getCurrentUser();
@@ -91,17 +93,24 @@ class MatiereEnseignant extends React.Component {
         });
     }
 
-    moi(fileName) {
-        console.log("dwsfsdf");
+    Telechargement(fileName) {
         StorageService.download(fileName);
     }
 
+    SuppCours(fileName) {
+        StorageService.deleteCours(fileName);
+        this.toggle();
+       
+    }
       uploadHandler = () => {
         let cours = {
             idMatiere :this.state.listeMatiere[this.state.pos].id,
             nom :this.state.CoursNom,
             nomFileStorage : ''
         }
+        if(this.state.CoursNom === '' || this.state.selectedFile === null){
+            this.setState({ visible: true });
+        }else{
         const formData = new FormData();
         formData.append(
           'file',
@@ -109,12 +118,21 @@ class MatiereEnseignant extends React.Component {
         )
         StorageService.uploadFile(formData).then(res =>{
             cours.nomFileStorage = res;
+            this.setState(state => {
+                const listeMatiere = [...state.listeMatiere[state.pos].listeCours, cours];
+                return {
+                    listeMatiere
+                }
+            });
             //console.log("mon cours "+JSON.stringify(cours));
             CoursService.addCours(cours).then(resCours =>{
                 console.log("mon cours enr "+JSON.stringify(resCours));
-            })
+
+            });
 
         });
+        this.toggle();
+        }
       }
 
     CompListEtudiantNote(id) {
@@ -124,6 +142,7 @@ class MatiereEnseignant extends React.Component {
     
 
     render() {
+        
         return (
             <>
                 <Header />
@@ -211,7 +230,9 @@ class MatiereEnseignant extends React.Component {
                                                             className="form-control-label"
                                                             htmlFor="input-fichier"
                                                         >    Le fichier de cours
-                                                        </label>     
+                                                        </label>
+                                                        {this.state.selectedFile ? null : <span style={{ color: "red" }}>*</span>}
+     
                                                 <Input type="file" color='info' className="form-control"  onChange={this.fileChangedHandler}/>
 
                                                 </FormGroup>
@@ -222,8 +243,9 @@ class MatiereEnseignant extends React.Component {
                                                             className="form-control-label"
                                                             htmlFor="input-nom"
                                                         >
-                                                            Titre de cours
+                                                            Titre du cours
                                                     </label>
+                                                    {this.state.CoursNom ? '' : <span style={{ color: "red" }}>*</span>}
                                                         <Input
                                                             className="form-control-alternative"
                                                             value={this.state.CoursNom}
@@ -235,6 +257,7 @@ class MatiereEnseignant extends React.Component {
                                         </Col>
                                         <Col lg="4">
                                             <div className="text-center">
+                                            
                                                 <Button color='success' className="my-4" onClick={this.uploadHandler}>Enregister le cours</Button>
 
                                             </div>
@@ -242,6 +265,11 @@ class MatiereEnseignant extends React.Component {
                                     </Row>
 
                                      </div>
+                                     <div className="text-center">
+                                            <Alert color="danger" isOpen={this.state.visible}>
+                                            Merci de renseigner les champs obligatoires
+                                            </Alert> 
+                                    </div>
                                    
                                     </Form>   
                                     <Table className="align-items-center table-flush" responsive >
@@ -261,10 +289,13 @@ class MatiereEnseignant extends React.Component {
                                                 <tr key={cours.id}>
                                                     <td scope="col">{index}</td>
                                                     <td scope="col">{cours.nom}</td>
-                                                    <td scope="col">{cours.dateCreation}</td>
+                                                    <td scope="col">{
+                                                        new Intl.DateTimeFormat('fr-FR',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' }).format(Date.parse(cours.dateCreation))
+                                                       
+                                                       }</td>
                                                     <td scope="col">
-                                                        <Button color='info' onClick={() => this.moi(cours.nomFileStorage)}><i className=" ni ni-cloud-download-95" /></Button>
-                                                        <Button color='danger' onClick={this.toggle}>X</Button>
+                                                        <Button color='info' onClick={() => this.Telechargement(cours.nomFileStorage)}><i className=" ni ni-cloud-download-95" /></Button>
+                                                        <Button color='danger' onClick={() => this.SuppCours(cours.nomFileStorage)}>X</Button>
                                                     </td>
                                                 </tr>
                                             )
