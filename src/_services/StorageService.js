@@ -15,6 +15,9 @@ class StorageService {
 
 
 //----------File --------------//
+download(nom){
+  return axios.get(apiStorage+'download/'+nom);
+}
 
     uploadFile(file){
     return axios
