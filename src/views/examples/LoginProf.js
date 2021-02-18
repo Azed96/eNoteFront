@@ -19,6 +19,10 @@ import {
   Col
 } from "reactstrap";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} />;
+
 const required = value => {
     if (!value) {
       return (
@@ -36,11 +40,15 @@ class LoginProf extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeIne = this.onChangeIne.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
+        this.togglePasswordVisiblity = this.togglePasswordVisiblity.bind(this);
+
     
         this.state = {
             ine: "",
             date: "",
-            message: ""
+            message: "",
+            passwordShown:false,
+
         };
     }
     
@@ -55,6 +63,12 @@ class LoginProf extends React.Component {
           date: e.target.value
         });
       }
+
+      togglePasswordVisiblity(){
+        this.setState({
+          passwordShown: !this.state.passwordShown
+          });
+      };
     
       onSubmit(){
           AuthService.loginProf(this.state.ine,this.state.date).then(
@@ -123,7 +137,9 @@ class LoginProf extends React.Component {
                      type="password"
                      autoComplete="new-password"
                      value={this.state.date}
+                     type={this.state.passwordShown ? "text" : "password"}
                      validations={[required]}/>
+                     <i onClick={this.togglePasswordVisiblity}>{eye}</i>
                   </InputGroup>
                 </FormGroup>
                 <div className="custom-control custom-control-alternative custom-checkbox">

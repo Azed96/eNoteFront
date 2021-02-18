@@ -7,7 +7,7 @@ import CoursService from "../../_services/cours.service"
 import StorageService from "../../_services/StorageService"
 
 
-import { Card, CardBody, CardTitle, Container, Row, Col, Modal, ModalHeader, ModalBody, Form,ModalFooter,Button,Table,Input,FormGroup,Alert } from "reactstrap";
+import { Card, CardBody, CardTitle, Container, Row, Col, Modal, ModalHeader, ModalBody, Form,ModalFooter,Button,Table,Input,FormGroup,Alert,CardHeader } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
 
@@ -21,7 +21,7 @@ class MatiereEnseignant extends React.Component {
         this.fileChangedHandler= this.fileChangedHandler.bind(this);
         this.uploadHandler=this.uploadHandler.bind(this);
         this.onChangeNom = this.onChangeNom.bind(this);
-
+        this.onChangeAnnee = this.onChangeAnnee.bind(this);
 
         this.state = {
             listeMatiere: [],
@@ -34,8 +34,11 @@ class MatiereEnseignant extends React.Component {
             CoursIdMatiere : '',
             CoursNom : '',
             CoursNomFileStorage : '', 
+            //vibile model
+            visible:false,
 
-            visible:false
+            anneeScolaire : ['--'],
+            anneeScolaireSelected : '',
             
         };
         this.currentuser = AuthService.getCurrentUser();
@@ -54,6 +57,14 @@ class MatiereEnseignant extends React.Component {
             pos :undefined,
         });
         this.RecupMatieres();
+        
+    }
+
+    chargerAnneeScolaire(){
+        this.state.anneeScolaire.map(annee =>{
+           
+           console.log("annee "+ annee);
+        })
     }
 
     RecupMatieres() {
@@ -62,9 +73,19 @@ class MatiereEnseignant extends React.Component {
                 response.forEach(element => {
                     adminService.getFiliereById(element.idFiliere).then(re => {
                         element.anneSco = re.data.anneeScolaire;
+                        //remplir la liste des anneeU
+                        this.setState(state => {
+                            if(!state.anneeScolaire.includes(re.data.anneeScolaire)){
+                            const anneeScolaire = [... state.anneeScolaire, re.data.anneeScolaire];
+                            
+                            return {
+                                anneeScolaire,
+                            };
+                           }
+                           });
                         CoursService.geCoursByidMatiere(element.id).then(coursRes => {
                             element.listeCours = coursRes;
-                            //console.log("cours "+ JSON.stringify( element.listeCours));
+                            //rajouter la liste des cours
                             this.setState(state => {
                                 const listeMatiere = [...state.listeMatiere, element];
                                 return {
@@ -72,15 +93,13 @@ class MatiereEnseignant extends React.Component {
                                 }
                             });
                         })
-                        
+                        this.chargerAnneeScolaire();
                     });
                 });
                 
+                
 
             });
-
-            
-
     }
 
     toggle() {
@@ -99,6 +118,12 @@ class MatiereEnseignant extends React.Component {
       onChangeNom(e) {
         this.setState({
             CoursNom : e.target.value
+        });
+    }
+
+    onChangeAnnee(e) {
+        this.setState({
+            anneeScolaireSelected : e.target.value
         });
     }
 
@@ -157,13 +182,33 @@ class MatiereEnseignant extends React.Component {
                 <Header />
                 {/* Page content */}
                 <Container fluid>
-                    <Row >
+                    <Card className="shadow">
+                        <CardHeader className="border-0">
+                            <Row>
+                                <Col lg="3">
+                                    <h3 className="mb-0">Chercher par année universitaire</h3>
+                                </Col>
+                                <Col lg="3">
+        
+                                <Input type="select" onChange={this.onChangeAnnee} value={this.state.anneeScolaireSelected}>
+                                                    {this.state.anneeScolaire.map((annee,index) =>
+                                                        <option key={index} value={annee}> {annee} </option>
 
-                        {/* Table */}
-                        {
-                            this.state.listeMatiere.map(
-                                (matiere,index) =>
-                                    <Col lg="3" md="6" key={matiere.nom} responsive >
+                                                    )};
+                                </Input>
+                                </Col>
+                            </Row>
+                        </CardHeader>
+                        </Card>
+                        
+                        <br/>
+                        <Row >
+
+                            {/* Table */}
+                            {
+                                this.state.listeMatiere.map(
+                                    (matiere, index) =>
+                                        <Col lg="3" md="6" key={matiere.nom} responsive >
                                         <Card className="card-stats mb-4 mb-xl-0" >
                                             <CardBody>
                                                 <Row>
@@ -318,9 +363,9 @@ class MatiereEnseignant extends React.Component {
                             </ModalFooter>
                         </Modal>
                     
+                        
 
-
-
+                        
 
                 </Container>
             </>
