@@ -63,11 +63,11 @@ class CreateProfComponent extends Component{
                 this.setState({ visible: true });
             }else{
                 AdminService.addProf(prof).then((response)=>{
-                    this.props.history.push('/administrateur/allProf');
+                    EmailSender.notifCreationProf(response).then(res => {
+                        console.log("Status: "+JSON.stringify(JSON.stringify(res)));
+                    });
                 });
-                EmailSender.notifCreationEtudiant(prof).then(res => {
-                    console.log("Status: "+JSON.stringify(res));
-                });
+               
             }
             
         }else{

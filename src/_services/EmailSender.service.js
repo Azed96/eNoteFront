@@ -85,5 +85,32 @@ return axios
 
        })
     }
+
+    notifCreationProf(prof){
+        const requestOptions = {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        };
+        console.log("erreur"+JSON.stringify(prof.data));
+return axios
+        .post(apiEmail+"sendMailInscriptionProf",prof.data)
+        .then(response =>{
+          
+            return response.data;
+        },
+        error => {
+         const resMessage =
+           (error.response &&
+             error.response.data &&
+             error.response.data.message) ||
+           error.message ||
+           error.toString();
+           console.log("erreur"+ resMessage);
+
+       })
+    }
 }
 export default new EmailSender();
