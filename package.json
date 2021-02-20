@@ -43,7 +43,6 @@
     "axios": "^0.21.1",
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
-    "gulp": "github:gulpjs/gulp",
     "moment": "2.24.0",
     "node-sass": "4.13.1",
     "nouislider": "14.1.1",
