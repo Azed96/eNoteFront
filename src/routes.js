@@ -11,6 +11,7 @@ import LoginEtudiant from "views/examples/LoginEtudiant.js";
 import MatiereEnseignant from "views/examples/MatiereEnseignant.js";
 import ListeEtudiantMariere from "views/examples/ListeEtudiantMariere";
 import EspaceEtudiant from "views/examples/EspaceEtudiant";
+import ValidationInscription from"views/ValidateInscriptionProf";
 //:::::::::::::::::::Etudiant:::::::::::::::::::::
 import ListeEtudiant from "views/examples/Etudiant/ListeEtudiantComponent";
 import CreateEtudiant from"views/examples/Etudiant/CreateEtudiant.Component";
@@ -69,6 +70,13 @@ var routes = [
     icon: "ni ni-book-bookmark blue",
     component: MatiereEnseignant,
     layout: "/admin"
+  },
+  {
+    path: "/validate-inscription/:id",
+    name: "Validation de l'inscription",
+    icon: "ni ni-bullet-list-67 text-green",
+    component: ValidationInscription,
+    layout: "/auth"
   },
   {
     path: "/etudiant-matiere/:id",
