@@ -375,7 +375,6 @@ class MatiereEnseignant extends React.Component {
                                 </div>
 
                             </Form>
-                            <hr className="my-4" />
                             <Table className="align-items-center table-flush" responsive >
                                 <thead className="thead-light">
                                     <tr>
