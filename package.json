@@ -43,7 +43,6 @@
     "axios": "^0.21.1",
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
-    "gulp": "^4.0.2",
     "moment": "2.24.0",
     "node-sass": "4.13.1",
     "nouislider": "14.1.1",
@@ -64,6 +63,7 @@
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.9.19",
     "eslint-plugin-flowtype": "3.13.0",
+    "gulp": "^4.0.2",
     "gulp-append-prepend": "1.0.8",
     "typescript": "3.7.5"
   }
