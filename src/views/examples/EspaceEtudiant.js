@@ -208,7 +208,7 @@ class EspaceEtudiant extends React.Component {
                                                     <tr key={note.id}>
                                                         <td>{note.nomMatiere}</td>
                                                         <td >  
-                                                            <Button className=  "button is-white fa fa-eye-slash" onClick={()=> {
+                                                            <Button className=  "button is-white fa fa-eye" onClick={()=> {
                                                                  this.setState({
             
                                                                     modal: true,
