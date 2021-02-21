@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import axios from "axios";
 
-const apiEmail= "http://localhost:7400/api/mail/";
+const apiEmail= `https://e-notes-evry.herokuapp.com/api/mail/`;
 
 class EmailSender{
 
@@ -15,7 +15,7 @@ class EmailSender{
         };
         console.log("erreur"+idEtudiant);
         return axios
-        .post(`http://localhost:7400/api/mail/sendMailByIdEtudiant/`+idEtudiant)
+        .post(`https://e-notes-evry.herokuapp.com/api/mail/sendMailByIdEtudiant/`+idEtudiant)
         .then(response =>{
            console.log("responseNote"+JSON.stringify(response.data));
             return response.data;

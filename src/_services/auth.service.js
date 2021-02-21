@@ -20,7 +20,7 @@ class AuthService {
         }
     };
     return axios
-      .post(`http://localhost:7400/api/etudiant/signin/`+codeEtudiant+`/`+date,requestOptions)
+      .post(`https://e-notes-evry.herokuapp.com/api/etudiant/signin/`+codeEtudiant+`/`+date,requestOptions)
       .then(response => {
          console.log(response.data);
           localStorage.setItem("userStudent", JSON.stringify(response.data));
@@ -39,7 +39,7 @@ class AuthService {
             }
         };
         return axios
-          .post(`http://localhost:7400/api/prof/signin/`+ine+`/`+date,requestOptions)
+          .post(`https://e-notes-evry.herokuapp.com/api/prof/signin/`+ine+`/`+date,requestOptions)
           .then(response => {
              console.log(JSON.stringify(response.data));
               localStorage.setItem("user", JSON.stringify(response.data));
@@ -58,7 +58,7 @@ class AuthService {
             }
         };
         return axios
-          .post(`http://localhost:7400/api/admin/signin/`+ine+`/`+date,requestOptions)
+          .post(`https://e-notes-evry.herokuapp.com/api/admin/signin/`+ine+`/`+date,requestOptions)
           .then(response => {
              console.log(response.data);
               localStorage.setItem("user", JSON.stringify(response.data));
@@ -91,7 +91,7 @@ class AuthService {
         }
     };
     return axios
-    .get(`http://localhost:7400/api/etudiant/idEtudiant/`+id,requestOptions)
+    .get(`https://e-notes-evry.herokuapp.com/api/etudiant/idEtudiant/`+id,requestOptions)
     .then( res => {
         return res.data;
     });
@@ -107,7 +107,7 @@ class AuthService {
       }
   };
   return axios
-  .get(`http://localhost:7400/api/prof/idProf/`+id,requestOptions)
+  .get(`https://e-notes-evry.herokuapp.com/api/prof/idProf/`+id,requestOptions)
   .then( res => {
       return res.data;
   });
@@ -116,7 +116,7 @@ class AuthService {
 
  updateProf(profId,prof,mdp){
    prof.mdp = mdp;
-  return axios.put(`http://localhost:7400/api/prof/idProf/`+profId,prof);
+  return axios.put(`https://e-notes-evry.herokuapp.com/api/prof/idProf/`+profId,prof);
 }
 
 }

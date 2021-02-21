@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 
-const apiStorage = "http://localhost:7400/file/";
+const apiStorage = `https://e-notes-evry.herokuapp.com/file/`;
 
 
 

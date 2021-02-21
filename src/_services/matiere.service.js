@@ -1,6 +1,10 @@
 import { BehaviorSubject } from 'rxjs';
 import axios from "axios";
 
+const apiEmail= "https://e-notes-evry.herokuapp.com/api/mail/";
+const apiDeploy= `https://e-notes-evry.herokuapp.com/`;
+
+
 class MatiereService {
 
     requestNote = {
@@ -9,6 +13,7 @@ class MatiereService {
     }
 
     getMatiereProf(id){
+        console.log('id prof = ?'+id);
         const requestOptions = {
             method: 'GET',
             headers: { 
@@ -17,7 +22,7 @@ class MatiereService {
             }
      };
      return axios
-        .get(`http://localhost:7400/api/matiere/idProf/`+id,requestOptions)
+        .get(`https://e-notes-evry.herokuapp.com/api/matiere/idProf/`+id,requestOptions)
         .then(response =>{
            // console.log("resMprof"+response.data[0].id);
             return response.data;
@@ -33,7 +38,7 @@ class MatiereService {
         }
     };
     return axios
-           .get(`http://localhost:7400/api/matiere/idMatiere/`+id,requestOptions)
+           .get(`https://e-notes-evry.herokuapp.com/api/matiere/idMatiere/`+id,requestOptions)
            .then(response =>{
                //console.log(response.data);
                return response.data;
@@ -50,7 +55,7 @@ class MatiereService {
         }    
     };
     return axios
-           .get(`http://localhost:7400/api/note/noteParProf/`+infoMatiere.idMatiere+`/`+infoMatiere.idProf,requestOptions)
+           .get(apiDeploy+`api/note/noteParProf/`+infoMatiere.idMatiere+`/`+infoMatiere.idProf,requestOptions)
            .then(response =>{
                //console.log("resNote"+JSON.stringify(response.data));
                return response.data;
@@ -81,7 +86,7 @@ class MatiereService {
 
    
     return axios
-           .put(`http://localhost:7400/api/note/updateNote/`+idNote,noteData)
+           .put(apiDeploy+`api/note/updateNote/`+idNote,noteData)
            .then(response =>{
               // console.log("resNote"+JSON.stringify(response.data));
                return response.data;
@@ -107,7 +112,7 @@ class MatiereService {
         }
     };
     return axios
-           .get(`http://localhost:7400/api/matiere/idFiliere/`+id,requestOptions)
+           .get(apiDeploy+`api/matiere/idFiliere/`+id,requestOptions)
            .then(response =>{
                //console.log(response.data);
                return response.data;
@@ -128,7 +133,7 @@ class MatiereService {
 
    
     return axios
-           .post(`http://localhost:7400/api/note/addNote`, noteData)
+           .post(apiDeploy+`api/note/addNote`, noteData)
            .then(response =>{
               console.log("responseNote"+JSON.stringify(response.data));
                return response.data;
@@ -155,7 +160,7 @@ class MatiereService {
         }    
     };
     return axios
-           .get(`http://localhost:7400/api/note/idEtudiant/`+id,requestOptions)
+           .get(apiDeploy+`api/note/idEtudiant/`+id,requestOptions)
            .then(response =>{
                console.log("resNote"+JSON.stringify(response.data));
                return response.data;
@@ -182,7 +187,7 @@ class MatiereService {
         }
     };
     return axios
-           .get(`http://localhost:7400/api/etudiant/idFiliere/`+id,requestOptions)
+           .get(apiDeploy+`api/etudiant/idFiliere/`+id,requestOptions)
            .then(response =>{
              //  console.log("les etudiant" +JSON.stringify(response.data));
                return response.data;
@@ -193,7 +198,7 @@ class MatiereService {
    deleteNoteId(id){
    
     return axios
-           .delete(`http://localhost:7400/api/note/deleteNote/`+id)
+           .delete(apiDeploy+`api/note/deleteNote/`+id)
            .then(response =>{
              // console.log("les etudiant" +JSON.stringify(response.data));
                return response.data;
@@ -210,7 +215,7 @@ class MatiereService {
         }    
     };
     return axios
-           .get(`http://localhost:7400/api/note/matiereId/`+id,requestOptions)
+           .get(apiDeploy+`api/note/matiereId/`+id,requestOptions)
            .then(response =>{
                console.log("resNote"+JSON.stringify(response.data));
                return response.data;

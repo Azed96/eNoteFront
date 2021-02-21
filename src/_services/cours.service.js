@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import axios from "axios";
 
-const apicours= "http://localhost:7400/api/cours/";
+const apicours= `https://e-notes-evry.herokuapp.com/api/cours/`;
 
 class CoursService{
 

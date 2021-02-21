@@ -2,10 +2,10 @@ import axios from 'axios'
 
 
 
-const apiEtudiant= "http://localhost:7400/api/etudiant/";
-const apiProf= "http://localhost:7400/api/prof/";
-const apiMatiere= "http://localhost:7400/api/matiere/";
-const apiFiliere= "http://localhost:7400/api/filiere/";
+const apiEtudiant= `https://e-notes-evry.herokuapp.com/api/etudiant/`;
+const apiProf= `https://e-notes-evry.herokuapp.com/api/prof/`;
+const apiMatiere= `https://e-notes-evry.herokuapp.com/api/matiere/`;
+const apiFiliere= `https://e-notes-evry.herokuapp.com/api/filiere/`;
 
 
 class AdminService {
