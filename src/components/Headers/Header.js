@@ -20,6 +20,10 @@ class Header extends React.Component {
       nomberMatiere : 0
       }
 
+      
+    }
+
+    componentDidMount() {
       AdminService.getCountEtudiant().then(res =>{
         this.state.nomberEtudiant = res.data;
       });
@@ -32,6 +36,7 @@ class Header extends React.Component {
       AdminService.getCountAllFiliere().then(res =>{
         this.state.nomberFiliere = res.data;
       });
+
     }
 
 
