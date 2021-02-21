@@ -20,6 +20,10 @@ class AdminService {
        return axios.get(apiEtudiant +"allEtudiant");
     }
 
+    getCountEtudiant(){
+        return axios.get(apiEtudiant +"CountallEtudiant");
+    }
+
     getEtudiantById(etudiantId){
         return axios.get(apiEtudiant +"idEtudiant"+ '/' +etudiantId);
     }
@@ -36,6 +40,10 @@ class AdminService {
 getAllProf(){
     return axios.get(apiProf+"allProf");
 }
+getCountAllProf(){
+    return axios.get(apiProf+"CountallProf");
+}
+
 addProf(prof){
     return axios.post(apiProf+"addProf", prof);
 }
@@ -55,6 +63,9 @@ deleteProf(profId){
 //----------Matiere--------------//
 getAllMatiere(){
     return axios.get(apiMatiere+"allMatiere");
+}
+getCountAllMatiere(){
+    return axios.get(apiMatiere+"Countallmatiere");
 }
 addMatiere(matiere){
     return axios.post(apiMatiere+"addMatiere", matiere);
@@ -104,6 +115,10 @@ getAllFiliere(){
         //console.log("mesFilieres"+res.data);
         return res.data
     });
+}
+
+getCountAllFiliere(){
+    return axios.get(apiFiliere+"Countallfiliere");
 }
 
 getFiliereById(idFiliere){

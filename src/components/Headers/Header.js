@@ -3,8 +3,39 @@ import React from "react";
 
 // reactstrap components
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
+import AdminService from "../../_services/AdminService"
+
+
+
 
 class Header extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      nomberEtudiant : 0,
+      nomberProf : 0,
+      nomberFiliere : 0,
+      nomberMatiere : 0
+      }
+
+      AdminService.getCountEtudiant().then(res =>{
+        this.state.nomberEtudiant = res.data;
+      });
+      AdminService.getCountAllProf().then(res =>{
+        this.state.nomberProf = res.data;
+      });
+      AdminService.getCountAllMatiere().then(res =>{
+        this.state.nomberMatiere = res.data;
+      });
+      AdminService.getCountAllFiliere().then(res =>{
+        this.state.nomberFiliere = res.data;
+      });
+    }
+
+
+
   render() {
     return (
       <>
@@ -25,7 +56,7 @@ class Header extends React.Component {
                             Etudiant Inscrit cette année
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            13
+                            {this.state.nomberEtudiant}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -55,7 +86,7 @@ class Header extends React.Component {
                              Enseignants
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            6
+                          {this.state.nomberProf}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -84,7 +115,7 @@ class Header extends React.Component {
                           >
                            Nombre de Matière
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">9</span>
+                          <span className="h2 font-weight-bold mb-0">{this.state.nomberMatiere}</span>
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -113,7 +144,7 @@ class Header extends React.Component {
                             Nombre de Filière
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            5
+                          {this.state.nomberFiliere}
                           </span>
                         </div>
                         <Col className="col-auto">
