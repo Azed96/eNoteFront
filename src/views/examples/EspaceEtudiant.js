@@ -172,11 +172,10 @@ class EspaceEtudiant extends React.Component {
                                 <Button color='primary' onClick={this.toggle}>Quitter</Button>
                             </ModalFooter>
                         </Modal>
-                <Container className="mt--7" fluid>
+                <Container  style={{width: '200rem'}}>
 
                     <Row>
-                        <div >
-                            <Card className="shadow" style={{right :"340px"}}>
+                            <Card className="shadow" >
                                 <CardHeader className="border-0">
                                     <h3 className="mb-0 "> <u>Année Universitaire:</u> <strong>{this.state.infoFiliere.anneeScolaire}</strong>  </h3>
                                     <h3 className="mb-0 "> <u>Filière:</u> <strong>{this.state.infoFiliere.nom}</strong>  </h3>
@@ -245,7 +244,6 @@ class EspaceEtudiant extends React.Component {
                                     </tbody>
                                 </Table>
                             </Card>
-                        </div>
                     </Row>
                 </Container>
             </>
