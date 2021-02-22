@@ -65,6 +65,7 @@ class CreateProfComponent extends Component{
                 AdminService.addProf(prof).then((response)=>{
                     EmailSender.notifCreationProf(response).then(res => {
                         console.log("Status: "+JSON.stringify(JSON.stringify(res)));
+                        this.props.history.push('/administrateur/allProf');
                     });
                 });
                

@@ -14,7 +14,7 @@ class StorageService {
   //----------File --------------//
   download(nom) {
     console.log(nom);
-    return axios.get(apiStorage + 'download/' + nom, { responseType: 'blob' }).then((response) => {
+    return axios.get(`https://e-notes-evry.herokuapp.com/file/download/` + nom, { responseType: 'blob' }).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;

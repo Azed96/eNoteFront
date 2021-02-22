@@ -215,7 +215,6 @@ class CreateMatiereComponent extends Component {
     }
 
 
-
     cancel() {
         return this.props.history.push('/administrateur/allMatiere')
     }

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import AdminService from '../../../_services/AdminService';
 import Header from "../../../components/Headers/Header";
 import MatiereService from "_services/matiere.service";
+import ImportService from '../../../_services/ImportService';
+
 import {
-    Card, Container, Row, CardHeader, Table, Col, Input, FormGroup, CardBody, Button, ModalBody, Modal, ModalHeader
+    Card, Container, Row, CardHeader, Table, Col, Input, FormGroup, CardBody, Button, ModalBody, Modal, ModalHeader,ModalFooter
 } from "reactstrap";
 
 class ListeMatiereComponent extends Component {
@@ -12,16 +14,22 @@ class ListeMatiereComponent extends Component {
         this.state = {
             matieres: [],
             modal: false,
+            modalImport:null,
             pos: undefined
         }
         this.addMatiere = this.addMatiere.bind(this);
         this.editMatiere = this.editMatiere.bind(this);
         this.deleteMatiere = this.deleteMatiere.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.fileChangedHandler= this.fileChangedHandler.bind(this);
+        this.importerMatiere = this.importerMatiere.bind(this);
 
     }
 
     componentDidMount() {
+        this.setState({
+            matieres:[]
+        })
         AdminService.getAllMatiere().then((response) => {
             response.data.forEach(element => {
                 AdminService.getProfById(element.idProf).then(a => {
@@ -72,6 +80,36 @@ class ListeMatiereComponent extends Component {
         });
     }
 
+
+    fileChangedHandler = (event) => {
+        this.setState({
+            selectedFile: event.target.files[0]
+        })
+    }
+
+
+    importerMatiere = ()=>{
+        
+        
+           console.log("rentre dans le import")
+           
+                const formData = new FormData();
+                formData.append(
+                    'file',
+                    this.state.selectedFile
+                )
+                console.log("form DATA"+formData);
+                
+                ImportService.uploadMatiere(formData).then(res=>{
+                    this.componentDidMount();
+
+                });
+
+                this.state.modalImport=false;        
+    
+    }
+ 
+
     render() {
         return (
             <>
@@ -89,15 +127,69 @@ class ListeMatiereComponent extends Component {
                         </ModalBody>
 
                     </Modal>
+
+                    <Modal isOpen={this.state.modalImport} >
+                        <ModalHeader >
+                            <div className="text-center">
+                            <h3 >Import des matières</h3>
+                            </div>
+                        </ModalHeader>
+                        <ModalBody cssModule={{ 'modal-body': 'w-100 text-center' }}>
+                            
+                        
+
+                        <Input type="file" color='info' className="form-control" onChange={this.fileChangedHandler} />
+
+
+                        <Button color='success' className="my-4" onClick={this.importerMatiere}>Importer </Button>
+
+                        </ModalBody>
+                        <ModalFooter>
+                            
+                        <Button color="danger" onClick={()=> {
+                                                                 this.setState({
+
+                                                                    modalImport: false,
+
+                                                                });
+                                                            }}> Fermer
+                                                             </Button>
+
+                        </ModalFooter>
+
+                    </Modal>
                     <Row>
                         <div className="col">
                             <Card className="shadow">
-                                <CardHeader className="border-0">
-                                    <h3 className="mb-0 text-center"> Liste des Modules  </h3>
-                                </CardHeader>
+                            <CardHeader className="border-0">
+                                    <Row>
+                                    <Col lg="1">
+                                        </Col>
+                                        <Col lg="7">
+                                        <h3 className="mb-0 text-center"> Liste des Matiéres  </h3>
+                                        </Col>
+                                       
+                                        <Col lg="1">
+
+                                       
+                                          <Button color="success" onClick={()=> {
+                                                                 this.setState({
+            
+                                                                    modalImport: true,
+                                                                   
+                                                        
+                                                                });
+                                                            }}> <i className=" ni ni-folder-17" />{" "} Importer Matières
+                                                             </Button>
+                                        </Col>
+                                    </Row>
+                                   
+                             </CardHeader>
+                                
                                 <Table className="align-items-center table-flush" responsive>
                                     <thead className="thead-light">
                                         <tr>
+                                            <th scope="coll">numéro</th>
                                             <th scope="col">Intitulé</th>
                                             <th scope="col">INE de Professeur Responsable</th>
                                             <th scope="col">Nom de Professeur Responsable</th>
@@ -113,6 +205,7 @@ class ListeMatiereComponent extends Component {
                                             this.state.matieres.map(
                                                 (matiere, index) =>
                                                     <tr key={index}>
+                                                        <td>{index+1}</td>
                                                         <td>{matiere.nom}</td>
                                                         <td>{matiere.ineProf}</td>
                                                         <td>{matiere.nomProf}</td>
