@@ -162,7 +162,7 @@ class MatiereService {
     return axios
            .get(apiDeploy+`api/note/idEtudiant/`+id,requestOptions)
            .then(response =>{
-               console.log("resNote"+JSON.stringify(response.data));
+               //console.log("resNote"+JSON.stringify(response.data));
                return response.data;
            },
            error => {
