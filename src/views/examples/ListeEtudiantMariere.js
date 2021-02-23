@@ -48,9 +48,18 @@ class ListeEtudiantByIdMatiere extends React.Component {
 
         };
 
+      
+
+    }
+
+    componentDidMount(){
+        this.setState({
+            listeEtudiantbyMatiereID: [],
+            infoMatiere: {},
+
+        })
         this.getInfoMatiere();
         this.getListeEtudiantMat();
-
     }
 
     getListeEtudiantMat() {
@@ -166,6 +175,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
                 this.state.listeEtudiantbyMatiereID[this.state.pos].noteDs = noteData.noteDs;
                 this.state.listeEtudiantbyMatiereID[this.state.pos].notePartiel = noteData.notePartiel;
                 this.toggle();
+                this.componentDidMount();
                 //window.location.reload(false);
                 // this.history.push(`/admin/etudiant-matiere/${res.idMatiere}`);
             });
@@ -293,118 +303,7 @@ class ListeEtudiantByIdMatiere extends React.Component {
                     
                     <Row>
                         <div className="col">
-                          {/*  <Card className="bg-secondary shadow">
-                                <CardHeader className="bg-white border-0">
-                                    <h3 className="mb-0 text-center"> Mettre à jour une note d'un étudiant pour le  module <strong> {this.state.infoMatiere.nom}</strong> </h3>
-                                </CardHeader>
-                                <CardBody>
-                                    <Form role="form">
-                                        <div className="pl-lg-4">
-                                            <Row>
-                                                <Col lg="4">
-                                                    <FormGroup>
-                                                        <label
-                                                            className="form-control-label"
-                                                            htmlFor="input-Prenom"
-                                                        >
-                                                            Prenom
-                                                   </label>
-                                                        <Input
-                                                            className="form-control-alternative"
-                                                            readOnly
-                                                            value={this.state.tmpPrenomEtudiant}
-                                                            placeholder="Pernom"
-                                                            type="text"
-                                                            onChange={this.onChangePernom}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col lg="4">
-                                                    <FormGroup>
-                                                        <label
-                                                            className="form-control-label"
-                                                            htmlFor="input-nom"
-                                                        >
-                                                            Nom
-                                                    </label>
-                                                        <Input
-                                                            readOnly
-                                                            className="form-control-alternative"
-                                                            value={this.state.tmpNomEtudiant}
-                                                            placeholder="Nom"
-                                                            type="text"
-                                                            onChange={this.onChangeNom}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col lg="4">
-                                                    <FormGroup>
-                                                        <label
-                                                            className="form-control-label"
-                                                            htmlFor="input-INE"
-                                                        >
-                                                            INE
-                                                    </label>
-                                                        <Input
-                                                            readOnly
-                                                            className="form-control-alternative"
-                                                            value={this.state.tmpINE}
-                                                            placeholder="INE"
-                                                            type="text"
-                                                            onChange={this.onChangeINE}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col lg="6">
-                                                    <FormGroup>
-                                                        <label
-                                                            className="form-control-label"
-                                                            htmlFor="input-note DS"
-                                                        >
-                                                            Note de Controle (DS)
-                                                    </label>
-                                                        <Input
-                                                            className="form-control-alternative"
-                                                            value={this.state.tmpNoteDS}
-                                                            id="input-first-name"
-                                                            placeholder="DS"
-                                                            type="number"
-                                                            onChange={this.onChangeNoteDS}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col lg="6">
-                                                    <FormGroup>
-                                                        <label
-                                                            className="form-control-label"
-                                                            htmlFor="input-note-par"
-                                                        >
-                                                            Note de Partiel
-                                                    </label>
-                                                        <Input
-                                                            className="form-control-alternative"
-                                                            value={this.state.tmpNotePartiel}
-                                                            id="input-last-name"
-                                                            placeholder="examen"
-                                                            type="number"
-                                                            onChange={this.onChangePartiel}
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-                                            </Row>
-                                        </div>
-                                        <div className="text-center">
-                                            <Button className="my-4" color="primary" type="button"
-                                                onClick={this.updateNote}
-                                            >
-                                                Enregistrer les modifications
-                                               </Button>
-                                        </div>
-                                    </Form>
-                                </CardBody>
-                            </Card> */}
+                         
                         </div>
                     </Row>
                     <br />
