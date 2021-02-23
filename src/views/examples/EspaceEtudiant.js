@@ -216,11 +216,10 @@ class EspaceEtudiant extends React.Component {
                 <Container >
 
                     <Row>
-                        <div>
-                            <Card className="shadow" style={{ right: "400px" }} >
+                            <Card className="shadow"  >
                                 <CardHeader className="border-0">
                                     <Row>
-                                        <Col lg="10">
+                                        <Col lg="9">
                                             <h3 className="mb-0 "> <u>Année Universitaire:</u> <strong>{this.state.infoFiliere.anneeScolaire}</strong>  </h3>
                                             <h3 className="mb-0 "> <u>Filière:</u> <strong>{this.state.infoFiliere.nom}</strong>  </h3>
                                             <h3 className="mb-0 "> <u>INE étudiant:</u> <strong>{this.currentuser.ine}</strong>  </h3>
@@ -292,7 +291,6 @@ class EspaceEtudiant extends React.Component {
                                     </tbody>
                                 </Table>
                             </Card>
-                        </div>
                     </Row>
                 </Container>
             </>
