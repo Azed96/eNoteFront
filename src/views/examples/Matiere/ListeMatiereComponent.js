@@ -15,7 +15,8 @@ class ListeMatiereComponent extends Component {
             matieres: [],
             modal: false,
             modalImport:null,
-            pos: undefined
+            pos: undefined,
+            erreurfichier : false
         }
         this.addMatiere = this.addMatiere.bind(this);
         this.editMatiere = this.editMatiere.bind(this);
@@ -101,11 +102,17 @@ class ListeMatiereComponent extends Component {
                 console.log("form DATA"+formData);
                 
                 ImportService.uploadMatiere(formData).then(res=>{
-                    this.componentDidMount();
+                    if (res === "Request failed with status code 500") {
+                        this.setState({
+                            erreurfichier: true
+                        })
+                    } else {
+                        this.state.modalImport = false;
+                        this.componentDidMount();
+                    }
 
                 });
 
-                this.state.modalImport=false;        
     
     }
  
@@ -142,7 +149,13 @@ class ListeMatiereComponent extends Component {
 
 
                         <Button color='success' className="my-4" onClick={this.importerMatiere}>Importer </Button>
-
+                        {this.state.erreurfichier && (
+                                <div className="form-group">
+                                    <div className="alert alert-danger" role="alert">
+                                        Erreur d'insertion, Veuillez refaire votre requête SVP
+                                    </div>
+                                </div>
+                            )}
                         </ModalBody>
                         <ModalFooter>
                             

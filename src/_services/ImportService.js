@@ -27,7 +27,7 @@ class ImportService {
               error.response.data.message) ||
             error.message ||
             error.toString();
-          console.log("erreur" + resMessage);
+          return resMessage;
 
         })
   }
@@ -46,8 +46,7 @@ class ImportService {
               error.response.data.message) ||
             error.message ||
             error.toString();
-          console.log("erreur" + resMessage);
-
+           return resMessage;
         })
   }
   uploadMatiere(file) {
@@ -64,7 +63,7 @@ class ImportService {
               error.response.data.message) ||
             error.message ||
             error.toString();
-          console.log("erreur" + resMessage);
+            return resMessage;
 
         })
   }
@@ -83,7 +82,7 @@ class ImportService {
               error.response.data.message) ||
             error.message ||
             error.toString();
-          console.log("erreur" + resMessage);
+            return resMessage;
 
         })
   }

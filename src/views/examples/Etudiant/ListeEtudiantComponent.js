@@ -3,7 +3,7 @@ import AdminService from '../../../_services/AdminService';
 import Header from "../../../components/Headers/Header";
 import {
     Card, Table, Container, Row, CardHeader,
-    Button, ModalBody, Modal, ModalHeader, ModalFooter,Input,Col
+    Button, ModalBody, Modal, ModalHeader, ModalFooter, Input, Col
 } from "reactstrap";
 import MatiereService from "_services/matiere.service";
 import ImportService from '../../../_services/ImportService';
@@ -15,25 +15,26 @@ class ListeEtudiantComponent extends React.Component {
         this.state = {
             etudiants: [],
             modal: false,
-            modalImport:null,
-            pos: undefined
+            modalImport: null,
+            pos: undefined,
+            erreurfichier: false
         }
         this.addEtudiant = this.addEtudiant.bind(this);
         this.editEtudiant = this.editEtudiant.bind(this);
         this.deleteEtudiant = this.deleteEtudiant.bind(this);
         this.viewEtudiant = this.viewEtudiant.bind(this);
         this.toggle = this.toggle.bind(this);
-        this.fileChangedHandler= this.fileChangedHandler.bind(this);
+        this.fileChangedHandler = this.fileChangedHandler.bind(this);
         this.importerEtudiant = this.importerEtudiant.bind(this);
-        this.refresh=this.refresh.bind(this);
-        
+        this.refresh = this.refresh.bind(this);
+
 
     }
-   
+
 
     componentDidMount() {
         this.setState({
-            etudiants:[]
+            etudiants: []
         })
         AdminService.getAllEtudiant().then((response) => {
             response.data.forEach(etudiant => {
@@ -91,33 +92,41 @@ class ListeEtudiantComponent extends React.Component {
     }
 
 
-    importerEtudiant = ()=>{
-        
-        
-           console.log("rentre dans le import")
-           
-                const formData = new FormData();
-                formData.append(
-                    'file',
-                    this.state.selectedFile
-                )
-                console.log("form DATA"+formData);
-                
-                ImportService.uploadEtudiant(formData).then(res=>{
-                    this.componentDidMount();
+    importerEtudiant = () => {
 
-                });
 
-                this.state.modalImport=false;
+        console.log("rentre dans le import")
+
+        const formData = new FormData();
+        formData.append(
+            'file',
+            this.state.selectedFile
+        )
+        console.log("form DATA" + formData);
+
+        ImportService.uploadEtudiant(formData).then(res => {
+            if (res === "Request failed with status code 500") {
+                this.setState({
+                    erreurfichier: true
+                })
+            } else {
+                this.state.modalImport = false;
+                this.componentDidMount();
+            }
+
+
+        });
+
+      
 
 
 
 
     }
 
-    refresh(){
-        this.state.etudiants=[];
-        this.state.modalImport=false;
+    refresh() {
+        this.state.etudiants = [];
+        this.state.modalImport = false;
         this.componentDidMount();
 
     }
@@ -142,31 +151,38 @@ class ListeEtudiantComponent extends React.Component {
                     </Modal>
 
                     <Modal isOpen={this.state.modalImport} >
-                         <ModalHeader >
+                        <ModalHeader >
                             <div className="text-center">
-                            <h3 >Import des étudiants</h3>
+                                <h3 >Import des étudiants</h3>
                             </div>
                         </ModalHeader>
                         <ModalBody cssModule={{ 'modal-body': 'w-100 text-center' }}>
-                            
-                        {this.state.selectedFile ? null : <span style={{ color: "red" }}>*</span>}
 
-                        <Input type="file" color='info' className="form-control" onChange={this.fileChangedHandler} />
+                            {this.state.selectedFile ? null : <span style={{ color: "red" }}>*</span>}
+
+                            <Input type="file" color='info' className="form-control" onChange={this.fileChangedHandler} />
 
 
-                        <Button color='success' className="my-4" onClick={this.importerEtudiant}>Importer </Button>
+                            <Button color='success' className="my-4" onClick={this.importerEtudiant}>Importer </Button>
+                            {this.state.erreurfichier && (
+                                <div className="form-group">
+                                    <div className="alert alert-danger" role="alert">
+                                        Erreur d'insertion, Veuillez refaire votre requête SVP
+                                    </div>
+                                </div>
+                            )}
 
                         </ModalBody>
                         <ModalFooter>
-                            
-                        <Button color="danger" onClick={()=> {
-                                                                 this.setState({
 
-                                                                    modalImport: false,
+                            <Button color="danger" onClick={() => {
+                                this.setState({
 
-                                                                });
+                                    modalImport: false,
 
-                                                            }}> Fermer
+                                });
+
+                            }}> Fermer
                                                              </Button>
 
                         </ModalFooter>
@@ -175,31 +191,31 @@ class ListeEtudiantComponent extends React.Component {
                     <Row>
                         <div className="col">
                             <Card className="shadow">
-                            <CardHeader className="border-0">
+                                <CardHeader className="border-0">
                                     <Row>
-                                    <Col lg="2">
+                                        <Col lg="2">
                                         </Col>
                                         <Col lg="8">
-                                        <h3 className="mb-0 text-center"> Liste des étudiants  </h3>
+                                            <h3 className="mb-0 text-center"> Liste des étudiants  </h3>
                                         </Col>
-                                       
+
                                         <Col lg="2">
 
-                                       
-                                        <Button color="success" onClick={()=> {
-                                                                 this.setState({
-            
-                                                                    modalImport: true,
-                                                                   
-                                                        
-                                                                });
-                                                            }}> <i className=" ni ni-folder-17" />{" "} Importer Etudiants
+
+                                            <Button color="success" onClick={() => {
+                                                this.setState({
+
+                                                    modalImport: true,
+
+
+                                                });
+                                            }}> <i className=" ni ni-folder-17" />{" "} Importer Etudiants
                                                              </Button>
                                         </Col>
                                     </Row>
-                                   
+
                                 </CardHeader>
-                                
+
                                 <Table className="align-items-center table-flush" responsive>
                                     <thead className="thead-light">
                                         <tr>
@@ -220,9 +236,9 @@ class ListeEtudiantComponent extends React.Component {
 
                                         {
                                             this.state.etudiants.map(
-                                                (etudiant,index) =>
+                                                (etudiant, index) =>
                                                     <tr key={etudiant.id}>
-                                                        <td>{index+1}</td>
+                                                        <td>{index + 1}</td>
                                                         <td>{etudiant.ine}</td>
                                                         <td>{etudiant.nom}</td>
                                                         <td>{etudiant.prenom}</td>

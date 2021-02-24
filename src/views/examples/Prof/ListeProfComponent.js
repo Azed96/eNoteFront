@@ -15,7 +15,8 @@ class ListeProfComponent extends React.Component{
             profs:[],
             modal: false,
             modalImport:null,
-            pos: undefined
+            pos: undefined,
+            erreurfichier: false
         }
         this.addProf=this.addProf.bind(this);
         this.editProf=this.editProf.bind(this);
@@ -80,11 +81,17 @@ class ListeProfComponent extends React.Component{
                 console.log("form DATA"+formData);
                 
                 ImportService.uploadprof(formData).then(res=>{
-                    this.componentDidMount();
+                    if (res === "Request failed with status code 500") {
+                        this.setState({
+                            erreurfichier: true
+                        })
+                    } else {
+                        this.state.modalImport = false;
+                        this.componentDidMount();
+                    }
 
                 });
 
-                this.state.modalImport=false;   
     
     }
 
@@ -121,7 +128,14 @@ class ListeProfComponent extends React.Component{
 
 
                         <Button color='success' className="my-4" onClick={this.importerProf}>Importer </Button>
-
+                        {this.state.erreurfichier && (
+                                <div className="form-group">
+                                    <div className="alert alert-danger" role="alert">
+                                        Erreur d'insertion, Veuillez refaire votre requête SVP
+                                    </div>
+                                </div>
+                            )}
+                                
                         </ModalBody>
                         <ModalFooter>
                             
@@ -161,7 +175,7 @@ class ListeProfComponent extends React.Component{
                                                                 });
                                                             }}> <i className=" ni ni-folder-17" />{" "} Importer Enseignants
                                                              </Button>
-                                        </Col>
+                                                                    </Col>
                                     </Row>
                                    
                                 </CardHeader>

@@ -15,7 +15,8 @@ class ListeFiliereComponent extends Component {
             filieres: [],
             modal: false,
             modalImport:false,
-            pos: undefined
+            pos: undefined,
+            erreurfichier : false
         }
         this.addFiliere = this.addFiliere.bind(this);
         this.editFiliere = this.editFiliere.bind(this);
@@ -79,11 +80,17 @@ class ListeFiliereComponent extends Component {
                     this.state.selectedFile
                 )
                 ImportService.uploadFiliere(formData).then(res=>{
-                    this.componentDidMount();
-
+                    if (res === "Request failed with status code 500") {
+                        this.setState({
+                            erreurfichier: true
+                        })
+                    } else {
+                        this.state.modalImport = false;
+                        this.componentDidMount();
+                    }
+        
                 });
 
-                this.state.modalImport=false;
     
      }
 
@@ -129,7 +136,13 @@ class ListeFiliereComponent extends Component {
 
 
                         <Button color='success' className="my-4" onClick={this.importerFiliere}>Importer </Button>
-
+                        {this.state.erreurfichier && (
+                                <div className="form-group">
+                                    <div className="alert alert-danger" role="alert">
+                                        Erreur d'insertion, Veuillez refaire votre requête SVP
+                                    </div>
+                                </div>
+                            )}
                         </ModalBody>
                         <ModalFooter>
                             
